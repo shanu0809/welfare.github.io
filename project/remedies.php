@@ -114,7 +114,7 @@ font-family: 'Josefin Sans', sans-serif;
             <?php
     
             
-                $query = "select * from cultural";
+                $query = "select * from remedies";
                 if(count(fetchAll($query))>0){
                     foreach(fetchAll($query) as $row){
                         ?>
