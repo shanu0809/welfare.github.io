@@ -83,10 +83,10 @@ font-family: 'Josefin Sans', sans-serif;
         </div>
         <nav>
           <ul>
-            <li><a href="index.html">Visit Jobs</a></li>
-            <li><a href="about.html">Visit Trainings</a></li>
-            <li class="current"><a href="services.html">Visit Government Schemes</a></li>
-						<li class="current"><a href="services.html">Visit Latest Amendments</a></li>
+            <li><a href="job.php">Visit Jobs</a></li>
+            <li><a href="training.php">Visit Trainings</a></li>
+            <li class="current"><a href="Govt_scheme.php">Visit Government Schemes</a></li>
+						<li class="current"><a href="amendment.php">Visit Amendments</a></li>
 
           </ul>
         </nav>
@@ -127,7 +127,7 @@ font-family: 'Josefin Sans', sans-serif;
             <li>
         <h3>      
 			<span  style="vertical-align:80%;"><b><u>Right Against Exploitation(Article 23 to 24)</u></span><b></h3>
-              <p>Prohibits all form of forced labour,child labour, and trafficking of human beings</p><br>
+              <p>Prohibits all form of forced labour,child labour, and trafficking of human beings.</p><br>
 
          <p> To know more click on visit page....</p>
 			   <br><a href="exploitation.php" align="center"><b>Visit Page</span></b></a>

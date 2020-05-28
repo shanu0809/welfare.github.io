@@ -47,14 +47,20 @@
         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#Our Services">Services</a>
+        <a class="nav-link" href="#service">Services</a>
       </li>
     
        <li class="nav-item">
-        <a class="nav-link" href="#Contact Us">Contact Us</a>
+        <a class="nav-link" href="#contact">Contact Us</a>
            <li class="nav-item">
-        <a class="nav-link" href="#About Us">About</a>
+        <a class="nav-link" href="#about">About</a>
       </li>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="#gallery">Gallery</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href=blog.php>Blogs</a>
       </li>
       <li class="nav-item">
         <a class="nav-link " href="adminlogin.php">Admin</a>
@@ -101,7 +107,7 @@
 </div>
 
 <section class="my-5">
-  <div class="py-5">
+  <div class="py-5" id="about">
     <h2 class="text-center">About Us</h2>
   </div>
 <div class="container-fluid">
@@ -109,7 +115,7 @@
     <div class="col-lg-6 col-md-6 col-12">
       <img src="img/slider1.jpg" class="img-fluid aboutimg">
     </div>
-    <div class="col-lg-6 col-md-6 col-12">
+    <div class="col-lg-6 col-md-6 col-12" >
     <h4 class="display-4">Social Welfare Portal</h4>
     <p class="py-5 text-justify">We work for the people who are wiling to do something for themselves.Who want to live a dignified life with basic necesities fulfilled.Our services are helpful to enhance a person knowledge about their fundamental rights,duties so noone will take benefit of others.This portal focus on overall development of less skilled people by giving them guidence to start their small business or get a job by industries,government due to which most of the marginal worker will learn to earn livelihood.For more details visit our service.
 
@@ -121,7 +127,7 @@
 
 
 <section class="my-5">
-  <div class="py-5">
+  <div class="py-5" id="service">
     <h2 class="text-center">Our Services</h2>
   </div>
 <div class="container-fluid">
@@ -135,7 +141,7 @@
       <h5 class="card-title">Government Schemes</h5>
       <p class="card-text">Schemes launched by government may be beneficial for you.</p>
      <footer class="footer_style_2">
-     <a href="#" class="btn btn-primary" style="width:300px;">See more</a> </footer>
+     <a href="Govt_scheme.php" class="btn btn-primary" style="width:300px;">See more</a> </footer>
     </div>
   </div>
   <div class="card">
@@ -144,7 +150,7 @@
       <h5 class="card-title">Know your rights</h5>
       <p class="card-text">Everyone has right to know the legal information and live a dignified life.</p>
  <footer class="footer_style_2">
-     <a href="#" class="btn btn-primary" style="width:300px;">See more</a> </footer>
+     <a href="fright.php" class="btn btn-primary" style="width:300px;">See more</a> </footer>
     </div>
   </div>
   <div class="card">
@@ -153,7 +159,7 @@
       <h5 class="card-title">Trainings</h5>
       <p class="card-text">Different ideas and trainings via online videos or through offline centers to promote skill development.</p>
       <footer class="footer_style_2">
-     <a href="#" class="btn btn-primary" style="width:300px;">See more</a> </footer>
+     <a href="training.php" class="btn btn-primary" style="width:300px;">See more</a> </footer>
     </div>
   </div>
  <div class="card">
@@ -162,7 +168,7 @@
       <h5 class="card-title">Search jobs</h5>
       <p class="card-text">Those who are wiling to become independent,can search jobs to fulfill their basic needs.</p>
      <footer class="footer_style_2">
-     <a href="#" class="btn btn-primary" style="width:300px;">See more</a> </footer>
+     <a href="job.php" class="btn btn-primary" style="width:300px;">See more</a> </footer>
     </div>
   </div>
 
@@ -171,7 +177,7 @@
 </div>
 
 <section class="my-5">
-  <div class="py-5">
+  <div class="py-5" id="gallery">
     <h2 class="text-center">Gallery</h2>
   </div>
   <div class="container-fluid">
@@ -211,10 +217,10 @@
   <main class="container-fluid">
     <div class="row p-3">
       <div class="col-lg-4 col-md-4 col-12 offset-md-1">
-        <p class="mt-5 text-justify">E-Legal Aid & Welfare Portal is for supporting the people who are not aware about their rights, and harras by other to fulfill their motive. It also focus in making oppressed and less skilled people independent.</p>
+        <p class="mt-5 text-justify" >E-Legal Aid & Welfare Portal is for supporting the people who are not aware about their rights, and harras by other to fulfill their motive. It also focus in making oppressed and less skilled people independent.</p>
         <p class="text-capitalize">@ 2020 Welfare. All right reserved.</p>
       </div>
-<div class=" col-lg-4 col-md-4 col-12">
+<div class=" col-lg-4 col-md-4 col-12" id="contact">
   <h4>Contact details</h4>
   <br>
   <dl class="contact-list">
@@ -235,10 +241,10 @@
   <h4>links</h4>
   <br>
   <ul>
-    <li><a class= "anchor_dec" href="#">services</a></li>
-    <li><a class= "anchor_dec" href="#">contact</a></li>
-    <li><a class= "anchor_dec" href="#">blog</a></li>
-    <li><a  class= "anchor_dec"href="#">About</a></li>
+    <li><a class= "anchor_dec" href="#service">services</a></li>
+    <li><a class= "anchor_dec" href="#contact">contact</a></li>
+    <li><a class= "anchor_dec" href="blog.php">blog</a></li>
+    <li><a  class= "anchor_dec"href="#about">About</a></li>
   </ul>
 </div>
     </div>
