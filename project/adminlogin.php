@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -120,7 +121,7 @@ padding-right: 20px;
 <br>
 
 	<div>
-		<a href="forgot.php"><h6 class="forgot">Forget Password?</h6></a>
+		<a href="foreget.php"><h6 class="forgot">Forget Password?</h6></a>
 </div>
 
 </form>
