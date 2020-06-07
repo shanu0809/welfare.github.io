@@ -1,60 +1,74 @@
 <?php
-require "connection.php";
+require'connection.php';
+require'functions.php';?>
+
+
+
+
+
+<?php
+
+
   session_start();  
 $_SESSION['message']='';
 if($_SERVER['REQUEST_METHOD']=='POST'){
   if(isset($_POST['submit'])){
 
-   $articleno=$_POST['articleno'];
+   $title=$_POST['title'];
    $job=$_POST['job'];
+    
+      $sector=$_POST['sector'];
     $des=$_POST['des'];
      $n1=$_POST['n1'];
       $n2=$_POST['n2'];
        $n3=$_POST['n3'];
         $n4=$_POST['n4'];
          $n5=$_POST['n5'];
-    $cases=$_POST['cases'];
-      $c1=$_POST['c1'];
-      $c2=$_POST['c2'];
-       $c3=$_POST['c3'];
-        $c4=$_POST['c4'];
-         $c5=$_POST['c5'];
-
-    $prov=$_POST['prov'];
+   $prov=$_POST['prov'];
       $prov1=$_POST['prov1'];
       $prov2=$_POST['prov2'];
        $prov3=$_POST['prov3'];
         $prov4=$_POST['prov4'];
          $prov5=$_POST['prov5'];
+             $link=$_POST['link'];
 
     $valid1=$_POST['valid1'];
     $valid2=$_POST['valid2'];
-  
+  $avatar_path='picture/'.$_FILES['avatar']['name'];
+$avatar_path=mysqli_real_escape_string($conn,$avatar_path);
+    if(preg_match("!image!",$_FILES['avatar']['type'])){
+      if(copy($_FILES['avatar']['tmp_name'],$avatar_path)){
+        $_SESSION['uname']=$uname;
+        $_SESSION['avatar']=$avatar_path;
     
-    $sql="INSERT INTO amend(articleno,motive,newlaw,n1,n2,n3,n4,n5,prov,prov1,prov2,prov3,prov4,prov5,cases,c1,c2,c3,c4,c5,valid_from,valid_upto)VALUES('$articleno','$job','$des','$n1','$n2','$n3','$n4','$n5','$prov','$prov1','$prov2','$prov3','$prov4','$prov5','$cases','$c1','$c2','$c3','$c4','$c5','$valid1','$valid2')";
+    $sql="INSERT INTO scheme(imagedoc,job,sector,title,des,n1,n2,n3,n4,n5,prov,prov1,prov2,prov3,prov4,prov5,link,valid_from,valid_upto)VALUES('$avatar_path','$job','$sector','$title','$des','$n1','$n2','$n3','$n4','$n5','$prov','$prov1','$prov2','$prov3','$prov4','$prov5','$link','$valid1','$valid2')";
 
 if(mysqli_query($conn,$sql)){
 
-   echo "<script> alert('A New amendment Is Added You Can Visit The Page or add more ');
-window.location.href='amendment.php';
+
+   echo "<script> alert('A New scheme Is Added You Can Visit The Page or add more ');
+window.location.href='govt.php';
 </script>";
         }
         else{
-                       echo "<script> alert('Problem Occuring While Adding A New Right');
-window.location.href='userinfo.php';
-</script>";
-
-                
+                    $_SESSION['message']="user could not be added to database";
+                    header("location:cms.php");
         }
-        
 }
 
-    else{
-                    $_SESSION['message']="not posted field";
-                    echo"not";
-        }
-}       
+else{
+                $_SESSION['message']="File upload failed";
+      }
+}
 
+else{
+        $_SESSION['message']="please upload only jpg,jpeg,png,gif pictures";
+    }
+
+
+}    
+ 
+}
 
 ?>
 <!DOCTYPE html>
@@ -65,7 +79,11 @@ window.location.href='userinfo.php';
  <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-  src="https://code.jquery.com/jquery-3.3.1.js";
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js">
    </script>
 
 <style>
@@ -138,6 +156,7 @@ span.psw {
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   padding-top: 60px;
+  padding-bottom: 20px;
 }
 
 /* Modal Content/Box */
@@ -227,6 +246,14 @@ float:center;
 </head>
 <body>
 
+
+
+
+
+
+
+
+
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">E-Legal Aid & Welfare Portal</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -255,11 +282,14 @@ float:center;
   </div>
 </nav>
 
-<h2 align="center">Hii, Admin You can Functions using this page</h2>
+<h2 align="center">Hii, Admin You can change functions using this page</h2>
 
  <div  align="center"> <button  onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add New Schemes</button></div><br>
-<div  align="center"> <button  onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Delete Outdated Schemes</button></div><br>
+
 <div  align="center"> <button  onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Modify Schemes</button></div><br>
+<div  align="center"> <button  onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Delete Outdated Schemes</button></div><br>
+<div  align="center"><a href="Govt_schemes.php"><button  onclick="document.getElementById('id04').style.display='block'" style="width:auto;">Visit Schemes Page</button></a></div><br>
+<div  align="center"><a href="userinfo.php"> <button  onclick="document.getElementById('id05').style.display='block'" style="width:auto;">Back</button></a></div><br>
 
 
  
@@ -271,7 +301,7 @@ float:center;
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
    <label><b>Upload Logo  Of Scheme, If Any</b></Label>
-  <input type="file" name="avatar" id= "imagedoc" accept="img/*"/><br/>
+  <input type="file" name="avatar"/><br/>
     
 
                                                       
@@ -288,9 +318,9 @@ float:center;
         </select>  </div>
         <br>
      
-      <input type="text" placeholder="Enter Title Of Scheme" name="title" required>  
+       <label for="psw" align="left"><b>Title Of Scheme</b></label><input type="text" placeholder="Enter Title Of Scheme" name="title" required>  
     
- 
+ <label for="psw" align="left"><b>Sector</b></label><input type="text" placeholder="Enter sector" name="sector">
 
     <label for="psw" align="left"><b>Description Of Scheme</b></label><input type="text" placeholder="Enter description of Amendment" name="des" required>
       <input type="text" placeholder="Enter description 1" name="n1">
@@ -305,6 +335,7 @@ float:center;
       <input type="text" placeholder="Enter provision 3" name="prov3">
       <input type="text" placeholder="Enter provision 4" name="prov4">
       <input type="text" placeholder="Enter provision 5" name="prov5">
+         <label for="psw"><b>For more details visit..</b></label> <input type="text" placeholder="Enter link" name="link">
        
              <label for="psw"><b>valid_from</b></label>
       <input type="date" placeholder="Enter date" name="valid1"> 
@@ -335,16 +366,16 @@ window.onclick = function(event) {
 
 
 
-<div id="id02" class="modal">
+<div id="id02" class="modal"data-toggle="modal">
   
-  <form class="modal-content animate" action="help2.php"  method="POST" autocomplete="off">
+  <form class="modal-content animate" action="deletegovt.php"  method="POST" autocomplete="off">
    <div class="imgcontainer">
- <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
 
+      <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
     <div class="container">
             <select id="job" name="job" required>
           <optgroup >
-      <option>-----title-----</option>
+      <option>-----Types-----</option>
     
             <option value="central"><b>Central</b></option>
             <option value="state"><b>State</b></option>
@@ -353,8 +384,35 @@ window.onclick = function(event) {
         </select>
          </div>
       <br>
-      <label for="uname"><b>Title Of Scheme</b></label>
-      <input type="text" placeholder="Enter Title" name="name" required><br>
+
+  <label for="uname"><b>Title Of Scheme</b></label>
+     <div class="container">
+            <select id="name" name="names" required>
+          <optgroup >
+      <option>-----title-----</option>
+
+
+
+   
+
+<?php
+
+
+
+
+ $query = "select title from scheme";
+                if(count(fetchAll($query))>0){
+                    foreach(fetchAll($query) as $row){
+                        ?>
+                         <option value="<?php echo $row['title'] ?>"><b><?php echo $row['title'];
+          }
+        }
+        ?></b></option>
+          
+       
+          </optgroup><br></td></tr>
+        </select>
+         </div>
             
         
       <button type="submit" name="delete">Delete</button>
@@ -381,48 +439,67 @@ window.onclick = function(event) {
 }
 </script>
 
-
-
 <div id="id03" class="modal">
   
-  <form class="modal-content animate" action="help3.php" method="POST">
+  <form class="modal-content animate" action="modifygovt.php" method="POST">
    <div class="imgcontainer">
  <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
- </div>
+
     <div class="container">
-      <label for="uname"><b>Name of Society</b></label>
-      <input type="text" placeholder="Enter Username" name="nm" required>
 
-      <label for="psw"><b> Add vacancies</b></label><br>
-      <input type="text" placeholder="Enter vacancy 1" name="v1" required><label for="psw"><b>valid_upto</b></label> <input type="date" placeholder="last date 1" name="ls1" required>            
-          <input type="text" placeholder="Enter vacancy 2" name="v2"><label for="psw"><b>valid_upto</b></label> <input type="date" placeholder="last date 2" name="ls2"> 
-            <input type="text" placeholder="Enter vacancy 3" name="v3" ><label for="psw"><b>valid_upto</b></label> <input type="date" placeholder="last date 3" name="ls3"> 
-                <input type="text" placeholder="Enter vacancy 4" name="v4"><label for="psw"><b>valid_upto</b></label> <input type="date" placeholder="last date 4" name="ls4"> 
-            <label for="psw"><b> Email_Id</b></label>
-                  <input type="email" placeholder="email_id" name="eml" required>
-              
-                
-                  <select id="job" name="job" required>
+
+     <select id="job" name="job" required>
           <optgroup >
-      <option>-----motive-----</option>
+      <option>-----Types-----</option>
     
-            <option value="Save Girl Child"><b>save girl child</b></option>
-            <option value="women Empowerment"><b>women empowerment</b></option>
-            <option value="Old Age Home"><b>old age home</b></option>
+            <option value="Central"><b>Central</b></option>
+            <option value="State"><b>State</b></option>
+              
           </optgroup><br></td></tr>
-        </select>
-        
-      <button type="submit" name="vacancy">Add Vacancies</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
+        </select>  </div>
+        <br>
 
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-  </form>
+        <label for="uname"><b>Title Of Scheme</b></label>
+     <div class="container">
+            <select id="name" name="names" required>
+          <optgroup >
+      <option>-----title-----</option>
+<?php
+
+
+
+
+ $query = "SELECT title FROM scheme";
+                if(count(fetchAll($query))>0){
+                    foreach(fetchAll($query) as $row){
+                        ?>
+                         <option value="<?php echo $row['title']; ?>"><b><?php echo $row['title'];
+
+          }
+        }
+        ?></b></option>
+          
+       
+          </optgroup><br></td></tr>
+        
+        </select>
 </div>
+<br>
+    <div  align="center">
+ <button type="submit" name="updates">Update Changes</button>
+</div>
+
+   <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
+</div></form></div>
+
+  <script>
+
+
+
+
+
+
 <script>
 // Get the modal
 var modal = document.getElementById('id03');
@@ -436,5 +513,7 @@ window.onclick = function(event) {
 </script>
 
 </body>
+
+
 </html>
 

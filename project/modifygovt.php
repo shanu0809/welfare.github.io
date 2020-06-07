@@ -1,423 +1,478 @@
- 
 <!DOCTYPE html>
 <head>
-  <meta charset="utf-8">
+<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
  <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-  src="https://code.jquery.com/jquery-3.3.1.js";
-   </script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-<style>
+
+   <link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 
 
-/* Full-width input fields */
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+<?php
+require'connection.php';
+require'functions.php';
+
+if(isset($_POST['updates'])){
+  $job=$_POST['job'];
+  $names=$_POST['names'];
+ $query = "SELECT job, title FROM scheme where job='$job' AND title='$names'";  
+               if(mysqli_query($conn,$query))
+               {
+ ?>
+<script>
+    $(document).ready(function(){
+        $("#myModal").modal('show');
+    });
+</script>
+
+<?php
 }
 
-/* Set a style for all buttons */
-button {
+else{
+      echo "<script> alert('Invalid scheme !!! ');
+window.location.href='govt.php';
+</script>";
+  }
+}
+else{
+  echo "error";
+}
+
+?>
+
+
+
+  <style>
+    *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden; 
+font-family: 'Josefin Sans', sans-serif;
+    }
+    @media(max-width:768px){
+      li{
+        list-style: none;
+          }
+        .d-flex span{
+          display:none;
+        }
+    
+    }
+    .d-flex div{
+      text-align: center;
+      border-right: 1px solid grey;
+      border-top: 1px solid grey;
+    }
+    .d-flex div:last-child{
+      border-right: none;
+    }
+    .jumbotron-heading{
+      text-align: left;
+      text-align: justify;
+      text-justify:inter-word;
+
+    }
+    .dark{
+      border-radius: 20px 20px 20px 20px;
+      min-height:auto;
+      max-height: auto;
+    }
+
+    /* Set a style for all buttons */
+.btnclass {
   text-align: center;
   background-color: #4CAF50;
   color: white;
-  padding: 14px 20px;
+  padding: 20px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 40%;
+  width: 60%;
 }
 
 button:hover {
   opacity: 0.8;
 }
+  </style>  
 
-/* Extra styles for the cancel button */
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
 
-/* Center the image and position the close button */
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-  position: relative;
-}
 
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-}
-
-.container {
-  padding: 16px;
-}
-
-span.psw {
-  float: right;
-  padding-top: 16px;
-}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  padding-top: 60px;
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
-  width: 70%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button (x) */
-.close {
-  position: absolute;
-  right: 25px;
-  top: 0;
-  color: #000;
-  font-size: 35px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: red;
-  cursor: pointer;
-}
-
-/* Add Zoom Animation */
-.animate {
-  -webkit-animation: animatezoom 0.6s;
-  animation: animatezoom 0.6s
-}
-
-@-webkit-keyframes animatezoom {
-  from {-webkit-transform: scale(0)} 
-  to {-webkit-transform: scale(1)}
-}
-  
-@keyframes animatezoom {
-  from {transform: scale(0)} 
-  to {transform: scale(1)}
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-     display: block;
-     float: none;
-  }
-  .cancelbtn {
-     width: 100%;
-  }
-}
-</style>
 
 </head>
+<body style="color:#00000;">
 
-<body>
-<div id="id03" class="modal">
-<form class="modal-content animate" action="modifygovtsch.php" method="POST">
-   <div class="imgcontainer">
- <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
- <?php
- require "connection.php";
-if(isset($_POST['updates'])){
-$type=$_POST['job'];
-$names=$_POST['names'];
 
- $query = "SELECT * FROM scheme where title='$names'AND job='$type'";
- $result=mysqli_query($conn,$query);
- $row=mysqli_fetch_assoc($result);
- if($row){?>
- <label for="psw" align="left"><b>Sector</b></label>
- <ul>
-  <li>
-<?php if($row['sector']==''){?>
 
-<input type="text" placeholder="Enter sector" name="sector">
-<?php}
-else{?>
-<input type="text" name="sector" value="<?php echo $row['sector']; ?>">
+
+
+
+
+   <?php
+    
+            
+                $query = "SELECT * FROM scheme where job='$job' AND title='$names'";
+                  $result=mysqli_query($conn,$query);
+
+$row=mysqli_fetch_assoc($result);
+               if($row)
+               {
+                        ?>
+
+<div id="myModal" class="modal" style="background-color: #5cb85c;">
+   <div class="modal-dialog"style="background-color: white; width:auto;">
+        <div class="modal-content"style="background-color: white;">
+
+            <div class="modal-header" style="background-color: #5cb85c;">
+                  <h4 class="modal-title">Update Required Field</h4><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              
+            </div>
+            <div class="modal-body">
+                <form  enctype="multipart/form-data" class="modal-content animate" autocomplete="off">
+                      <div class="form-group">
+                        <h6 class="jumbotron-heading"><b><u>Type of Scheme  : </u> </b><?php echo $row['job'];?></h6></div>
+
+
+
+                    <div class="form-group">
+                            <h6 class="jumbotron-heading"><b><u>Title of Scheme  :</u> </b><input type="text" class="form-control" value="<?php echo $row['title'];?>"></h6>
+                    </div>
+      <br>
+                     
+<br>
+                    <div class="form-group">
+                          <h6 class="jumbotron-heading"><b><u>Sector  :</u> </b>
 <?php
-}
+if($row['sector']==''){
+  ?>
+
+                         <input type="text" class="form-control" placeholder="Enter sector"> 
+                         
+                          <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['sector'];?>"></h6></div>
+                        
+                        <?php
+                      }
 ?>
-</li>
-    <label for="psw" align="left"><b>Description Of Scheme</b></label>
-    <li>
-<?php if($row['des']==''){
-  ?>
-<input type="text" placeholder="Enter description of Scheme" name="des">
-<?php }
-else{
-  ?>
- <input type="text" name="des" value="<?php echo $row['des']; ?>"> 
-<?php
-}
-?></li>
-<li>
-<?php if($row['n1']==''){
-  ?>
 
-      <input type="text" placeholder="Enter description 1" name="n1">
-<?php
-}
-else{
-  ?>
-  <input type="text" name="n1" value="<?php echo $row['n1']; ?>">
-<?php
-}
-?></li>
-<li>
-  <?php 
-if($row['n2']==''){?>
- <input type="text" placeholder="Enter description 2" name="n2">
-<?php
-}
-else{
-  ?>
-<input type="text"  name="n2" value="<?php echo $row['n2']; ?>">
- 
- <?php 
-}
-?></li>
- <li>
- <?php if($row['n3']==''){?>
 
-      <input type="text" placeholder="Enter description 3" name="n3">
-  <?php
-}
-  else{
-    ?>
-    <input type="text" name="n3" value="<?php echo $row['n3']; ?>">
- 
- <?php
-  }
-  ?></li>
- <li>
-  <?php 
- if($row['n4']==''){
-  ?>
-   <input type="text" placeholder="Enter description 4" name="n4">
- <?php}
-  else {
-    ?>
-    <input type="text"  name="n4" value="<?php echo $row['n4']; ?>">  
- 
- <?php }?></li>
- <li>
-  <?php 
- if($row['n5']==''){
-  ?>
+   <div class="form-group">
+                        <h6 class="jumbotron-heading"><b><u>Description of Scheme  :</u> </b>
 
-      <input type="text" placeholder="Enter description 5" name="n5">
-  <?php
-}
-  else{
-    ?>
-    <input type="text" name="n5" value="<?php echo $row['n5']; ?>">
+                     <?php  if($row['des']==''){
+                      ?>
+                 <input type="text" class="form-control" placeholder="Enter sector"> 
 
  <?php
-  }
-  ?></li>
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['des'];?>">
+                        
+                        <?php
+                      }
+                      ?>
 
-      <label for="psw"><b>Judicial Orders And Provisions</b></label>
-      <li>
- <?php if($row['prov']==''){?>
+                      <?php  if($row['n1']==''){
+                      ?>
+                 <input type="text" class="form-control" placeholder="Enter description 1"> 
 
-      <input type="text" placeholder="Enter provisions" name="prov">
-  <?php
-}
-
-  else{
-    ?>
-    <input type="text"  name="prov" value="<?php echo $row['prov']; ?>">
  <?php
-  }
-  ?>
-</li>
- 
- <li>
-  <?php if($row['prov1']==''){
-    ?>
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['n1'];?>">
+                        
+                        <?php
+                      }
+                      ?>
+                      <?php  if($row['n2']==''){
+                      ?>
+                 <input type="text" class="form-control" placeholder="Enter description 2"> 
 
-     
-      <input type="text" placeholder="Enter provision 1" name="prov1">
-  <?php
-}
-else{
-  ?>
-    <input type="text" name="prov1" value="<?php echo $row['prov1']; ?>">
-
- 
  <?php
-  }
-  ?>
-</li>
-<li>
-<?php 
- if($row['prov2']==''){?>
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['n2'];?>">
+                        
+                        <?php
+                      }
+                      ?>
+                      <?php  if($row['n3']==''){
+                      ?>
+                 <input type="text" class="form-control" placeholder="Enter description 3"> 
 
-      <input type="text" placeholder="Enter provision 2" name="prov2">
-  <?php
-}
-  else{
-    ?>
-    <input type="text" name="prov2" value="<?php echo $row['prov2']; ?>">
+ <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['n3'];?>">
+                        
+                        <?php
+                      }
+                      ?>
+                      <?php  if($row['n4']==''){
+                      ?>
+                 <input type="text" class="form-control" placeholder="Enter description 4"> 
 
- 
- <?php 
-}
-?></li>
- <li>
-  <?php 
- if($row['prov3']==''){
-  ?>
+ <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['n4'];?>">
+                        
+                        <?php
+                      }
+                      ?>
+                      <?php  if($row['n5']==''){
+                      ?>
+                 <input type="text" class="form-control" placeholder="Enter description 5"> 
 
-      <input type="text" placeholder="Enter provision 3" name="prov3">
-  <?php}
-  else{
-    ?>
-    <input type="text" name="prov3" value="<?php echo $row['prov3']; ?>">
- 
- <?php 
-}
-?></li>
- <li>
-  <?php
- if($row['prov4']==''){
-  ?>
+ <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['n5'];?>">
+                        
+                        <?php
+                      }
+                      ?>
+</h6></div>
 
-     
-      <input type="text" placeholder="Enter provision 4" name="prov4">
-  <?php
-}
-  else{
-    ?>
-    <input type="text" name="prov4" value="<?php echo $row['prov4'];?>">
- 
- <?php 
-}
-?></li>
- <li>
-  <?php
- if($row['prov5']==''){
-  ?>
 
-      <input type="text" placeholder="Enter provision 5" name="prov5">
-  <?php
-}
-  else{
-    ?>
- 
+<div class="form-group">
+                        <h6 class="jumbotron-heading"><b><u>Judiciary Provisions :</u> </b>
 
-     <input type="text"  name="prov5" value="<?php echo $row['prov5']; ?>">
- 
- <?php 
-}
-?></li>
+                     <?php  if($row['prov']==''){
+                      ?>
+                 <input type="text" class="form-control" placeholder="Enter Provision"> 
 
-             <label for="psw"><b>valid_from</b></label>
-             <li>
- <?php if($row['valid_from']=='')
- {
-  ?>
-  <input type="date" placeholder="Enter date" name="valid1"> 
-  <?php
-}
-  else{
-    ?>
+ <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['prov'];?>">
+                        
+                        <?php
+                      }
+                      ?>
 
-     <input type="text"  name="valid1" value="<?php echo $row['valid_from']; ?>">
-  <?php
-}
-?></li>
+                      <?php  if($row['prov1']==''){
+                      ?>
+                 <input type="text" class="form-control" placeholder="Enter provision 1"> 
 
-      <label for="psw"><b>valid_upto</b></label>
-      <li>
-  <?php if($row['valid_upto']==''){
-    ?>
-  <input type="date" placeholder="Enter date" name="valid2">
+ <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['prov1'];?>">
+                        
+                        <?php
+                      }
+                      ?>
+                      <?php  if($row['prov2']==''){
+                      ?>
+                 <input type="text" class="form-control" placeholder="Enter provision 2"> 
+
+ <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['prov2'];?>">
+                        
+                        <?php
+                      }
+                      ?>
+                      <?php  if($row['prov3']==''){
+                      ?>
+                 <input type="text" class="form-control" placeholder="Enter provision 3"> 
+
+ <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['prov3'];?>">
+                        
+                        <?php
+                      }
+                      ?>
+                      <?php  if($row['prov4']==''){
+                      ?>
+                 <input type="text" class="form-control" placeholder="Enter provision 4"> 
+
+ <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['prov4'];?>">
+                        
+                        <?php
+                      }
+                      ?>
+                      <?php  if($row['prov5']==''){
+                      ?>
+                 <input type="text" class="form-control" placeholder="Enter provision 5"> 
+
+ <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['prov5'];?>">
+                        
+                        <?php
+                      }
+                      ?>
+</h6></div>
+
+
+                    <div class="form-group">
+                          <h6 class="jumbotron-heading"><b><u>Link to visit more....: </u> </b>
 <?php
-}
+if($row['link']==''){
+  ?>
 
-else{?>
+                         <input type="text" class="form-control" placeholder="Enter link"> 
+                         
+                          <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" value="<?php echo $row['link'];?>">
+                        
+                        <?php
+                      }
+?>
+</h6></div>
 
-     <input type="text"  name="valid2" value="<?php echo $row['valid_upto']; ?>">
-  <?php
-}
-?></li>
+                    <div class="form-group">
+                          <h6 class="jumbotron-heading"><b><u>Valid_from :</u> </b>
+<?php
+if($row['valid_from']==''){
+  ?>
 
-         <label for="psw"><b>For more details visit..</b></label>
-         <li>
-         <?php if($row['link']=='')
-         {
-          ?>
-           <input type="text" placeholder="Enter link" name="link"/>
+                         <input type="date" class="form-control" placeholder="Enter date of announcement"> 
+                         
+                          <?php
+                        }
+                          else{
+                              ?>
+                               <input type="date" class="form-control" value="<?php echo $row['valid_from'];?>">
+                        
+                        <?php
+                      }
+?>
+</h6></div>
 
-        <?php 
-      }
-        else{
-          ?>
+ <div class="form-group">
+                          <h6 class="jumbotron-heading"><b><u>Valid_upto :</u> </b>
+<?php
+if($row['valid_upto']==''){
+  ?>
 
-     <input type="text"  name="link" value="<?php echo $row['link']; ?>"/>
+                         <input type="date" class="form-control" placeholder="Enter date of announcement"> 
+                         
+                          <?php
+                        }
+                          else{
+                              ?>
+    <input type="date" class="form-control" value="<?php echo $row['valid_upto'];?>">
+                        
+                        <?php
+                      }
+?>
+</h6></div>
 
-        <?php
-      }
-        ?></li></ul>
+ <div class="form-group">
+                        <?php if($row['imagedoc']=='')
+                        {?>
 
-     
- <br>     
- <button type="submit" name="update">Update Changes</button>
+                                                   <label><b>Upload Logo  Of Scheme, If Any</b></Label>
+  <input type="file" name="avatar"/><br/>
+                        
+                 
+                    <?php
+                  }
+                    else
+                    {
+                      ?>
 
+<section class="my-5">
+  <div class="py-5" id="about">
+  
   </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-12">
+     <img class="image fit" src="  <?php echo $row['imagedoc'];?>" height="50px;" width="200px" class="img-fluid aboutimg"/></a>
     </div>
-  </form>
+    <div class="col-lg-6 col-md-6 col-12" >
+   
+ <button type="submit" name="up" class="btnclass">Update</button>
+        </div>
+  </div>
+  </div>
+</section>
+                     
+ 
+                    
+                    <?php
+                  }
+                  ?>
+                    </h6></div>
+
+
+ 
+
+
+
+                    <?php
+                  }
+
+                      ?>
+                 
+                  
+                    <button type="submit" name="update" class="btn btn-primary">Update </button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<?php
-}
-}
-else{
-  echo "not perform";
-}
-?>
 
+<div id="myMod" class="modal" style="background-color: #5cb85c;">
+   <div class="modal-dialog"style="background-color: white; width:auto;">
+        <div class="modal-content"style="background-color: white;">
 
-<script>
-// Get the modal
-var modal = document.getElementById('id03');
+            <div class="modal-header" style="background-color: #5cb85c;">
+                  <h4 class="modal-title">Update Required Field</h4><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              
+            </div>
+            <div class="modal-body">
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
+ <form class="modal-content animate" action="#" enctype="multipart/form-data" method="POST" autocomplete="off">
+   <label><b>Upload Logo  Of Scheme, If Any</b></Label>
+  <input type="file" name="avatar"/><br/>
 
-</body>
+                    <button type="submit" name="modified" class="btnclass">Update </button></label></form></div></div></div></div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
 </html>
