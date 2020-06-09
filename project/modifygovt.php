@@ -1,3 +1,9 @@
+
+<?php
+require'connection.php';
+require'functions.php';
+?>
+
 <!DOCTYPE html>
 <head>
 <meta charset="utf-8">
@@ -10,25 +16,26 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 
-
-   <link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
 
 
 <?php
-require'connection.php';
-require'functions.php';
-
+$id='';
 if(isset($_POST['updates'])){
   $job=$_POST['job'];
   $names=$_POST['names'];
- $query = "SELECT job, title FROM scheme where job='$job' AND title='$names'";  
-               if(mysqli_query($conn,$query))
+ $query = "SELECT job, title,id FROM scheme where job='$job' AND title='$names'"; 
+
+                   $result=mysqli_query($conn,$query);
+
+$row=mysqli_fetch_assoc($result);
+               if($row)
                {
- ?>
+                $id=$row['id'];
+                        ?>
 <script>
     $(document).ready(function(){
         $("#myModal").modal('show');
@@ -48,8 +55,9 @@ else{
   echo "error";
 }
 
-?>
 
+
+?>
 
 
   <style>
@@ -98,7 +106,13 @@ font-family: 'Josefin Sans', sans-serif;
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 60%;
+  width: 100%;
+
+}
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
 }
 
 button:hover {
@@ -113,35 +127,39 @@ button:hover {
 <body style="color:#00000;">
 
 
-
-
-
-
-
-   <?php
+                     <?php
     
             
-                $query = "SELECT * FROM scheme where job='$job' AND title='$names'";
-                  $result=mysqli_query($conn,$query);
+                $sql = "SELECT * FROM scheme WHERE id='$id'";
+                  $result=mysqli_query($conn,$sql);
 
 $row=mysqli_fetch_assoc($result);
                if($row)
                {
                         ?>
 
-<div id="myModal" class="modal" style="background-color: #5cb85c;">
-   <div class="modal-dialog"style="background-color: white; width:auto;">
+
+
+
+
+
+<div id="myModal" class="modal" style="background-color:white;">
+   <div style="background-color: white; width:1000px; padding-left: 150px;">
         <div class="modal-content"style="background-color: white;">
 
             <div class="modal-header" style="background-color: #5cb85c;">
                   <h4 class="modal-title">Update Required Field</h4><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               
             </div>
+
+
             <div class="modal-body">
                 <form  enctype="multipart/form-data" class="modal-content animate" autocomplete="off">
-                      <div class="form-group">
-                        <h6 class="jumbotron-heading"><b><u>Type of Scheme  : </u> </b><?php echo $row['job'];?></h6></div>
 
+                      <div class="form-group">
+                         <h6 class="jumbotron-heading"><b><u>ID of Scheme  : </u> </b><?php echo $row['id'];?></h6><br>
+                        <h6 class="jumbotron-heading"><b><u>Type of Scheme  : </u> </b><?php echo $row['job'];?></h6></div>
+<br>
 
 
                     <div class="form-group">
@@ -418,10 +436,13 @@ if($row['valid_upto']==''){
   <div class="row">
     <div class="col-lg-6 col-md-6 col-12">
      <img class="image fit" src="  <?php echo $row['imagedoc'];?>" height="50px;" width="200px" class="img-fluid aboutimg"/></a>
+
     </div>
     <div class="col-lg-6 col-md-6 col-12" >
    
- <button type="submit" name="up" class="btnclass">Update</button>
+ <button type="button"  class="btnclass" data-toggle="modal" data-target='#myMod'>Update Image</button>
+
+
         </div>
   </div>
   </div>
@@ -439,20 +460,37 @@ if($row['valid_upto']==''){
 
 
 
-                    <?php
+                  
+                 
+                  
+                    <button type="submit" name="update" class="btnclass">Update </button>
+                </form>
+                  <?php
+                  }
+                  else{
+                          echo "<script> alert('Problem in loading data of this scheme !!! ');
+window.location.href='govt.php';
+</script>";
+
                   }
 
                       ?>
-                 
-                  
-                    <button type="submit" name="update" class="btn btn-primary">Update </button>
-                </form>
             </div>
         </div>
     </div>
 </div>
 
-<div id="myMod" class="modal" style="background-color: #5cb85c;">
+
+
+
+
+
+
+
+
+
+
+<div id="myMod" class="modal">
    <div class="modal-dialog"style="background-color: white; width:auto;">
         <div class="modal-content"style="background-color: white;">
 
@@ -462,11 +500,64 @@ if($row['valid_upto']==''){
             </div>
             <div class="modal-body">
 
- <form class="modal-content animate" action="#" enctype="multipart/form-data" method="POST" autocomplete="off">
-   <label><b>Upload Logo  Of Scheme, If Any</b></Label>
-  <input type="file" name="avatar"/><br/>
+ <form class="modal-content animate" action="updateimage.php" enctype="multipart/form-data" method="POST" autocomplete="off">
 
-                    <button type="submit" name="modified" class="btnclass">Update </button></label></form></div></div></div></div>
+   <div class="form-group">
+                          <h6 class="jumbotron-heading"><b><u>ID Of Scheme :</u> </b>
+
+    <input type="text" name="idpic" class="form-control" value="<?php echo $row['id'];?>">
+                        
+</h6></div>   
+
+
+<div class="form-group">
+   <h6 class="jumbotron-heading"><b><u>Upload Logo  Of Scheme, If Any</b></h6>
+
+<input type='file' name="avatar" onchange="readURL(this);" /></div><br>
+    <img id="blah" name="imageselect" align="center" src="#" alt="your image" />
+<script>
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(200)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+
+
+
+
+                  <div>  <button type="submit" name="modified" class="btnclass"data-toggle="modal" data-target='#myModal'>Submit Image </button></div>
+
+            
+
+                </form></div></div></div></div>
+
+
+
+
+
+
+<script>
+// Get the modal
+var modal = document.getElementById('myMod');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
