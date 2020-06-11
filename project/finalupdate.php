@@ -1,12 +1,11 @@
 <?php 
 require"connection.php";
 
-if(isset($_POST['update'])){
+if(isset($_POST['updatefinal'])){
 $title=$_POST['title'];
    $job=$_POST['job'];
-    
+    $id=$_POST['id'];
       $sector=$_POST['sector'];
-      $id=$_POST['id'];
     $des=$_POST['des'];
      $n1=$_POST['n1'];
       $n2=$_POST['n2'];
@@ -26,7 +25,7 @@ $title=$_POST['title'];
 
 
       $query="UPDATE scheme SET title='$title',sector='$sector',des='$des',n1='$n1',n2='$n2',n3='$n3',n4='$n4',n5='$n5',prov='$prov',prov1='$prov1',prov2='$prov2',prov3='$prov3',prov4='$prov4',prov5='$prov5',link='$link',valid_from='$valid1',valid_upto='$valid2' WHERE id='$id'";
-	
+  
 $res=mysqli_query($conn,$query);
 
 if($res){
@@ -35,17 +34,12 @@ window.location.href='govt.php';
 </script>";
 }
 else{
-
-                          echo "<script> alert('error! cannot upload in database. ');
-window.location.href='govt.php';
-</script>";
+echo "error is showing";
 }
-	}
-	else{
-                          echo "<script> alert('error! ');
-window.location.href='govt.php';
-</script>";
+  }
+  else{
 
-	}
+echo "error";
+  }
 
 ?>

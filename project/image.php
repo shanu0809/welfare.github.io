@@ -1,4 +1,3 @@
-
 <?php
 require'connection.php';
 require'functions.php';
@@ -20,46 +19,15 @@ require'functions.php';
 <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Activate Bootstrap 4 Modals via Data Attributes</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
-<?php
-$id='';
-
-
-if(isset($_POST['updates'])){
-  $job=$_POST['job'];
-  $names=$_POST['names'];
- $query = "SELECT job, title,id FROM scheme where job='$job' AND title='$names'"; 
-
-                   $result=mysqli_query($conn,$query);
-
-$row=mysqli_fetch_assoc($result);
-               if($row)
-               {
-                $id=$row['id'];
-                        ?>
-<script>
-    $(document).ready(function(){
-        $("#myModal").modal('show');
-    });
-</script>
-
-<?php
-}
-
-else{
-      echo "<script> alert('Invalid scheme !!! ');
-window.location.href='govt.php';
-</script>";
-  }
-}
-else{
-  echo "error";
-}
-
-
-
-?>
 
 
   <style>
@@ -129,14 +97,45 @@ button:hover {
 <body style="color:#00000;">
 
 
-         
+ <?php
+
+
+$idpic="";
+
+if(isset($_POST['data'])){
+  $idpic=$_POST['ids'];
+
+?>
+<script>
+    $(document).ready(function(){
+        $("#myModal2").modal('show');
+    });
+</script>
+
+<?php
+}
+
+
+
+?>
+    
+               <?php
+    
+            
+                $sql = "SELECT * FROM scheme WHERE id='$idpic'";
+                  $result=mysqli_query($conn,$sql);
+
+$row=mysqli_fetch_assoc($result);
+               if($row)
+               {
+                        ?>    
 
 
 
 
 
 
-<div id="myModal" class="modal" style="background-color:white;">
+<div id="myModal2" class="modal" style="background-color:white;">
    <div style="background-color: white; width:1000px; padding-left: 150px;">
         <div class="modal-content"style="background-color: white;">
 
@@ -144,48 +143,35 @@ button:hover {
                   <h4 class="modal-title">Update Required Field</h4><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               
             </div>
-            <?php
-    
-            
-                $sql = "SELECT * FROM scheme WHERE id='$id'";
-                  $result=mysqli_query($conn,$sql);
-
-$row=mysqli_fetch_assoc($result);
-               if($row)
-               {
-                        ?>
+ 
 
 
 
 
 
             <div class="modal-body">
-                <form  enctype="multipart/form-data" class="modal-content animate" autocomplete="off" action="modify.php" method="POST">
+                <form  enctype="multipart/form-data" class="modal-content animate" action="finalupdate.php" method="POST" autocomplete="off">
 
                       <div class="form-group">
-                         <h6 class="jumbotron-heading"><b><u>ID of Scheme  : </u> </b>
-                          <input type="hidden" name="id" class="form-control" name="id" value="<?php echo $row['id'];?>"><?php echo $row['id'];
-                         $idpic=$row['id'];
-                         ?></h6></div><br>
-                         <div class="form-group">
-                        <h6 class="jumbotron-heading"><b><u>Type of Scheme  : </u> </b>
-<?php
-if($row['job']==''){
-  ?>
+                         <h6 class="jumbotron-heading"><b><u>ID of Scheme  : </u> </b><lable>
 
-                         <input type="text" class="form-control" name="job" placeholder="Enter type of scheme"> 
-                         
-                          <?php
-                        }
-                          else{
-                              ?>
-                               <input type="hidden" class="form-control"  name="job" value="<?php echo $row['job'];?>"/><?php echo $row['job'];
-                               ?>
-                        
-                        <?php
-                      }
+                          <input type="hidden" name="id" class="form-control" name="job" value="<?php echo $row['id'];?>"><?php echo $row['id'];?></h6><br>
+
+                      <div class="form-group">
+                        <h6 class="jumbotron-heading"><b><u>Type of Scheme  : </u> </b>
+<?php if($row['job']){
+
 ?>
-                         </h6></div>
+                          <input type="text" class="form-control" name="job" value="<?php echo $row['job'];?>">
+<?php
+                         }
+                          else{
+
+?>
+                          <input type="text" class="form-control" name="job" value="Enter the type of scheme"></h6></div>
+                       <?php
+                        }
+                        ?>
 <br>
 
 
@@ -194,7 +180,7 @@ if($row['job']==''){
                     </div>
       <br>
                      
-
+<br>
                     <div class="form-group">
                           <h6 class="jumbotron-heading"><b><u>Sector  :</u> </b>
 <?php
@@ -207,7 +193,7 @@ if($row['sector']==''){
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control"  name="sector" value="<?php echo $row['sector'];?>"></h6></div>
+                               <input type="text" class="form-control" name="sector" value="<?php echo $row['sector'];?>"></h6></div>
                         
                         <?php
                       }
@@ -219,13 +205,13 @@ if($row['sector']==''){
 
                      <?php  if($row['des']==''){
                       ?>
-                 <input type="text" class="form-control" name="des" placeholder="Enter description "> 
+                 <input type="text" class="form-control" name="des" placeholder="Enter Description"> 
 
  <?php
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control"  name="des" value="<?php echo $row['des'];?>">
+                               <input type="text" class="form-control" name="des" value="<?php echo $row['des'];?>">
                         
                         <?php
                       }
@@ -239,7 +225,7 @@ if($row['sector']==''){
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control" name="n1" value="<?php echo $row['n1'];?>">
+                               <input type="text" name="n1" class="form-control" value="<?php echo $row['n1'];?>">
                         
                         <?php
                       }
@@ -252,46 +238,46 @@ if($row['sector']==''){
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control" name="n2" value="<?php echo $row['n2'];?>">
+                               <input type="text" class="form-control"  name="n2" value="<?php echo $row['n2'];?>">
                         
                         <?php
                       }
                       ?>
                       <?php  if($row['n3']==''){
                       ?>
-                 <input type="text" class="form-control" name="n3" placeholder="Enter description 3"> 
+                 <input type="text" class="form-control"  name="n3" placeholder="Enter description 3"> 
 
  <?php
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control" name="n3" value="<?php echo $row['n3'];?>">
+                               <input type="text" class="form-control"  name="n3" value="<?php echo $row['n3'];?>">
                         
                         <?php
                       }
                       ?>
                       <?php  if($row['n4']==''){
                       ?>
-                 <input type="text" class="form-control" name="n4" placeholder="Enter description 4"> 
+                 <input type="text" class="form-control"  name="n4" placeholder="Enter description 4"> 
 
  <?php
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control" name="n4" value="<?php echo $row['n4'];?>">
+                               <input type="text" class="form-control"  name="n4" value="<?php echo $row['n4'];?>">
                         
                         <?php
                       }
                       ?>
                       <?php  if($row['n5']==''){
                       ?>
-                 <input type="text" class="form-control" name="n5" placeholder="Enter description 5"> 
+                 <input type="text" class="form-control"  name="n5" placeholder="Enter description 5"> 
 
  <?php
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control" name="n5" value="<?php echo $row['n5'];?>">
+                               <input type="text" class="form-control"  name="n5" value="<?php echo $row['n5'];?>">
                         
                         <?php
                       }
@@ -304,7 +290,7 @@ if($row['sector']==''){
 
                      <?php  if($row['prov']==''){
                       ?>
-                 <input type="text" class="form-control" name="prov" placeholder="Enter Provision"> 
+                 <input type="text" class="form-control"  name="prov" placeholder="Enter Provision"> 
 
  <?php
                         }
@@ -337,7 +323,7 @@ if($row['sector']==''){
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control" name="prov2"  value="<?php echo $row['prov2'];?>">
+                               <input type="text" class="form-control" name="prov2" value="<?php echo $row['prov2'];?>">
                         
                         <?php
                       }
@@ -442,18 +428,7 @@ if($row['valid_upto']==''){
 </h6></div>
 
  <div class="form-group">
-                        <?php if($row['imagedoc']=='')
-                        {?>
-
-                                                   <label><b>Upload Logo  Of Scheme, If Any</b></Label>
-  <input type="file" name="avatar"/><br/>
-                        
-                 
-                    <?php
-                  }
-                    else
-                    {
-                      ?>
+                
 
 <section class="my-5">
   <div class="py-5" id="about">
@@ -465,21 +440,19 @@ if($row['valid_upto']==''){
      <img class="image fit" src="  <?php echo $row['imagedoc'];?>" height="200px;" width="300px" class="img-fluid aboutimg"/></a>
 
     </div>
-    <div class="col-lg-6 col-md-6 col-12" >
-   
- <button  type="button"  class="btnclass" data-toggle="modal" data-target='#myMod'>Update Image</button>
+        <div class="col-lg-6 col-md-6 col-12" >
+    <h6><p class="py-5 text-justify"> Logo is changed successfully.</p></h6>
 
 
         </div>
+  
   </div>
   </div>
 </section>
                      
  
                     
-                    <?php
-                  }
-                  ?>
+                
                     </h6></div>
 
 
@@ -490,14 +463,15 @@ if($row['valid_upto']==''){
                   
                  
                   
-                    <button type="submit" name="update" class="btnclass">Update </button>
+                    <button type="submit" name="updatefinal" class="btnclass">Update </button>
+
+                    <a href="govt.php"><button type="button" class="btnclass">Wanna update again? </button></a>
                 </form>
                   <?php
                   }
                   else{
-                          echo "<script> alert('Problem in loading data of this scheme !!! ');
-window.location.href='govt.php';
-</script>";
+echo "error found";
+
 
                   }
 
@@ -506,91 +480,3 @@ window.location.href='govt.php';
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-<div id="myMod" class="modal">
-   <div class="modal-dialog"style="background-color: white; width:auto;">
-        <div class="modal-content"style="background-color: white;">
-
-            <div class="modal-header" style="background-color: #5cb85c;">
-                  <h4 class="modal-title">Update Required Field</h4><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              
-            </div>
-            <div class="modal-body">
-
- <form class="modal-content animate" action="updateimage.php" enctype="multipart/form-data" method="post" autocomplete="off">
-
-   <div class="form-group">
-                          <h6 class="jumbotron-heading"><b><u>ID Of Scheme :</u> </b>
-
-    <input type="text" name="id" class="form-control" value="<?php echo $row['id'];?>">
-                        
-</h6></div>   
-
-
-<div class="form-group">
-   <h6 class="jumbotron-heading"><b><u>Upload Logo  Of Scheme, If Any</b></h6>
-
-<input type='file' name="avatar" onchange="readURL(this);" /></div><br>
-    <img id="blah" name="imageselect" align="center" src="#" alt="your image" />
-<script>
-function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#blah')
-                    .attr('src', e.target.result)
-                    .width(200)
-                    .height(150);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-</script>
-
-
-
-
-                  <div>  <button type="submit" name="modified" class="btnclass"data-toggle="modal">Submit Image </button></div>
-
-            
-
-                </form></div></div></div></div>
-
-
-
-
-
-
-<script>
-// Get the modal
-var modal = document.getElementById('myMod');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
-</html>
