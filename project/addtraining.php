@@ -22,6 +22,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
    
   $dur=$_POST['dur'];
              $link=$_POST['link'];
+                $posttime=$_POST['posttime'];
 
   $avatar_path='training/'.$_FILES['avatar']['name'];
 $avatar_path=mysqli_real_escape_string($conn,$avatar_path);
@@ -29,8 +30,8 @@ $avatar_path=mysqli_real_escape_string($conn,$avatar_path);
       if(copy($_FILES['avatar']['tmp_name'],$avatar_path)){
         $_SESSION['title']=$title;
         $_SESSION['avatar']=$avatar_path;
-    
-    $sql="INSERT INTO  training(imagedoc,type,title,des,link,dur)VALUES('$avatar_path','$type','$title','$des','$link','$dur')";
+    if($type=='Online'|| $type=='Offline'){
+    $sql="INSERT INTO  training(imagedoc,type,title,des,link,dur,posttime)VALUES('$avatar_path','$type','$title','$des','$link','$dur','$posttime')";
 
 if(mysqli_query($conn,$sql)){
 
@@ -56,7 +57,8 @@ else{
     }
 
 
-}    
+}  
+}  
  
 }
 
@@ -213,7 +215,7 @@ span.psw {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden;
+ overflow-y: hidden;
 
     }
     @media(max-width:768px){
@@ -236,6 +238,9 @@ span.psw {
     .vertical-center {
   margin: 0;
 float:center;
+}
+.headdiv{
+
 }
 </style>
 </head>
@@ -275,16 +280,14 @@ float:center;
       </li>
     </ul>
   </div>
-</nav>
-
-<h2 align="center">Hii, Admin You can change functions using this page</h2>
-
- <div  align="center"> <button  onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add New Course</button></div><br>
-
-<div  align="center"> <button  onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Update Existing Course</button></div><br>
+</nav><h2 align="center">Hii, Admin You can change functions using this page</h2>
+<div  align="Right"><a href="index.php"> <button  onclick="document.getElementById('id06').style.display='block'" style="width:15%;background-color: Red;color: white;padding: 10px; margin: 40px;">Logout!</button></a></div>
+ <div  align="center"> <button  onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add New Online Course</button></div>
+<div  align="center"> <button  onclick="document.getElementById('id07').style.display='block'" style="width:auto;">Add New Offline Courses</button></div>
+<div  align="center"> <button  onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Update Existing Course</button></div>
 <div  align="center"> <button  onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Delete Course</button></div><br>
-<div  align="center"><a href="Govt_schemes.php"><button  onclick="document.getElementById('id04').style.display='block'" style="width:auto;">Visit Schemes Page</button></a></div><br>
-<div  align="center"><a href="userinfo.php"> <button  onclick="document.getElementById('id05').style.display='block'" style="width:auto;">Back</button></a></div><br>
+<div  align="center"><a href="training.php"><button  onclick="document.getElementById('id04').style.display='block'" style="width:auto;">Visit Added Courses</button></a></div>
+<div  align="center"><a href="userinfo.php"> <button  onclick="document.getElementById('id05').style.display='block'" style="width:auto;">Back</button></a></div>
 
 
  
@@ -298,22 +301,17 @@ float:center;
    <label><b>Upload Logo  Of Scheme, If Any</b></Label>
   <input type="file" name="avatar"/><br/>
     
-
+<br><br>
                                                       
   
-    <div class="container">
-                         <select id="type" name="type" required>
-          <optgroup >
-      <option>-----Title-----</option>
-    
-            <option value="Online"><b>Online</b></option>
-            <option value="Offline"><b>Offline</b></option>
-              
-          </optgroup><br></td></tr>
-        </select>  </div>
-        <br>
+  <h6 class="jumbotron-heading"><b><u>Type of Course  : </u> </b>
+
+                               <input type="hidden" class="form-control"  name="type" value="Online"/><?php echo "Online Course";
+                               ?>
+ 
+                         </h6>
      
-       <label for="psw" align="left"><b>Title Of Course</b></label><input type="text" placeholder="Enter Title Of Scheme" name="title" required>  
+       <label for="psw" align="left"><b>Title Of Course</b></label><input type="text" placeholder="Enter Title Of Course" name="title" required>  
 
     <label for="psw" align="left"><b>Description Of Scheme</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter description of course" name="des" required>
   
@@ -321,11 +319,22 @@ float:center;
   
       
          <label for="psw"><b>Duration Of Course  </b></label> <br><input type="text" placeholder="Enter duration of course" name="dur">
-
+<br>
  
+            <h6 class="jumbotron-heading"><b><u>Posting Time  :</u> </b>
+                             <input type="hidden" class="form-control"  name="posttime" value="<?php  
+
+date_default_timezone_set('Asia/Kolkata');
+echo date('d-m-Y H:i');
+?>
+"/><?php
+date_default_timezone_set('Asia/Kolkata');
+echo date('d-m-Y H:i');
 
 
+?>
 
+<br><br>
       <button type="submit" name="submit">Add</button>
    
     </div>
@@ -425,27 +434,27 @@ window.onclick = function(event) {
 
 <div id="id03" class="modal">
   
-  <form class="modal-content animate" action="modifygovt.php" method="POST">
+  <form class="modal-content animate" action="modifycourse.php" method="POST">
    <div class="imgcontainer">
  <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
 
     <div class="container">
 
 
-     <select id="job" name="job" required>
+     <select id="type" name="type" required>
           <optgroup >
       <option>-----Types-----</option>
     
-            <option value="Central"><b>Central</b></option>
-            <option value="State"><b>State</b></option>
+            <option value="Online"><b>Online</b></option>
+            <option value="Offline"><b>Offline</b></option>
               
           </optgroup><br></td></tr>
         </select>  </div>
         <br>
 
-        <label for="uname"><b>Title Of Scheme</b></label>
+        <label for="uname"><b>Title Of Course</b></label>
      <div class="container">
-            <select id="name" name="names" required>
+            <select id="title" name="title" required>
           <optgroup >
       <option>-----title-----</option>
 <?php
@@ -453,7 +462,7 @@ window.onclick = function(event) {
 
 
 
- $query = "SELECT title FROM scheme";
+ $query = "SELECT title FROM training";
                 if(count(fetchAll($query))>0){
                     foreach(fetchAll($query) as $row){
                         ?>
@@ -496,8 +505,100 @@ window.onclick = function(event) {
 }
 </script>
 
+
+
+
+ 
+
+<div id="id07" class="modal">
+  
+  <form class="modal-content animate" action="addoffline.php" enctype="multipart/form-data" method="POST" autocomplete="off">
+
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id07').style.display='none'" class="close" title="Close Modal">&times;</span>
+   <label><b>Upload Logo  Of Scheme, If Any</b></Label>
+  <input type="file" name="avatar"/><br/>
+    
+<br><br>
+                                                      
+  
+  <h6 class="jumbotron-heading"><b><u>Type of Course  : </u> </b>
+
+                               <input type="hidden" class="form-control"  name="type" value="Offline"/><?php echo "Offline Course";
+                               ?>
+ 
+                         </h6>
+
+    <label for="psw" align="left"><b>Name Of Center</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter Name Of Vocational Center" name="des">
+      <label for="psw" align="left"><b>Address Of Center</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter description of course" name="des" >  
+     
+       <label for="psw" align="left"><b>Title Of Course</b></label><input type="text" placeholder="Enter Title Of Course" name="title" required>  
+
+    <label for="psw" align="left"><b>Description Of Course</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter description of course" name="des" required>
+  
+    
+    
+
+
+
+
+         <label for="psw"><b>Website Of Vocational Center...</b></label> <input type="text" placeholder="Enter link" name="link">
+  
+      
+         <label for="psw"><b>Duration Of Course  </b></label> <br><input type="text" placeholder="Enter duration of course" name="dur">
+<br>
+ 
+            <h6 class="jumbotron-heading"><b><u>Posting Time  :</u> </b>
+                             <input type="hidden" class="form-control"  name="posttime" value="<?php  
+
+date_default_timezone_set('Asia/Kolkata');
+echo date('d-m-Y H:i');
+?>
+"/><?php
+date_default_timezone_set('Asia/Kolkata');
+echo date('d-m-Y H:i');
+
+
+?>
+
+<br><br>
+      <button type="submit" name="submit">Add</button>
+   
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id07').style.display='none'" class="cancelbtn">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('id07');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+
+
+
+
+
+
+
 </body>
-
-
 </html>
+
+
+
+
+
+
+
+
 
