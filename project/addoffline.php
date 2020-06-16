@@ -1,53 +1,11 @@
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <?php
+<?php
 require'connection.php';
-require'functions.php';?>
-
-
-
-
+?>
 
 <?php
 
 
-  session_start();  
+  
 $_SESSION['message']='';
 if($_SERVER['REQUEST_METHOD']=='POST'){
   if(isset($_POST['submit'])){
@@ -55,38 +13,29 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
    $title=$_POST['title'];
    $type=$_POST['type'];
     
-      
+       $name=$_POST['name'];  
     $des=$_POST['des'];
    
   $dur=$_POST['dur'];
              $link=$_POST['link'];
-
-if (empty($_POST["link"])) {
-    $website = "";
-  } else {
-    $website = test_input($_POST["website"]);
-    // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
-    if (!preg_match("/\b(
-    	?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$link)) {
-      $websiteErr = "Invalid URL";
-      echo $websiteErr;
-    }
-  }
-
-
-
-
-
                 $posttime=$_POST['posttime'];
+                   $field=$_POST['field'];
+                      $country=$_POST['country'];
+                         $state=$_POST['state'];
+                            $city=$_POST['city'];
 
-  $avatar_path='training/'.$_FILES['avatar']['name'];
+
+
+
+  $address=$_POST['address'];
+  $avatar_path='offtraining/'.$_FILES['avatar']['name'];
 $avatar_path=mysqli_real_escape_string($conn,$avatar_path);
     if(preg_match("!image!",$_FILES['avatar']['type'])){
       if(copy($_FILES['avatar']['tmp_name'],$avatar_path)){
         $_SESSION['title']=$title;
         $_SESSION['avatar']=$avatar_path;
-    if($type=='Online'|| $type=='Offline'){
-    $sql="INSERT INTO  training(imagedoc,type,title,des,link,dur,posttime)VALUES('$avatar_path','$type','$title','$des','$link','$dur','$posttime')";
+    
+    $sql="INSERT INTO  addtraining(name,imagedoc,type,title,des,link,dur,posttime,address,field,country,state,city)VALUES('$name','$avatar_path','$type','$title','$des','$link','$dur','$posttime','$address','$field','$country','$state','$city')";
 
 if(mysqli_query($conn,$sql)){
 
@@ -115,6 +64,50 @@ else{
 }  
 }  
  
-}
 
-?>
+
+?>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
