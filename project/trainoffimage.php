@@ -108,7 +108,7 @@ else{
                     <h5 class="modal-title">Confirmation</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                   <form  enctype="multipart/form-data" class="modal-content animate" action="train.php"  method="POST" autocomplete="off">
+                   <form  enctype="multipart/form-data" class="modal-content animate" action="offtrain.php"  method="POST" autocomplete="off">
                 <div class="modal-body">
 
                 	  <div class="form-group">

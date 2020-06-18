@@ -2,7 +2,7 @@
 <?php
 require'connection.php';
 require'functions.php';
-include('dbs.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -219,19 +219,73 @@ $row=mysqli_fetch_assoc($result);
                   <div class="form-group">
                             <h6 class="jumbotron-heading"><b><u>Address of Center  :</u> </b><input type="text" class="form-control" name="address" value="<?php echo $row['address'];?>"></h6>
                     </div>
+<?php if($row['country'])
+               { 
+                $country=$row['country'];
+                $sql1="SELECT name from country where id='$country'";
+                                  $res=mysqli_query($conn,$sql1);
+
+$row1=mysqli_fetch_assoc($res);
+               if($row1)
+               {
+                      
+
+                ?>
+                  
+    <div class="form-group">
+
+                            <h6 class="jumbotron-heading"><b><u>Country of Center  :</u> </b><input type="hidden" class="form-control" name="country" value="<?php echo $row1['name'];?>"><?php echo $row1['name'];?></h6>
+                            <?php
+}
+}
+                            ?>
+                    </div>
+     
+   <br>
+
+      <?php if($row['state'])
+               { 
+                $state=$row['state'];
+                $sql1="SELECT name from state where id='$state'";
+                                  $res=mysqli_query($conn,$sql1);
+
+$row1=mysqli_fetch_assoc($res);
+               if($row1)
+               {
+                      
+
+                ?>
+                    <div class="form-group">
+                            <h6 class="jumbotron-heading"><b><u>State of Center  :</u> </b><input type="hidden" class="form-control" name="state" value="<?php echo $row1['name'];?>"><?php echo $row1['name'];?></h6>
 
 
-
-              <div class="form-group">
-                            <h6 class="jumbotron-heading"><b><u>Country of Center  :</u> </b><input type="hidden" class="form-control" name="country" value="<?php echo $row['country'];?>"><?php echo $row['country'];?></h6>
+                            <?php
+}
+}
+                            ?>
                     </div>
       <br>
                     <div class="form-group">
-                            <h6 class="jumbotron-heading"><b><u>State of Center  :</u> </b><input type="hidden" class="form-control" name="state" value="<?php echo $row['state'];?>"><?php echo $row['state'];?></h6>
-                    </div>
-      <br>
-                    <div class="form-group">
-                            <h6 class="jumbotron-heading"><b><u>Name of Center  :</u> </b><input type="hidden" class="form-control" name="city" value="<?php echo $row['city'];?>"><?php echo $row['city'];?></h6>
+                            <?php if($row['city'])
+               { 
+                $city=$row['city'];
+                $sql1="SELECT name from city where id='$city'";
+                                  $res=mysqli_query($conn,$sql1);
+
+$row1=mysqli_fetch_assoc($res);
+               if($row1)
+               {
+                      
+
+                ?>
+                            <h6 class="jumbotron-heading"><b><u>City of Center  :</u> </b><input type="hidden" class="form-control" name="city" value="<?php echo $row1['name'];?>"><?php echo $row1['name'];?></h6>
+
+
+<?php
+}
+}
+?>
+
                     </div>
       <br>
 
@@ -261,13 +315,13 @@ if($row['link']==''){
 if($row['dur']==''){
   ?>
 
-                         <input type="date" class="form-control" name="dur" placeholder="Enter duration"> 
+                         <input type="text" class="form-control" name="dur" placeholder="Enter duration"> 
                          
                           <?php
                         }
                           else{
                               ?>
-    <input type="date" class="form-control" name="dur" value="<?php echo $row['dur'];?>">
+    <input type="text" class="form-control" name="dur" value="<?php echo $row['dur'];?>">
                         
                         <?php
                       }

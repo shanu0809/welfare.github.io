@@ -26,6 +26,7 @@ $res=mysqli_query($conn,$query);
 
 if($res){
                           echo "<script> alert('Data is successfully updated !!! ');
+                          window.location.href='addtraining.php';
 
 </script>";
 }

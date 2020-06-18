@@ -1,7 +1,7 @@
 <?php 
 require"connection.php";
 
-if(isset($_POST['update'])){
+if(isset($_POST['updatefinal'])){
 $title=$_POST['title'];
    $type=$_POST['type'];
     
@@ -25,19 +25,20 @@ $res=mysqli_query($conn,$query);
 
 if($res){
                           echo "<script> alert('Data is successfully updated !!! ');
-window.location.href='govt.php';
+                          window.location.href='addtraining.php';
+
 </script>";
 }
 else{
 
                           echo "<script> alert('error! cannot upload in database. ');
-window.location.href='govt.php';
+window.location.href='addtraining.php';
 </script>";
 }
   }
   else{
                           echo "<script> alert('error! ');
-window.location.href='govt.php';
+window.location.href='addtraining.php';
 </script>";
 
   }
