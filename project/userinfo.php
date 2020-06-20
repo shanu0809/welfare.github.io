@@ -36,13 +36,14 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 if(mysqli_query($conn,$sql)){
 
    echo "<script> alert('A New amendment Is Added You Can Visit The Page or add more ');
-window.location.href='userinfo.php';
+window.location.href='amendment.php';
 </script>";
         }
         else{
                        echo "<script> alert('Problem Occuring While Adding A New Right');
 window.location.href='userinfo.php';
 </script>";
+
                 
         }
         
@@ -198,6 +199,8 @@ span.psw {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow: hidden;
+
     }
     @media(max-width:768px){
       li{
@@ -216,6 +219,10 @@ span.psw {
     .d-flex div:last-child{
       border-right: none;
     }
+    .vertical-center {
+  margin: 0;
+float:center;
+}
 </style>
 </head>
 <body>
@@ -232,13 +239,13 @@ span.psw {
         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#Our Services">Services</a>
+        <a class="nav-link" href="index.php#service">Services</a>
       </li>
     
        <li class="nav-item">
-        <a class="nav-link" href="#Contact Us">Contact Us</a>
+        <a class="nav-link" href="index.php#contact">Contact Us</a>
            <li class="nav-item">
-        <a class="nav-link" href="#About Us">About</a>
+        <a class="nav-link" href="index.php#about">About</a>
       </li>
       </li>
       <li class="nav-item">
@@ -250,23 +257,27 @@ span.psw {
 
 <h2 align="center">Hii, Admin You can Functions using this page</h2>
 
-  <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add Constitutional Amendments</button><br>
+ <div  align="center"> <button  onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add Constitutional Amendments</button></div><br>
+       <div  align="center"> <a href="dpsp.php"><button onclick="document.getElementById('id07').style.display='block'" style="width:auto;">Visit Directive Principles of State Policies(DPSPs)</button></div><br>
+  <div  align="center"> <a href="duties.php"><button onclick="document.getElementById('id08').style.display='block'" style="width:auto;">Visit fundamental duties</button></div><br>
 
-<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Add Jobs</button><br>
-<button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Add Trainings</button><br>
+   <div  align="center"> <a href="fright.php"><button onclick="document.getElementById('id05').style.display='block'" style="width:auto;">Visit fundamental Rights</button></a></div><br>
+  <div  align="center"> <a href="amendment.php"><button onclick="document.getElementById('id06').style.display='block'" style="width:auto;">Visit latest Amendments</button></a></div><br>
+  <a href="govt.php"><div  align="center"> <button onclick="document.getElementById('id09').style.display='block'" style="width:auto;">Government Schemes</button></</div></a><br>
+<div  align="center">  <a href="addjob.php"> <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Add Jobs</button></a></div><br>
+<div  align="center"> <button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Add Trainings</button></div><br>
 
-  <a href="fright.php"><button onclick="document.getElementById('id05').style.display='block'" style="width:auto;">Visit fundamental Rights</button></a><br>
-  <a href="cms.php"><button onclick="document.getElementById('id05').style.display='block'" style="width:auto;">Visit latest Amendments</button></a><br>
+ 
 
 <div id="id01" class="modal">
   
   <form class="modal-content animate" action="#" enctype="multipart/form-data" method="POST" autocomplete="off">
+
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
    
                                                       
     </div>
-
     <div class="container">
                          <select id="job" name="job" required>
           <optgroup >
@@ -274,17 +285,16 @@ span.psw {
     
             <option value="Fundamental Rights"><b>Fundamental Rights</b></option>
             <option value="DPSPs"><b>DPSPs</b></option>
-              <option value="CAA"><b>Constitutional Amendment Acts</b></option>
+              <option value="Laws"><b>Constitutional Amendment Acts</b></option>
             <option value="Fundamental Duties"><b>Fundamental Duties</b></option>
           </optgroup><br></td></tr>
         </select><br>
-         <label for="psw"><b>Article No.</b></label>
-      <input type="text" placeholder="Enter details" name="articleno" required>  
+     
+      <input type="text" placeholder="Enter Article No." name="articleno">  
     
  
 
-    <label for="psw"><b>Description Of Amendment</b></label>
-      <input type="text" placeholder="Enter description of rights" name="des" required>
+    <label for="psw" align="left"><b>Description Of Amendment</b></label><input type="text" placeholder="Enter description of Amendment" name="des" required>
       <input type="text" placeholder="Enter description 1" name="n1">
       <input type="text" placeholder="Enter description 2" name="n2">
       <input type="text" placeholder="Enter description 3" name="n3">
@@ -306,9 +316,9 @@ span.psw {
       <input type="text" placeholder="Enter case 4" name="c4">
       <input type="text" placeholder="Enter case 5" name="c5">
              <label for="psw"><b>valid_from</b></label>
-      <input type="date" placeholder="Enter date" name="valid1" required> 
+      <input type="date" placeholder="Enter date" name="valid1"> 
       <label for="psw"><b>valid_upto</b></label>
-            <input type="date" placeholder="Enter date" name="valid2" required>
+            <input type="date" placeholder="Enter date" name="valid2">
         
       <input type="submit" name="submit" value="Add">
    
@@ -341,20 +351,22 @@ window.onclick = function(event) {
  <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
  </div>
     <div class="container">
+            <select id="job" name="job" required>
+          <optgroup >
+      <option>-----title-----</option>
+    
+            <option value="DPSPs"><b></b></option>
+            <option value="women Empowerment"><b>Fundamental Duties</b></option>
+            <option value="Old Age Home"><b>Other Information</b></option>
+          </optgroup><br></td></tr>
+        </select>
+      
       <label for="uname"><b>Name of Society</b></label>
       <input type="text" placeholder="Enter Username" name="name" required><br>
               <label for="psw"><b> Email_Id</b></label>
                   <input type="email" placeholder="email_id" name="em" required><br>
                 <label for="psw"><b>Motive</b></label>
-        <select id="job" name="job" required>
-          <optgroup >
-      <option>-----motive-----</option>
-    
-            <option value="Save Girl Child"><b>save girl child</b></option>
-            <option value="women Empowerment"><b>women empowerment</b></option>
-            <option value="Old Age Home"><b>old age home</b></option>
-          </optgroup><br></td></tr>
-        </select>
+  
               <label for="psw"><b>Phone no.</b></label>             
                   <input type="number_format" placeholder="Phone no." name="phn" required><br>
 
