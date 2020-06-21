@@ -4,9 +4,9 @@ require"connection.php";
 if(isset($_POST['delete'])){
 	$title=$_POST['title'];
 	$factory=$_POST['factory'];
-	$id="SELECT id from job where title='$title' AND factory='$factory'";
+	$sql1="SELECT id from job where title='$title' AND factory='$factory'";
 	
-	$result=mysqli_query($conn,$id);
+	$result=mysqli_query($conn,$sql1);
 
 $row=mysqli_fetch_assoc($result);
 	if($row){
@@ -16,15 +16,23 @@ $id=$row['id'];
 $res=mysqli_query($conn,$sql);
 
 if($res){
-	echo"successfully delete";
+	
+	   echo "<script> alert('successfully delete ');
+window.location.href='addjob.php';
+</script>";
 }
 else{
-echo "error is showing";
+	   echo "<script> alert('error is showing');
+window.location.href='addjob.php';
+</script>";
 }
 	}
 	else{
 
-echo "error";
+
+	   echo "<script> alert('error');
+window.location.href='addjob.php';
+</script>";
 	}
 }
 ?>

@@ -10,60 +10,65 @@ include('dbs.php');
 
 <?php
 
-
+$skil[]="";
   session_start();  
 $_SESSION['message']='';
 if($_SERVER['REQUEST_METHOD']=='POST'){
   if(isset($_POST['submit'])){
 
    $title=$_POST['title'];
-   $type=$_POST['type'];
-        $field=$_POST['field'];
+   $factory=$_POST['factory'];
+        $address=$_POST['address'];
       
     $des=$_POST['des'];
-   
-  $dur=$_POST['dur'];
+    $country=$_POST['country'];
+    $sql1="SELECT name FROM country WHERE id='$country'";
+    $res=mysqli_query($conn,$sql1);
+    $row2=mysqli_fetch_assoc($res);
+    if($row2){
+
+$country=$row2['name'];
+    }
+
+      $state=$_POST['state'];
+          $sql1="SELECT name FROM state WHERE id='$state'";
+    $res=mysqli_query($conn,$sql1);
+    $row2=mysqli_fetch_assoc($res);
+    if($row2){
+
+$state=$row2['name'];
+    }
+        $city=$_POST['city'];
+
+            $sql1="SELECT name FROM city WHERE id='$city'";
+    $res=mysqli_query($conn,$sql1);
+    $row2=mysqli_fetch_assoc($res);
+    if($row2){
+
+$city=$row2['name'];
+    }
              $link=$_POST['link'];
                 $posttime=$_POST['posttime'];
+                  $closetime=$_POST['closetime'];
 
-  $avatar_path='training/'.$_FILES['avatar']['name'];
-$avatar_path=mysqli_real_escape_string($conn,$avatar_path);
-    if(preg_match("!image!",$_FILES['avatar']['type'])){
-      if(copy($_FILES['avatar']['tmp_name'],$avatar_path)){
-        $_SESSION['title']=$title;
-        $_SESSION['avatar']=$avatar_path;
-
-    $sql="INSERT INTO  training(imagedoc,type,title,des,link,dur,posttime,field)VALUES('$avatar_path','$type','$title','$des','$link','$dur','$posttime','$field')";
+    $status=$_POST['status'];
+       $skill=$_POST['skills'];
+       for ($i=0; $i<sizeof ($skill);$i++) {
+        $skil= $skill[$i];
+       }
+    $sql="INSERT INTO  job(skills,title,factory,des,country,state,city,link,posttime,status,address,closetime)VALUES('$skil','$title','$factory','$des','$country','$state','$city','$link','$posttime','$status','$address','$closetime')";
 
 if(mysqli_query($conn,$sql)){
 
 
-   echo "<script> alert('A New Course Is Added ');
-window.location.href='addtraining.php';
+   echo "<script> alert('A New job Is Added ');
+
 </script>";
-        }
-        else{
-                    $_SESSION['message']="user could not be added to database";
-                  
-                  
-        }
+
+   
+} 
 }
-
-else{
-                $_SESSION['message']="File upload failed";
-      }
-}
-
-else{
-        $_SESSION['message']="please upload only jpg,jpeg,png,gif pictures";
-    }
-
-
-}  
-}  
- 
-
-
+} 
 ?>
 <!DOCTYPE html>
 <head>
@@ -273,6 +278,45 @@ float:center;
     margin-left : -16px;
     margin-top : -16px;
   }
+
+.multiselect {
+  width: 500px;
+  margin-left: 20px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+  al
+
+}
+
+#checkboxes label {
+  display: block;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
+}
+
+
   </style>
 
 
@@ -332,7 +376,7 @@ float:center;
 <div  align="center"> <button  onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Delete Outdated Job</button></div>
 <div  align="center"> <button  onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Update Existing Job</button></div>
 
-<div  align="center"><a href="visitjob.php"><button  onclick="document.getElementById('id04').style.display='block'" style="width:auto;">Visit Jobs</button></a>
+<div  align="center"><a href="visitjob.php"><button  onclick="document.getElementById('id04').style.display='block'" style="width:auto;">Visit Jobs</button></a></div>
 
 </div></section>
 
@@ -348,20 +392,59 @@ float:center;
     
 <br>
                                                       
+<script>
+    var expanded = false;
 
+function showCheckboxes() {
+  var checkboxes = document.getElementById("checkboxes");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+  </script>          
+  <div class="multiselect">
+    <div class="selectBox" onclick="showCheckboxes()">
+      <select  required>
+        <option>.................Select Required Skills for Job..............</option>
+      </select>
+      <div class="overSelect"></div>
+    </div>
+    <div id="checkboxes" style="text-align: left;">
+      <label for="agriculture">
+        <input type="checkbox" name="skills[]" id="one" value="agriculture"/>Agriculture</label>
+      <label for="two">
+        <input  type="checkbox" name="skills[]" id="two" value="construction work"/>Construction work</label>
+      <label for="three">
+        <input  type="checkbox" name="skills[]" id="three" value="sewing clothes" />Sewing clothes</label>
+            <label for="four">
+        <input  type="checkbox" name="skills[]" id="three" value="vandoring" />Vandoring</label>
+        <label for="five">
+        <input  type="checkbox" name="skills[]" id="three" value="tailoring" />Tailoring</label>
+                <label for="six">
+        <input  type="checkbox"  name="skills[]" id="three" value="carpenting" />Carpenting</label>
+                        <label for="seven">
+        <input  type="checkbox" name="skills[]" id="three" value="bangle work" />Bangle work</label>
+    </div>
+  </div>
+      <br>
      
        <label for="psw" align="left"><b>Name Of Job</b></label><input type="text" placeholder="Enter title of job " name="title" required> 
 
-           <label for="psw" align="left"><b>Description Of Job</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter description of Job" name="des" required>
+           <label for="psw" align="left"><b>Description Of Job</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter description of Job" name="des" required/>
 
-           <label for="psw"><b>Name Of Factory/Industry</b></label> <input type="text" placeholder="Enter name of factory or industry" name="factory"> 
+
+           <label for="psw"><b>Name Of Factory/Industry</b></label> <input type="text" placeholder="Enter name of factory or industry" name="factory"/> 
 
 
   
-         <label for="psw"><b>For Job visit..</b></label> <input type="text" placeholder="Enter website or e-mail of factory if any," name="link">
+         <label for="psw"><b>For Job visit..</b></label> <input type="text" placeholder="Enter website or e-mail of factory if any," name="link"/>
   
       
-         <label for="psw"><b>Address Of Factory</b></label> <br><input type="text" placeholder="Enter address of factory" name="address">
+         <label for="psw"><b>Address Of Factory</b></label> <br><input type="text" placeholder="Enter address of factory" name="address"/>
 <br>
 
 <?php
@@ -421,14 +504,16 @@ date_default_timezone_set('Asia/Kolkata');
 echo date('d-m-Y H:i');
 
 
-?>
+?></h6>
 
 <br><br>
-            <h6 class="jumbotron-heading"><b><u>Closing Time  :</u> </b>
+            <h6 class="jumbotron-heading"><b>Closing Time  : </b></h6>
                              <input type="date" class="form-control"  name="closetime" placeholder="Enter date of closing"/> 
+<br>
 
-
-
+  <h6 class="jumbotron-heading"><b>Status  : </b>
+                             <input type="hidden" class="form-control"  name="status" value="Active"/> <?php echo "Active";
+                             ?></h6>
 
 
 
@@ -502,61 +587,78 @@ window.onclick = function(event) {
 
 
 
-<div id="id02" class="modal"data-toggle="modal">
+<div id="id02" class="modal">
   
-  <form class="modal-content animate" action="deletecourse.php"  method="POST" autocomplete="off">
+  <form class="modal-content animate" action="deletejob.php"  method="POST" autocomplete="off">
    <div class="imgcontainer">
 
       <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-    <div class="container">
-      <h6 class="jumbotron-heading"><b><u>Type of Course  : </u> </b>
 
-                               <input type="hidden" class="form-control"  name="type" value="Online"/><?php echo "Online Course";
-                               ?>
- 
-                         </h6>
-         </div>
-      <br>
-
-  <label for="uname"><b>Title Of Course</b></label>
-     <div class="container">
+<label for="uname"><b>Name Of Job</b></label>
+     <div class="container" style="width: 70%;">
             <select id="title" name="title" required>
           <optgroup >
-      <option>-----title-----</option>
-
-
-
-   
-
+      <option>-----Title Of Job-----</option>
 <?php
 
 
 
 
- $query = "select title from training";
+ $query = "SELECT title FROM job";
                 if(count(fetchAll($query))>0){
                     foreach(fetchAll($query) as $row){
                         ?>
-                         <option value="<?php echo $row['title'] ?>"><b><?php echo $row['title'];
+                         <option value="<?php echo $row['title']; ?>"><b><?php echo $row['title'];
+
           }
         }
         ?></b></option>
           
        
           </optgroup><br></td></tr>
-        </select>
-         </div>
-            
         
-      <button type="submit" name="delete">Delete</button>
-    
-    </div>
+        </select>
 
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-  </form>
+ 
+
+      </div>
+        <br>
+
+        <label for="uname"><b>Name Of Factory</b></label>
+     <div class="container" style="width: 70%;">
+            <select id="factory" name="factory" required>
+          <optgroup >
+      <option>-----Name Of Factory-----</option>
+<?php
+
+
+
+
+ $query = "SELECT factory FROM job";
+                if(count(fetchAll($query))>0){
+                    foreach(fetchAll($query) as $row){
+                        ?>
+                         <option value="<?php echo $row['factory']; ?>"><b><?php echo $row['factory'];
+
+          }
+        }
+        ?></b></option>
+          
+       
+          </optgroup><br></td></tr>
+        
+        </select>
 </div>
+<br>
+    <div  align="center">
+ <button type="submit" name="delete">Delete</button>
+</div>
+
+   <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+</div></form></div>
+
+  
 
 <script>
 
@@ -571,43 +673,54 @@ window.onclick = function(event) {
     }
 }
 </script>
-
-
+</div>
 <div id="id03" class="modal">
   
-  <form class="modal-content animate" action="modifycourse.php" method="POST">
+  <form class="modal-content animate" action="modifyjob.php" method="POST">
    <div class="imgcontainer">
  <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
 
-    <div class="container">
-
-<h6 class="jumbotron-heading"><b><u>Type of Course  : </u> </b>
-
-                               <input type="hidden" class="form-control"  name="type" value="Online"/><?php echo "Online Course";
-                               ?>
- 
-                         </h6></div>
-
-
-
-
-        <br>
-
-        <label for="uname"><b>Title Of Course</b></label>
-     <div class="container">
-            <select id="title" name="title" required>
+          <label for="uname"><b>Name Of Job</b></label>
+     <div class="container" style="width: 70%;">
+            <select id="name" name="title" required>
           <optgroup >
-      <option>-----title-----</option>
+      <option>-----Title Of Job-----</option>
 <?php
 
 
 
 
- $query = "SELECT title FROM training";
+ $query = "SELECT title FROM job";
                 if(count(fetchAll($query))>0){
                     foreach(fetchAll($query) as $row){
                         ?>
                          <option value="<?php echo $row['title']; ?>"><b><?php echo $row['title'];
+
+          }
+        }
+        ?></b></option>
+          
+       
+          </optgroup><br></td></tr>
+        
+        </select> </div>
+        <br>
+
+        <label for="uname"><b>Name Of Factory</b></label>
+     <div class="container" style="width: 70%;">
+            <select id="factory" name="factory" required>
+          <optgroup >
+      <option>-----name Of Factory-----</option>
+<?php
+
+
+
+
+ $query = "SELECT factory FROM job";
+                if(count(fetchAll($query))>0){
+                    foreach(fetchAll($query) as $row){
+                        ?>
+                         <option value="<?php echo $row['factory']; ?>"><b><?php echo $row['factory'];
 
           }
         }
@@ -627,9 +740,7 @@ window.onclick = function(event) {
       <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
 </div></form></div>
 
-
-
-
+  
 
 
 <script>
