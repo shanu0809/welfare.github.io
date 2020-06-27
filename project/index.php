@@ -1,13 +1,35 @@
+<?php
+require"connection.php";
+?>
+
+
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
 	<title></title>
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css"  href="css/style1.css">
  <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- 
+ <link rel="stylesheet" type="text/css" href="css/ticker.css">
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/ticker.js"></script>
+        <link rel="stylesheet" href="libs/style.css">
+        <link rel="stylesheet" href="libs/theme.css">
+            <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+      <script src="js/jquery.tickerNews.js"></script>
+
+      <script src="js/jquery.tickerNews.min.js"></script>
+      <script src="libs/jquery.tickerNews.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+  <script src="/path/to/jquery.min.js"></script>
+
+<link rel="stylesheet" href="css/ticker.css">
   <style>
     *{
   margin: 0;
@@ -30,6 +52,15 @@
     }
     .d-flex div:last-child{
       border-right: none;
+    }
+    .unorder{
+      overflow:hidden;
+    }
+    .list{
+      display:inline-block;
+    }
+    .dive{
+        display:inline-block;
     }
   </style>
 </head>
@@ -60,7 +91,10 @@
         <a class="nav-link" href="#gallery">Gallery</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link" href=blog.php>Blogs</a>
+        <a class="nav-link" href=blogView.php>Blogs</a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link" href=commentmain.php>Ask Query</a>
       </li>
       <li class="nav-item">
         <a class="nav-link " href="adminlogin.php">Admin</a>
@@ -76,22 +110,22 @@
     <li data-target="#demo" data-slide-to="2"></li>
   </ul>
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="img/women-Construction-Workers-in-Gurgaon-India.jpg" alt="Los Angeles" width="1100" height="500">
+    <div class="carousel-item active" >
+      <img src="img/women-Construction-Workers-in-Gurgaon-India.jpg" alt="Los Angeles" style="width:1500px;height:500px;"width="1100" height="700">
       <div class="carousel-caption">
         <h2 class="text-light">Our Motive!</h2>
         <p class="text-light">A way towards development of society.</p>
       </div>   
     </div>
     <div class="carousel-item">
-      <img src="img/cottage-Industries.jpg" alt="Chicago" width="1100" height="500">
+      <img src="img/cottage-Industries.jpg" alt="Chicago" width="1100" height="700" style="width:1500px;height:500px;">
       <div class="carousel-caption">
         <h2 class="text-light">Our Motive!</h2>
         <p class="text-light">A way towards development of society.</p>
       </div>   
     </div>
     <div class="carousel-item">
-      <img src="img/79887580_o.jpg" alt="New York" width="1100" height="500">
+      <img src="img/79887580_o.jpg" alt="New York" width="1100" height="700" style="width:1500px;height:500px;">
       <div class="carousel-caption">
         <h2 class="text-light">Our Motive!</h2>
         <p class="text-light">A way towards development of society.</p>
@@ -105,6 +139,424 @@
     <span class="carousel-control-next-icon"></span>
   </a>
 </div>
+
+<br><br>
+<div class="ticker-container" style=" height:40px;" >
+  <div class="ticker-caption" style="background:url('img/ticker-caption-bg.png'); height:40px;  ">
+    <h6 style="padding-top:10px;">New Amendments</h6>
+  </div>
+  <ul class="unorder" style="padding-top:10px;">
+
+   
+      <marquee behavior="alternate" scrolldelay=350 loop="" direction="left">
+      <li class="list">
+     <span><?php $result=mysqli_query($conn,'SELECT id,newlaw FROM amend  ORDER BY id DESC LIMIT 1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['newlaw']==''){}
+  else
+  {
+    ?>
+<?php echo"Amendment 1:-  ".$row['newlaw'];
+}
+}
+?>
+
+ &ndash; <a href="amendment.php#change">read more</a></span></li>
+  
+
+
+     <?php echo str_repeat("&nbsp;",8);
+    ?>
+     
+        <li class="list">
+          <span> 
+<?php $result=mysqli_query($conn,'SELECT id,newlaw FROM amend  ORDER BY id DESC LIMIT 1,1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['newlaw']==''){}
+  else
+  {
+    ?>
+<?php echo" Admendment 2:-  ".$row['newlaw'];
+}
+}
+?>
+
+       &ndash; <a href="amendment.php#change">read more</a></span></li>
+   
+ 
+  
+     <?php echo str_repeat("&nbsp;",8);
+    ?>
+        <li class="list">
+          <span> 
+<?php $result=mysqli_query($conn,'SELECT id,newlaw FROM amend ORDER BY id DESC LIMIT 2,1')or die('invalid query:'.mysqli_error($conn));
+while ($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['newlaw']==''){}
+  else
+  {
+    ?>
+<?php echo"Admendment 3:- ".$row['newlaw'];
+}
+}
+?>
+ &ndash; <a href="amendment.php#change">read more</a></span></li>
+   
+ 
+  
+     <?php echo str_repeat("&nbsp;",8);
+    ?>
+</marquee>
+
+  </ul>
+
+
+</div>
+
+
+      <div class="TickerNews default_theme_2" id="T3" style="overflow: hidden;">
+                     <div class="leftside" style="background:url('img/ticker-caption-bg.png'); " >
+          <h5> Flash New Jobs</h5>
+        </div>
+        <div class="ti_wrapper">
+            <div class="ti_slide">
+                <div class="ti_content">
+
+       
+                  <ul class="unorder">
+
+      <marquee behavior="alternate" scrolldelay=300 loop="" direction="left">
+                   <li class="list"><a href="visitjob.php#change"><span>
+                                      <?php $result=mysqli_query($conn,'SELECT id,title,posttime FROM job  ORDER BY id DESC LIMIT 1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['posttime']=='0000-00-00'){
+     echo "Latest Job :- ".$row['title'];
+  }
+  else
+  {
+    ?>
+<?php echo" posted on :-  ".$row['posttime'].str_repeat("&nbsp;",3). $row['title'];
+}
+}
+
+
+?> 
+
+
+                   </span>
+                </a></li>
+                <?php
+ echo str_repeat("&nbsp;",8);
+ ?>
+
+          <li class="list"><a href="visitjob.php#change"><span>
+            
+                                               <?php $result=mysqli_query($conn,'SELECT id,title,posttime FROM job  ORDER BY id DESC LIMIT 1,1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['posttime']=='0000-00-00'){
+     echo "Latest Job :- ".$row['title'];
+  }
+  else
+  {
+    ?>
+<?php echo" posted on :-  ".$row['posttime'].str_repeat("&nbsp;",3). $row['title'];
+}
+}
+
+?> 
+
+</span>
+        </a></li>
+                        <?php
+ echo str_repeat("&nbsp;",8);
+ ?>
+          <li class="list"><a href="visitjob.php#change"><span>
+  <?php $result=mysqli_query($conn,'SELECT id,title,posttime FROM job  ORDER BY id DESC LIMIT 2,1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['posttime']=='0000-00-00'){
+     echo "Latest Job :- ".$row['title'];
+
+  }
+  else
+  {
+    ?>
+<?php echo" posted on :-  ".$row['posttime'].str_repeat("&nbsp;",3). $row['title'];
+}
+
+}    
+?>    
+
+          </span> 
+
+        </a></li>
+                        <?php
+ echo str_repeat("&nbsp;",8);
+ ?>
+        </marquee>
+        </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="TickerNews default_theme_2" id="T3" style="overflow: hidden;">
+        <div class="leftside" style="background:url('img/ticker-caption-bg.png'); " >
+          <h5>New Schemes</h5>
+        </div>
+        <div class="ti_wrapper">
+            <div class="ti_slide">
+                <div class="ti_content">
+                  <ul class="unorder">
+
+      <marquee behavior="alternate" scrolldelay=300 loop="" direction="left">
+                   <li class="list"><a href="govtscheme.php#change"><span>
+  <?php $result=mysqli_query($conn,'SELECT id,title,valid_from FROM scheme ORDER BY id DESC LIMIT 1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['valid_from']=='0000-00-00'){
+        echo "Latest Scheme :- ".$row['title'];
+  }
+  else
+  {
+    ?>
+<?php echo" posted on :-  ".$row['valid_from'].str_repeat("&nbsp;",3) . $row['title'];
+}
+
+}    
+?> </span></a></li>
+                        <?php
+ echo str_repeat("&nbsp;",8);
+ ?>
+            <li class="list"><a href="govtscheme.php#change"><span>
+  <?php $result=mysqli_query($conn,'SELECT id,title,valid_from FROM scheme  ORDER BY id DESC LIMIT 1,1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['valid_from']=='0000-00-00'){
+    echo "Latest Scheme :- ".$row['title'];
+  }
+  else
+  {
+    ?>
+<?php echo" posted on :-  ".$row['valid_from'].str_repeat("&nbsp;",3). $row['title'];
+}
+
+}    
+?> 
+
+            </span></a></li>
+                                    <?php
+ echo str_repeat("&nbsp;",8);
+ ?>
+          <li class="list"><a href="govtscheme.php#change"><span>
+  <?php $result=mysqli_query($conn,'SELECT id,title,valid_from FROM scheme  ORDER BY id DESC LIMIT 2,1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['valid_from']=='0000-00-00'){
+     echo "Latest Scheme :- ".$row['title']; 
+  }
+  else
+  {
+    ?>
+<?php echo" posted on :-  ".$row['valid_from'].str_repeat("&nbsp;",3). $row['title'];
+}
+
+}    
+?> 
+
+          </span></a></li>
+                                <?php
+ echo str_repeat("&nbsp;",8);
+ ?>
+           </marquee>
+           </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="TickerNews default_theme_2" id="T3" style="overflow: hidden;">
+           <div class="leftside" style="background:url('img/ticker-caption-bg.png'); " >
+                  <h5>New Online Courses</h5>
+        </div>
+        <div class="ti_wrapper">
+            <div class="ti_slide">
+                <div class="ti_content">
+                  <ul class="unorder">
+
+      <marquee behavior="alternate" scrolldelay=280 loop="" direction="left">
+                <li class="list"><a href="training.php#change"><span>
+                  
+  <?php $result=mysqli_query($conn,'SELECT id,title,posttime FROM training  ORDER BY id DESC LIMIT 1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['posttime']=='0000-00-00 00:00:00.0000'){
+     echo "Latest Online Course :- ".$row['title']; 
+  }
+  else
+  {
+    ?>
+<?php echo" posted on :-  ".$row['posttime'].str_repeat("&nbsp;",3). $row['title'];
+}
+
+}    
+?> 
+                </span></a></li>
+<?php
+ echo str_repeat("&nbsp;",8);
+ ?>
+             <li class="list"><a href="training.php#change"><span>
+               
+
+  <?php $result=mysqli_query($conn,'SELECT id,title,posttime FROM training  ORDER BY id DESC LIMIT 1,1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['posttime']=='0000-00-00 00:00:00.0000'){
+     echo "Latest Online Course :- ".$row['title']; 
+  }
+  else
+  {
+    ?>
+<?php echo" posted on :-  ".$row['posttime'].str_repeat("&nbsp;",3). $row['title'];
+}
+
+}    
+?>  
+             </span> </a></li>
+             <?php
+ echo str_repeat("&nbsp;",8);
+ ?>
+         <li class="list"><a href="training.php#change"><span>
+           
+
+  <?php $result=mysqli_query($conn,'SELECT id,title,posttime FROM training  ORDER BY id DESC LIMIT 2,1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['posttime']=='0000-00-00 00:00:00.0000'){
+     echo "Latest Online Course :- ".$row['title']; 
+  }
+  else
+  {
+    ?>
+<?php echo" posted on :-  ".$row['posttime'].str_repeat("&nbsp;",3). $row['title'];
+}
+
+}    
+?>  
+         </span></a></li>
+        <?php
+ echo str_repeat("&nbsp;",8);
+ ?>
+         </marquee>
+         </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+
+       <div class="TickerNews default_theme_2" id="T3" style="overflow: hidden;">
+           <div class="leftside" >
+                  <h5 style="background:url('img/ticker-caption-bg.png');  overflow-wrap:break-word;" > New Offline Courses</h5>
+        </div>
+        <div class="ti_wrapper">
+            <div class="ti_slide">
+                <div class="ti_content">
+                  <ul class="unorder">
+
+      <marquee behavior="alternate" scrolldelay=280 loop="" direction="left">
+                <li class="list"><a href="offtraining.php"><span>
+                  
+                    <?php $result=mysqli_query($conn,'SELECT id,title,posttime FROM addtraining  ORDER BY id DESC LIMIT 2,1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['posttime']=='0000-00-00 00:00:00.0000'){
+     echo "Latest Offline Course :- ".$row['title']; 
+  }
+  else
+  {
+    ?>
+<?php echo" posted on :-  ".$row['posttime'].str_repeat("&nbsp;",3). $row['title'];
+}
+
+}    
+?>  
+                </span></a></li>
+                        <?php
+ echo str_repeat("&nbsp;",8);
+ ?>
+             <li class="list"><a href="offtraining.php"><span>
+               
+                                   <?php $result=mysqli_query($conn,'SELECT id,title,posttime FROM addtraining  ORDER BY id DESC LIMIT 2,1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['posttime']=='0000-00-00 00:00:00.0000'){
+     echo "Latest Offline Course :- ".$row['title']; 
+  }
+  else
+  {
+    ?>
+<?php echo" posted on :-  ".$row['posttime'].str_repeat("&nbsp;",3). $row['title'];
+}
+
+}    
+?>  
+             </span></a></li>
+                     <?php
+ echo str_repeat("&nbsp;",8);
+ ?>
+         <li class="list"><a href="offtraining.php"><span>
+                               <?php $result=mysqli_query($conn,'SELECT id,title,posttime FROM addtraining  ORDER BY id DESC LIMIT 2,1')or die('invalid query:'.mysqli_error($conn));
+while($row=mysqli_fetch_assoc($result))
+{
+  ?>
+  <?php if($row['posttime']=='0000-00-00 00:00:00.0000'){
+     echo "Latest Offline Course :- ".$row['title']; 
+  }
+  else
+  {
+    ?>
+<?php echo" posted on :-  ".$row['posttime'].str_repeat("&nbsp;",3). $row['title'];
+}
+
+}    
+?>  
+
+
+         </span></a></li>
+                 <?php
+ echo str_repeat("&nbsp;",8);
+ ?>
+     
+         </marquee>
+         </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+ 
+  
+ 
+
+
+
+
+
 
 <section class="my-5">
   <div class="py-5" id="about">
@@ -141,7 +593,7 @@
       <h5 class="card-title">Government Schemes</h5>
       <p class="card-text">Schemes launched by government may be beneficial for you.</p>
      <footer class="footer_style_2">
-     <a href="Govt_scheme.php" class="btn btn-primary" style="width:300px;">See more</a> </footer>
+     <a href="govtscheme.php" class="btn btn-primary" style="width:300px;">See more</a> </footer>
     </div>
   </div>
   <div class="card">
@@ -168,7 +620,7 @@
       <h5 class="card-title">Search jobs</h5>
       <p class="card-text">Those who are wiling to become independent,can search jobs to fulfill their basic needs.</p>
      <footer class="footer_style_2">
-     <a href="job.php" class="btn btn-primary" style="width:300px;">See more</a> </footer>
+     <a href="visitjob.php" class="btn btn-primary" style="width:300px;">See more</a> </footer>
     </div>
   </div>
 
@@ -243,8 +695,9 @@
   <ul>
     <li><a class= "anchor_dec" href="#service">services</a></li>
     <li><a class= "anchor_dec" href="#contact">contact</a></li>
-    <li><a class= "anchor_dec" href="blog.php">blog</a></li>
+    <li><a class= "anchor_dec" href="blogView.php">blog</a></li>
     <li><a  class= "anchor_dec"href="#about">About</a></li>
+        <li><a  class= "anchor_dec"href="commentmain.php">Ask query</a></li>
   </ul>
 </div>
     </div>
