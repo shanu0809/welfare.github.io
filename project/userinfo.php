@@ -1,6 +1,20 @@
 <?php
 require "connection.php";
-  session_start();  
+  session_start();
+
+
+if (!isset($_SESSION['success'])) { 
+   echo "<script> alert( 'Alert Admin accessible page !!! You need to login first !');
+   window.location.href='adminlogin.php';
+   </script>";
+} 
+ 
+if (isset($_POST['logout'])) { 
+    session_destroy(); 
+    unset($_SESSION['success']); 
+    header("location: index.php"); 
+} 
+
 $_SESSION['message']='';
 if($_SERVER['REQUEST_METHOD']=='POST'){
   if(isset($_POST['submit'])){
@@ -255,7 +269,47 @@ float:center;
   </div>
 </nav>
 
+  <?php if (isset($_SESSION['success'])) : ?> 
+            <div class="error success" > 
+                <h3> 
+                    <?php
+                        echo $_SESSION['success'];  
+                     
+                    ?> 
+                </h3> 
+            </div> 
+        <?php endif ?> 
+   
+        <!-- information of the user logged in -->
+        <!-- welcome message for the logged in user -->
+        <?php  if (isset($_SESSION['username'])) : ?> 
+            <p align="center"> 
+                Welcome  
+                <strong> 
+                    <?php echo $_SESSION['username']; ?> 
+                </strong> 
+            </p> 
+
 <h2 align="center">Hii, Admin You can Functions using this page</h2>
+
+  <div class="content"> 
+   
+        <!-- Creating notification when the 
+                user logs in -->
+          
+        <!-- Accessible only to the users that 
+                have logged in already -->
+      
+            <div  align="Right">
+             <a href="index.php?logout='1'"> 
+           <button  onclick="document.getElementById('id06').style.display='block'" style="width:15%;background-color: Red;color: white;padding: 10px; margin: 40px;">Logout!</button>
+                </a></button></div> 
+           
+        <?php endif ?> 
+    </div> 
+
+
+
 
  <div  align="center"> <button  onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add Constitutional Amendments</button></div><br>
        <div  align="center"> <a href="dpsp.php"><button onclick="document.getElementById('id07').style.display='block'" style="width:auto;">Visit Directive Principles of State Policies(DPSPs)</button></div><br>
