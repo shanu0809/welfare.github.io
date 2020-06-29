@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-amber.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" type="text/css"  href="css/styleindex.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css"  href="css/style1.css">
@@ -69,13 +69,13 @@ font-family: 'Josefin Sans', sans-serif;
         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#Our Services">Services</a>
+        <a class="nav-link" href="index.php#service">Services</a>
       </li>
     
        <li class="nav-item">
-        <a class="nav-link" href="#Contact Us">Contact Us</a>
+        <a class="nav-link" href="index.php#contact">Contact Us</a>
            <li class="nav-item">
-        <a class="nav-link" href="#About Us">About</a>
+        <a class="nav-link" href="index.php#about">About</a>
       </li>
       </li>
       <li class="nav-item">
@@ -92,26 +92,35 @@ font-family: 'Josefin Sans', sans-serif;
         </div>
         <nav>
           <ul>
-            <li><a href="index.html"><b>Visit Jobs</b></a></li>
-            <li><a href="about.html"><b>Visit Trainings</b></a></li>
-            <li class="current"><a href="services.html">Visit Government Schemes</a></li>
-            <li class="current"><a href="services.html">Visit Latest Amendments</a></li>
+            <li><a href="visitjob.php">Jobs</a></li>
+            <li><a href="training.php">Trainings</a></li>
+            <li><a href="govtscheme.php">Schemes</a></li>
+            <li><a href="fright.php">Fundamental Rights</a></li>
+             <li><a href="duties.php">Fundamental Duties</a></li>
+              <li><a href="dpsp.php">DPSPs</a></li>
 
           </ul>
         </nav>
       </div>
     </header>
-        <section id="newsletter" style="background-color:#dd0f5e; background-size:cover; color:#ffffff;" >
+        <section id="newsletter" name="lastrecord" style="background-color:#dd0f5e; background-size:cover; color:#ffffff;" >
       <div class="container" align="left">
-       <a href="amendment.php" <div style="display:inline;white-space:nowrap; padding-left: 20px;"><img src="img/giphy.gif" alt="animate"height=100, width=100 align="left" style='border-radius: 100%;'></div>
+       <a href="#change"> <div style="display:inline;white-space:nowrap; padding-left: 20px;"><img src="img/giphy.gif" alt="animate"height=100, width=100 align="left" style='border-radius: 100%;'></div></a>
 <?php $result=mysqli_query($conn,'SELECT id, articleno, motive,newlaw FROM amend  ORDER BY id DESC LIMIT 1')or die('invalid query:'.mysqli_error($conn));
 while($row=mysqli_fetch_assoc($result)){?>
-<div  style="display:inline; white-space:nowrap;padding-left: 20px;padding-top: 30px; padding-bottom: 30px;"><b><?php echo"Article No.:-  ".$row['articleno'];?></b></div><br>
+  <?php if($row['articleno']==''){}
+  else{?>
+<div  style="display:inline; white-space:nowrap;padding-left: 20px;padding-top: 30px; padding-bottom: 30px;"><b><?php echo"Article No.:-  ".$row['articleno'];
+}
+?></b></div><br>
 
 <div  style="display:inline; white-space:nowrap;padding-left: 40px;padding-top: 30px; padding-bottom: 30px;">
-<b><?php echo"Motive:-    ".$row['motive'];?></b></div><br>
+<?php echo"Motive:-    ".$row['motive'];?></div><br>
 <div  style="display:inline; white-space:nowrap;padding-left: 40px;padding-top: 30px; padding-bottom: 30px;">
- <b><?php echo"Description:- ".$row['newlaw'];
+<?php echo"Description:- ".$row['newlaw'];
+?>
+</div><br>
+<?php
 }
 mysqli_free_result($result);
 ?></b>
@@ -124,188 +133,41 @@ mysqli_free_result($result);
         <div class="container">
             <?php
     
-            
+            $count=0;
                 $query = "select * from amend";
                 if(count(fetchAll($query))>0){
                     foreach(fetchAll($query) as $row){
                         ?>
           <div class="dark" style="background-color:#e7ee2c;color:#000000">
-  <ul>
-         
-             <?php if( $row['articleno']==''){
-                                  
-                                  }
-                                     else{?>
-                                     <li>
-                               <h6 class="jumbotron-heading"><b><u>Article  :</u> </b><?php echo $row['articleno'];
-                             } ?></h6>
-                             </li>
-                                  <?php if( $row['title']==''){
-                                  
-                                  }
-                              
-                              
-                                     else{?>
-                                       <li>
-                                <h6 class="jumbotron-heading"><b><u>title :</u> </b> <?php echo $row['title'];
-                              } 
-                              ?></h6>
-                              </li>
-                             
-                               <?php if( $row['des']==''){
-                              
-                                  }  
-                              
-                                 
-                                  else{
-                                    ?>
-                            <li>
-                                 <h6 class="jumbotron-heading"><b><u>Description Of Article : </b></u><?php echo $row['des'];?><br>
-                                  <ul>
-                                         <?php if( $row['des1']==''){
-                              
-                                  }
-                                    
-                               
-                                  else{
 
-                                    ?>
-                                    <li>
-                                 <?php echo $row['des1'];
-                               }
-                               ?></li>
-                                 <?php if( $row['des2']==''){
-                              
-                                  }
+        
                                     
-                                  
-                                  else{
-                                    ?>
-                                     <li>
-                                  <?php echo $row['des2'];
-                                }
-                                ?></li>
+                               <h5 class="jumbotron-heading"><b><?php echo $row['articleno'];?></b>
+                            </h5>
+                           
                                 
-                                     <?php if( $row['des3']==''){
+                                  
+                                <h6 class="jumbotron-heading"><b><u>motive :</u> </b> <?php echo $row['motive'];?>
                               
-                                  }
-                                    
-                                 
-                                  else{
-                                    ?>
-                                       <li>
-                                   <?php echo $row['des3'];
-                                 }
-                                   ?></li>
-                                      
-                                    <?php if( $row['des4']==''){
-                              
-                                  }
-                                  else{
-                                    ?><li>
-                                    <?php echo $row['des4'];
-                                  }?>
-                                    
-                                  </li>
-
-                                      <?php if( $row['des5']==''){
-                              
-                                  }
-                                       
+                            
+                              </h6>
+                           
+                          
+                                 <h6 class="jumbotron-heading" style="overflow-wrap: break-word;overflow: hidden;"><b><u>Description Of Article : </b></u><?php echo $row['newlaw'];?>
+                                 <br>
                                 
-                                  else{
-                                    ?>
-                                      <li>
-                                     <?php echo $row['des5'];
-
-                                      }}
-
-                                     ?></li></ul>  
-                              
-                               </h6>
-                               
-                               </li>
-                              <?php if( $row['prov']==''){
-                                  
-                                  }
-                             
-                                 
-                                     else{?>
-                                         <li>
-                                 <h6 class="jumbotron-heading"><b><u> Judicial Review And Provisions : </b></u><?php echo $row['prov'];
-                                  ?><br>
-                                  <ul>
-                                    <?php if($row['prov1']==''){
-
-                                    }
-                                   else{?>
-                                    <li>
-                                       <?php echo $row['prov1'];
-                                     }?>
-                                         
-                                       </li>
-                                 <?php if($row['prov2']==''){
-
-                                    }
-                                   else{?>
-                                    <li>
-                                       <?php echo $row['prov2'];
-                                     }?>
-                                         
-                                       </li>
-                                        <?php if($row['prov3']==''){
-
-                                    }
-                                   else{?>
-                                    <li>
-                                       <?php echo $row['prov3'];
-                                     }?>
-                                         
-                                       </li>
-                                        <?php if($row['prov4']==''){
-
-                                    }
-                                   else{?>
-                                    <li>
-                                       <?php echo $row['prov4'];
-                                     }?>
-                                         
-                                       </li>
-                                        <?php if($row['prov5']==''){
-
-                                    }
-                                   else{?>
-                                    <li>
-                                       <?php echo $row['prov5'];
-
-                                      }}
-
-                                     ?>
-                                 </li></ul>
-                                  
-                                </h6></li>
-                                  <?php if( $row['newlaw']==''){
-                                    
-                                  }
-                                     else{
-                                      ?>
-                              
-                                 <li>
-                                  
-                                 <h6 class="jumbotron-heading"><b><u>New Amendment : </b></u><?php echo $row['newlaw'];?><br>
-                                  <ul>
-                                         <?php if( $row['n1']==''){
-                              
-                                  }
-                                    
-                               
-                                  else{
+                                         <?php 
+                                         if( $row['n1']==''){}
+                              else{
 
                                     ?>
-                                    <li>
+                          
                                  <?php echo $row['n1'];
+                                 ?>
+                                 <br>
+                              <?php
                                }
-                               ?></li>
+                               ?>
                                  <?php if( $row['n2']==''){
                               
                                   }
@@ -313,10 +175,13 @@ mysqli_free_result($result);
                                   
                                   else{
                                     ?>
-                                     <li>
+                                
                                   <?php echo $row['n2'];
+                                  ?>
+                                  <br>
+                                  <?php
                                 }
-                                ?></li>
+                                ?>
                                 
                                      <?php if( $row['n3']==''){
                               
@@ -325,20 +190,26 @@ mysqli_free_result($result);
                                  
                                   else{
                                     ?>
-                                       <li>
+                                     
                                    <?php echo $row['n3'];
+                                   ?>
+                                   <br>
+                                   <?php
                                  }
-                                   ?></li>
+                                   ?>
                                       
                                     <?php if( $row['n4']==''){
                               
                                   }
                                   else{
-                                    ?><li>
+                                    ?>
                                     <?php echo $row['n4'];
+                                    ?>
+                                    <br>
+                                    <?php
                                   }?>
                                     
-                                  </li>
+                               
 
                                       <?php if( $row['n5']==''){
                               
@@ -347,51 +218,220 @@ mysqli_free_result($result);
                                 
                                   else{
                                     ?>
-                                      <li>
+                                     
                                      <?php echo $row['n5'];
+                                     ?>
+                                     <br>
+<?php
+                                      }
 
+                                     ?>
+                              
+                               </h6>
+                               
+                              
+                              <?php if( $row['prov']==''){
+                                  
+                                  }
+                             
+                                 
+                                     else{?>
+                                        
+                                 <h6 class="jumbotron-heading"style="overflow-wrap: break-word;overflow: hidden;"><b><u> Judicial Review And Provisions : </b></u><?php echo $row['prov'];
+                                  ?><br>
+                                                                     <?php if($row['prov1']==''){
+
+                                    }
+                                   else{?>
+                                  
+                                       <?php echo $row['prov1'];
+                                       ?>
+                                       <br>
+                                       <?php
+                                     }?>
+                                         
+                                      
+                                 <?php if($row['prov2']==''){
+
+                                    }
+                                   else{?>
+                                 
+                                       <?php echo $row['prov2'];
+                                       ?>
+                                       <br>
+                                       <?php
+                                     }?>
+                                         
+                                  
+                                        <?php if($row['prov3']==''){
+
+                                    }
+                                   else{?>
+                              
+                                       <?php echo $row['prov3'];
+                                       ?>
+                                       <br>
+                                       <?php
+                                     }?>
+                                         
+                                      
+                                        <?php if($row['prov4']==''){
+
+                                    }
+                                   else{?>
+                                
+                                       <?php echo $row['prov4'];
+                                      ?> 
+                                    <br>
+                                    <?php
+                                     }?>
+                                         
+                                     
+                                        <?php if($row['prov5']==''){
+
+                                    }
+                                   else{?>
+                                
+                                       <?php echo $row['prov5'];
+?>
+                                       <br>
+<?php
                                       }}
 
-                                     ?></li></ul>  
+                                     ?>
+                             
+                                  
+                                </h6>
+                                  <?php if( $row['cases']==''){
+                                    
+                                  }
+                                     else{
+                                      ?>
+                              
+                               
+                                  
+                                 <h6 class="jumbotron-heading"style="overflow-wrap: break-word;overflow: hidden;"><b><u>Cases : </b></u><?php echo $row['cases'];?><br>
+                                  
+                                         <?php if( $row['c1']==''){
+                              
+                                  }
+                                    
+                               
+                                  else{
+
+                                    ?>
+                                   
+                                 <?php echo $row['c1'];
+                                 ?>
+                                 <br>
+                                 <?php
+                               }
+                               ?>
+                                 <?php if( $row['c2']==''){
+                              
+                                  }
+                                    
+                                  
+                                  else{
+                                    ?>
+                                    
+                                  <?php echo $row['c2'];
+                                  ?>
+                                 <br> 
+                                 <?php
+                                }
+                                ?>
+                                
+                                     <?php if( $row['c3']==''){
+                              
+                                  }
+                                    
+                                 
+                                  else{
+                                    ?>
+                                   
+                                   <?php echo $row['c3'];
+                                   ?>
+                                   <br>
+                                   <?php
+                                 }
+                                   ?>
+                                      
+                                    <?php if( $row['c4']==''){
+                              
+                                  }
+                                  else{
+                                    ?>
+                                    <?php echo $row['c4'];?>
+
+                              <br>
+                                  <?php
+                                  }?>
+                                    
+                                 
+
+                                      <?php if( $row['c5']==''){
+                              
+                                  }
+                                       
+                                
+                                  else{
+                                    ?>
+                                      
+                                     <?php echo $row['c5'];
+                                     ?>
+                                     <br> 
+<?php
+                                      }}
+
+                                     ?> 
                               
 
                                
 
                                  </h6>
                               
-                               </li>
+                            
                                   <?php if( $row['valid_from']==''){
                                     
                                   }
                                
                                  
                                      else{?>
-                                       <li>
-                                 <h6 class="jumbotron-heading"><b><u>Valid_from : </b></u><?php echo $row['valid_from'];
+                                     
+                                 <h6 class="jumbotron-heading"style="overflow-wrap: break-word;overflow: hidden;"><b><u>Valid_from : </b></u><?php echo $row['valid_from'];
+                                 ?>
+                                 <br>
+                                 <?php
                                  }
                                   ?></h6>
-                               </li>
+                             
                              
                              
                                  <?php if( $row['valid_upto']==''){
                                   
                                   }
                                    else{?>
-                                     <li>
-                                 <h6 class="jumbotron-heading"><b><u>Valid_upto : </b></u><?php echo $row['valid_upto'];
+                                    
+                                 <h6 class="jumbotron-heading"style="overflow-wrap: break-word;overflow: hidden;"><b><u>Valid_upto : </b></u><?php echo $row['valid_upto'];?>
+                                 <br>
+                                 <?php
                                   }?></h6>
 
-                               </li>
+                      
 
 
-
-                          </ul>
+                         
                       </div>
                                         
                   
             <?php
-          
+          $count++;
                     }
+                    if($count>=count(fetchAll($query))){?>
+                      <div id="change">
+                   <?php }
+
                 }else{
                     echo "No records found";
                 }

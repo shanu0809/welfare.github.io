@@ -1,8 +1,10 @@
 <?php
-require "connection.php";
+
+
+
+
   session_start();
-
-
+require "connection.php";
 if (!isset($_SESSION['success'])) { 
    echo "<script> alert( 'Alert Admin accessible page !!! You need to login first !');
    window.location.href='adminlogin.php';
@@ -15,34 +17,130 @@ if (isset($_POST['logout'])) {
     header("location: index.php"); 
 } 
 
+
 $_SESSION['message']='';
 if($_SERVER['REQUEST_METHOD']=='POST'){
   if(isset($_POST['submit'])){
+    if(empty($_POST['articleno'])){
+       $articleno='';
+    }
+    else{
+         $articleno=$_POST['articleno'];
+    }
+      if(empty($_POST['job'])){
+       $job='';
+    }
+    else{
+        $job =$_POST['job'];
+    }
 
-   $articleno=$_POST['articleno'];
-   $job=$_POST['job'];
-    $des=$_POST['des'];
-     $n1=$_POST['n1'];
-      $n2=$_POST['n2'];
-       $n3=$_POST['n3'];
-        $n4=$_POST['n4'];
-         $n5=$_POST['n5'];
-    $cases=$_POST['cases'];
-      $c1=$_POST['c1'];
-      $c2=$_POST['c2'];
-       $c3=$_POST['c3'];
-        $c4=$_POST['c4'];
-         $c5=$_POST['c5'];
+ if(empty($_POST['des'])){
+  $des='';
+ }
+ else{  $des=$_POST['des'];
+}
+  if(empty($_POST['n1'])){
+     $n1="";
+  }
+  else{   $n1=$_POST['n1'];
+}
+  
+    if(empty($_POST['n2'])){
+     $n2="";
+  }
+  else{   $n2=$_POST['n2'];
+}
+  if(empty($_POST['n3'])){
+     $n3="";
+  }
+  else{   $n3=$_POST['n3'];
+}
+  if(empty($_POST['n4'])){
+     $n4="";
+  }
+  else{   $n4=$_POST['n4'];
+}
+  if(empty($_POST['n5'])){
+     $n5="";
+  }
+  else{   $n5=$_POST['n5'];
+}
 
-    $prov=$_POST['prov'];
-      $prov1=$_POST['prov1'];
-      $prov2=$_POST['prov2'];
-       $prov3=$_POST['prov3'];
-        $prov4=$_POST['prov4'];
-         $prov5=$_POST['prov5'];
+  if(empty($_POST['prov'])){
+     $prov="";
+  }
+  else{   $prov=$_POST['prov'];
+}
+  if(empty($_POST['prov1'])){
+     $prov1="";
+  }
+  else{   $prov1=$_POST['prov1'];
+}
+  if(empty($_POST['prov2'])){
+     $prov2="";
+  }
+  else{   $prov2=$_POST['prov2'];
+}
+  if(empty($_POST['prov3'])){
+     $prov3="";
+  }
+  else{   $prov3=$_POST['prov3'];
+}
+  if(empty($_POST['prov4'])){
+     $prov4="";
+  }
+  else{   $prov4=$_POST['prov4'];
+}
+  if(empty($_POST['prov5'])){
+     $prov5="NULL";
+  }
+  else{   $prov5=$_POST['prov5'];
+}
 
-    $valid1=$_POST['valid1'];
-    $valid2=$_POST['valid2'];
+  if(empty($_POST['cases'])){
+     $cases="";
+  }
+  else{   $cases=$_POST['cases'];
+}
+  if(empty($_POST['c1'])){
+     $c1="";
+  }
+  else{   $c1=$_POST['c1'];
+}
+  if(empty($_POST['c2'])){
+     $c2="";
+  }
+  else{   $c2=$_POST['c2'];
+}
+  if(empty($_POST['c3'])){
+     $c3="";
+  }
+  else{   $c3=$_POST['c3'];
+}
+  if(empty($_POST['c4'])){
+     $c4="";
+  }
+  else{   $c4=$_POST['c4'];
+}  if(empty($_POST['c5'])){
+     $c5="";
+  }
+  else{   $c5=$_POST['c5'];
+}
+  
+if(empty($_POST['valid1'])){
+   $valid1='';
+}
+else{
+   $valid1=$_POST['valid1'];
+}
+if(empty($_POST['valid2'])){
+   $valid2='';
+}
+else{
+      $valid2=$_POST['valid2'];
+}
+
+
   
     
     $sql="INSERT INTO amend(articleno,motive,newlaw,n1,n2,n3,n4,n5,prov,prov1,prov2,prov3,prov4,prov5,cases,c1,c2,c3,c4,c5,valid_from,valid_upto)VALUES('$articleno','$job','$des','$n1','$n2','$n3','$n4','$n5','$prov','$prov1','$prov2','$prov3','$prov4','$prov5','$cases','$c1','$c2','$c3','$c4','$c5','$valid1','$valid2')";
@@ -213,7 +311,7 @@ span.psw {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-x: hidden;
 
     }
     @media(max-width:768px){
@@ -270,8 +368,8 @@ float:center;
 </nav>
 
   <?php if (isset($_SESSION['success'])) : ?> 
-            <div class="error success" > 
-                <h3> 
+            <div class="error success" align="left" style="overflow-wrap: break-word;overflow: hidden; padding-left: 20px;"> 
+                <h3 style="overflow-wrap: break-word;overflow: hidden; padding-left: 20px;"> 
                     <?php
                         echo $_SESSION['success'];  
                      
@@ -284,13 +382,15 @@ float:center;
         <!-- welcome message for the logged in user -->
         <?php  if (isset($_SESSION['username'])) : ?> 
             <p align="center"> 
-                Welcome  
-                <strong> 
+                    <strong> 
+                Welcome On 
+            
                     <?php echo $_SESSION['username']; ?> 
+                    Portal
                 </strong> 
             </p> 
-
-<h2 align="center">Hii, Admin You can Functions using this page</h2>
+<br>
+<h2 align="center" style="overflow-wrap: break-word;overflow: hidden;">Hii, Admin You can Functions using this page</h2>
 
   <div class="content"> 
    
@@ -341,6 +441,7 @@ float:center;
             <option value="DPSPs"><b>DPSPs</b></option>
               <option value="Laws"><b>Constitutional Amendment Acts</b></option>
             <option value="Fundamental Duties"><b>Fundamental Duties</b></option>
+                <option value="Fundamental Duties"><b>Other Rules Or Laws</b></option>
           </optgroup><br></td></tr>
         </select><br>
      
@@ -370,11 +471,11 @@ float:center;
       <input type="text" placeholder="Enter case 4" name="c4">
       <input type="text" placeholder="Enter case 5" name="c5">
              <label for="psw"><b>valid_from</b></label>
-      <input type="date" placeholder="Enter date" name="valid1"> 
+      <input type="date" placeholder="Enter date" name="valid1"> <br>
       <label for="psw"><b>valid_upto</b></label>
             <input type="date" placeholder="Enter date" name="valid2">
-        
-      <input type="submit" name="submit" value="Add">
+        <br>
+      <button type="submit" name="submit">Add</button>
    
     </div>
 
@@ -397,175 +498,6 @@ window.onclick = function(event) {
 </script>
 
 
-
-<div id="id02" class="modal">
-  
-  <form class="modal-content animate" action="help2.php"  method="POST" autocomplete="off">
-   <div class="imgcontainer">
- <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
- </div>
-    <div class="container">
-            <select id="job" name="job" required>
-          <optgroup >
-      <option>-----title-----</option>
-    
-            <option value="DPSPs"><b></b></option>
-            <option value="women Empowerment"><b>Fundamental Duties</b></option>
-            <option value="Old Age Home"><b>Other Information</b></option>
-          </optgroup><br></td></tr>
-        </select>
-      
-      <label for="uname"><b>Name of Society</b></label>
-      <input type="text" placeholder="Enter Username" name="name" required><br>
-              <label for="psw"><b> Email_Id</b></label>
-                  <input type="email" placeholder="email_id" name="em" required><br>
-                <label for="psw"><b>Motive</b></label>
-  
-              <label for="psw"><b>Phone no.</b></label>             
-                  <input type="number_format" placeholder="Phone no." name="phn" required><br>
-
-      <label for="psw"><b> Add requirements</b></label>
-      <input type="text" placeholder="Enter requirement 1" name="r1" required>
-          <input type="text" placeholder="Enter requirement 2" name="r2">
-            <input type="text" placeholder="Enter requirement 3" name="r3">
-                <input type="text" placeholder="Enter requirement 4" name="r4">
-  
-        
-      <button type="submit" name="add">Add Requirements</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-  </form>
-</div>
-
-<script>
-
-
- // Get the modal
-var modal = document.getElementById('id02');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
-
-
-
-<div id="id03" class="modal">
-  
-  <form class="modal-content animate" action="help3.php" method="POST">
-   <div class="imgcontainer">
- <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
- </div>
-    <div class="container">
-      <label for="uname"><b>Name of Society</b></label>
-      <input type="text" placeholder="Enter Username" name="nm" required>
-
-      <label for="psw"><b> Add vacancies</b></label><br>
-      <input type="text" placeholder="Enter vacancy 1" name="v1" required><label for="psw"><b>valid_upto</b></label> <input type="date" placeholder="last date 1" name="ls1" required>            
-          <input type="text" placeholder="Enter vacancy 2" name="v2"><label for="psw"><b>valid_upto</b></label> <input type="date" placeholder="last date 2" name="ls2"> 
-            <input type="text" placeholder="Enter vacancy 3" name="v3" ><label for="psw"><b>valid_upto</b></label> <input type="date" placeholder="last date 3" name="ls3"> 
-                <input type="text" placeholder="Enter vacancy 4" name="v4"><label for="psw"><b>valid_upto</b></label> <input type="date" placeholder="last date 4" name="ls4"> 
-            <label for="psw"><b> Email_Id</b></label>
-                  <input type="email" placeholder="email_id" name="eml" required>
-              
-                
-                  <select id="job" name="job" required>
-          <optgroup >
-      <option>-----motive-----</option>
-    
-            <option value="Save Girl Child"><b>save girl child</b></option>
-            <option value="women Empowerment"><b>women empowerment</b></option>
-            <option value="Old Age Home"><b>old age home</b></option>
-          </optgroup><br></td></tr>
-        </select>
-        
-      <button type="submit" name="vacancy">Add Vacancies</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-  </form>
-</div>
-<script>
-// Get the modal
-var modal = document.getElementById('id03');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
-<div id="id05" class="modal">
-  
-  <form class="modal-content animate" action="help2.php"  method="POST" autocomplete="off">
-   <div class="imgcontainer">
- <span onclick="document.getElementById('id05').style.display='none'" class="close" title="Close Modal">&times;</span>
- </div>
-    <div class="container">
-      <label for="uname"><b>Name of Society</b></label>
-      <input type="text" placeholder="Enter Username" name="name" required><br>
-              <label for="psw"><b> Email_Id</b></label>
-                  <input type="email" placeholder="email_id" name="em" required><br>
-                <label for="psw"><b>Motive</b></label>
-        <select id="job" name="job" required>
-          <optgroup >
-      <option>-----motive-----</option>
-    
-            <option value="Save Girl Child"><b>save girl child</b></option>
-            <option value="women Empowerment"><b>women empowerment</b></option>
-            <option value="Old Age Home"><b>old age home</b></option>
-          </optgroup><br></td></tr>
-        </select>
-              <label for="psw"><b>Phone no.</b></label>             
-                  <input type="number_format" placeholder="Phone no." name="phn" required><br>
-
-      <label for="psw"><b> Add requirements</b></label>
-      <input type="text" placeholder="Enter requirement 1" name="r1" required>
-          <input type="text" placeholder="Enter requirement 2" name="r2">
-            <input type="text" placeholder="Enter requirement 3" name="r3">
-                <input type="text" placeholder="Enter requirement 4" name="r4">
-  
-        
-      <button type="submit" name="add">Add Requirements</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-  </form>
-</div>
-
-<script>
-
-
- // Get the modal
-var modal = document.getElementById('id03');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
 </body>
 </html>
 
