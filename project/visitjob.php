@@ -59,6 +59,17 @@
 </style>
 </head>
 <body>
+   <div id= "google_translate_element" style="background-color:white; background-size:cover;color: white;top: 0;display: block;margin-top: 0; height:50px;position:absolute;left:0; right: 0; top:0;width:100%; color:white;">
+
+    <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</div>
+     <div align="right"><a href="../index.php"><button style="background-color: red;color: white; width:15%;padding: 10px; margin: 40px;">Back To Home</button></a></div>
 
 <h2>Hii, Visit The Jobs Details.</h2>
 
@@ -71,32 +82,47 @@
            
             <th style="width:20%;">Country</th>
            <th style="width:20%;">Address</th>          
-                               
-                      <th style="width:20%;">Name Of Factory/Industry</th>
-                        <th style="width:20%;">Website</th>
+        <th style="width:20%;">Name Of Factory/Industry</th>
+ 
+        <th style="width:20%;">Website</th>
    <th style="width:20%;">Title of Job</th>
    <th style="width:20%;">Description of Job</th>
       <th style="width:20%;">Skills Required</th>
+               <th style="width:20%;">Salary</th>
+            <th style="width:20%;">Experience</th>
  <th style="width:20%;">Posted On </th>
   <th style="width:20%;">Updated On</th>
   <th style="width:20%;">Closed On</th>
 
   <th style="width:20%;">Status</th>
+
+  <th style="width:20%;">Updated Status</th>
   </tr>
   
  <?php
  require "connection.php";
-  $sql = "SELECT * FROM  training";
+ require"functions.php";
+ $count=0;
+  $sql = "SELECT * FROM  job";
       $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
           // output data of each row
           while($row = $result->fetch_assoc()) {
+            ?>
               
-            echo "<tr>";
+            <tr id="change">
 
+<?php
 
-             echo "<td>" . $row["field"] . "</td>";
+ echo "<td>" . $row["city"] . "</td>";
+  echo "<td>" . $row["state"] . "</td>";
+   echo "<td>" . $row["country"] . "</td>";
+    echo "<td>" . $row["address"] . "</td>";
+     echo "<td>" . $row["factory"] . "</td>";
+      echo "<td>" . $row["link"] . "</td>";
+       echo "<td>" . $row["title"] . "</td>";
+
           
             echo "<td>" ?>
            
@@ -115,37 +141,32 @@ $(document).ready(function(){
 });
 </script>
 
-
-
-
-             <?php
-             "</td>";
-          
-                echo "<td>" . $row["des"] . "</td>";
-              
-                                  echo "<td>"
-                                  ?>  
-                                  <img class="image fit" src="  <?php echo $row['imagedoc'];?>" height="100px" width="150px" style="border-radius:none;" class="img-fluid aboutimg"/></a>
-                                  <?php
-                                  "</td>";
-                                  ?>
-
-                                   <?php
-                                    echo "<td>" ?>
-<a href ="<?php echo $row['link'];?>">
+<a href="<?php $row['link'] ?>">
 <?php
+
         echo $row['link'];
         ?>
         </a>
         <?php
 
-                                     "</td>";
-                                    ?>
+ "</td>";
+?>
 
    <?php
-             "</td>";
+            
           
-                echo "<td>" . $row["dur"] . "</td>";
+                echo "<td>" . $row["skills"] . "</td>";
+
+   
+             "</td>";
+
+
+                echo "<td>" . $row["salary"] . "</td>";
+
+   
+             "</td>";
+
+                echo "<td>" . $row["exp"] . "</td>";
 
    
              "</td>";
@@ -156,8 +177,24 @@ $(document).ready(function(){
              "</td>";
           
                 echo "<td>" . $row["updatetime"] . "</td>";
+                 "</td>";
               
-                                  echo "<td>"
+                                
+
+                echo "<td>" . $row["closetime"] . "</td>";
+                 "</td>";
+
+              
+                                  
+                echo "<td>" . $row["status"] . "</td>";
+                 "</td>";
+              
+                            
+
+                echo "<td>" . $row["updatestatus"] . "</td>";
+                 "</td>";
+              
+                                
                                   ?>  
 
 
@@ -165,6 +202,7 @@ $(document).ready(function(){
                                   
                                  
                                   <?php
+                                  $count++;
             echo "</tr>";     
           
         }
@@ -179,6 +217,17 @@ $(document).ready(function(){
 
 
 </table>
+  <?php
+        
+                    
+                    if($count>=count(fetchAll($sql))){?>
+                      <tr id="change">
+                   <?php }
+
+                else{
+                    echo "No records found";
+                }
+            ?>
 
 
 <script>

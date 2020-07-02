@@ -46,7 +46,8 @@
 	<body class="subpage">
 
 
-
+<br>
+		 <div align="right"><a href="../index.php"><button style="background-color: red;color: white; width:15%;padding: 10px; margin: 40px;">Back To Home</button></a></div>
 
 	<!--	<div class="btn-group-lg btn-group-justified">
 			<div class="row">

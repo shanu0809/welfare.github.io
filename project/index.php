@@ -8,8 +8,10 @@ require"connection.php";
 <head>
 	<title></title>
 <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css"  href="css/style1.css">
  <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -35,6 +37,9 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow-y: scroll;
+
+  font-family: 'Josefin Sans', sans-serif;
     }
     @media(max-width:768px){
       li{
@@ -59,14 +64,47 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
     .list{
       display:inline-block;
     }
-    .dive{
-        display:inline-block;
-    }
-  </style>
-</head>
-<body>
+    .content {
+  /* These rules create an artificially confined space, so we get
+     a scrollbar that we can hide. They are not directly involved in
+     hiding the scrollbar. */
+  overflow-y: scroll;
+  position:absolute;
+}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+.content {
+  /* This is the magic bit for Firefox */
+  scrollbar-width: none;
+}
+
+.content::-webkit-scrollbar {
+  /* This is the magic bit for WebKit */
+  display: none;
+}
+
+::-webkit-scrollbar {
+  /* This is the magic bit for WebKit */
+  display: none;
+}
+
+   </style>
+
+
+
+
+</head>
+<body class="content">
+  <div id= "google_translate_element" style="background:url('img/pic06.jpg');background-size:cover;color: white;top: 0;display: block;margin-top: 0; height:auto;position:absolute;left:0; right: 0; top:0;width:100%;"></div>
+    <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+  
   <a class="navbar-brand" href="#">E-Legal Aid & Welfare Portal</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -91,7 +129,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
         <a class="nav-link" href="#gallery">Gallery</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link" href=blogView.php>Blogs</a>
+        <a class="nav-link" href=blogging/blogView.php>Blogs</a>
       </li>
          <li class="nav-item">
         <a class="nav-link" href=commentmain.php>Ask Query</a>
@@ -99,10 +137,11 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
       <li class="nav-item">
         <a class="nav-link " href="adminlogin.php">Admin</a>
       </li>
+   
     </ul>
   </div>
 </nav>
-
+<div>
 <div id="demo" class="carousel slide" data-ride="carousel">
   <ul class="carousel-indicators">
     <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -111,21 +150,21 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   </ul>
   <div class="carousel-inner">
     <div class="carousel-item active" >
-      <img src="img/women-Construction-Workers-in-Gurgaon-India.jpg" alt="Los Angeles" style="width:1500px;height:500px;"width="1100" height="700">
+      <img src="img/women-Construction-Workers-in-Gurgaon-India.jpg" alt="Los Angeles" style="width:1500px;height:500px;"width="100%" height="700">
       <div class="carousel-caption">
         <h2 class="text-light">Our Motive!</h2>
         <p class="text-light">A way towards development of society.</p>
       </div>   
     </div>
     <div class="carousel-item">
-      <img src="img/cottage-Industries.jpg" alt="Chicago" width="1100" height="700" style="width:1500px;height:500px;">
+      <img src="img/cottage-Industries.jpg" alt="Chicago" width="100%" height="700" style="width:1500px;height:500px;">
       <div class="carousel-caption">
         <h2 class="text-light">Our Motive!</h2>
         <p class="text-light">A way towards development of society.</p>
       </div>   
     </div>
     <div class="carousel-item">
-      <img src="img/79887580_o.jpg" alt="New York" width="1100" height="700" style="width:1500px;height:500px;">
+      <img src="img/79887580_o.jpg" alt="New York" width="100%" height="700" style="width:1500px;height:500px;">
       <div class="carousel-caption">
         <h2 class="text-light">Our Motive!</h2>
         <p class="text-light">A way towards development of society.</p>
@@ -139,16 +178,16 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
     <span class="carousel-control-next-icon"></span>
   </a>
 </div>
-
-<br><br>
-<div class="ticker-container" style=" height:40px;" >
+</div>
+<br>
+<div class="ticker-container" style=" height:40px;width: 100%" >
   <div class="ticker-caption" style="background:url('img/ticker-caption-bg.png'); height:40px;  ">
     <h6 style="padding-top:10px;">New Amendments</h6>
   </div>
   <ul class="unorder" style="padding-top:10px;">
 
    
-      <marquee behavior="alternate" scrolldelay=350 loop="" direction="left">
+      <marquee behavior="scroll" scrolldelay=100 loop="" direction="left">
       <li class="list">
      <span><?php $result=mysqli_query($conn,'SELECT id,newlaw FROM amend  ORDER BY id DESC LIMIT 1')or die('invalid query:'.mysqli_error($conn));
 while($row=mysqli_fetch_assoc($result))
@@ -189,7 +228,7 @@ while($row=mysqli_fetch_assoc($result))
    
  
   
-     <?php echo str_repeat("&nbsp;",8);
+     <?php echo str_repeat("&nbsp;",6);
     ?>
         <li class="list">
           <span> 
@@ -209,7 +248,7 @@ while ($row=mysqli_fetch_assoc($result))
    
  
   
-     <?php echo str_repeat("&nbsp;",8);
+     <?php echo str_repeat("&nbsp;",6);
     ?>
 </marquee>
 
@@ -658,15 +697,17 @@ while($row=mysqli_fetch_assoc($result))
       </div>
     
 
-    </div>
-      </div>
+ </div>
+      </div></section>
+ 
 
-
-<footer class="footer_style">
-  <section class="my-5">
-  <div class="py-5">
-    <h2 class="text-center">Contact Us</h2></div>
-  <main class="container-fluid">
+   <footer class="footer_style" >
+  <section class="my-5" >
+     <div class="py-5">
+     
+        
+ 
+    <h2 class="text-center">Contact Us</h2>
     <div class="row p-3">
       <div class="col-lg-4 col-md-4 col-12 offset-md-1">
         <p class="mt-5 text-justify" >E-Legal Aid & Welfare Portal is for supporting the people who are not aware about their rights, and harras by other to fulfill their motive. It also focus in making oppressed and less skilled people independent.</p>
@@ -695,7 +736,7 @@ while($row=mysqli_fetch_assoc($result))
   <ul>
     <li><a class= "anchor_dec" href="#service">services</a></li>
     <li><a class= "anchor_dec" href="#contact">contact</a></li>
-    <li><a class= "anchor_dec" href="blogView.php">blog</a></li>
+    <li><a class= "anchor_dec" href="blogging/blogView.php">blog</a></li>
     <li><a  class= "anchor_dec"href="#about">About</a></li>
         <li><a  class= "anchor_dec"href="commentmain.php">Ask query</a></li>
   </ul>
@@ -718,10 +759,16 @@ while($row=mysqli_fetch_assoc($result))
       
     </i></a>
       <span>Twitter</span></div>
+   
     </div>
-</main>
-</section>
+
+</div>
+  </section>
 </footer>
+
+
+
+
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

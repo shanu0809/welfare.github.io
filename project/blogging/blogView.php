@@ -40,23 +40,6 @@
 				$result = mysqli_query($conn, $sql);
 			}
 		}
-
-		else
-		{
-			$sql = "SELECT * FROM blogdata ORDER BY blogId DESC";
-			$result = mysqli_query($conn, $sql);
-
-			while($row = $result->fetch_array())
-			{
-				$check = "like".$row['blogId'];
-				if(isset($_POST[$check]))
-				{
-					$blogId = $row['blogId'];
-					break;
-				}
-			}
-		
-		}
 	}
 
 	function dataFilter($data)
@@ -99,28 +82,37 @@
 		<link rel="stylesheet" href="css/style.css" />
 		<link rel="stylesheet" href="css/style-xlarge.css" />
 		<link rel="stylesheet" href="Blog/commentBox.css" />
+
 	</head>
 	<body class="subpage">
 
-		
+ <div id= "google_translate_element" style="background-color:white; background-size:cover;color: white;top: 0;display: block;margin-top: 0; height:50px;position:absolute;left:0; right: 0; top:0;width:100%; color:white;">
+
+    <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</div>
+<br>
+		 <div align="right"><a href="../index.php"><button style="background-color: red;color: white; width:15%;padding: 10px; margin: 40px;">Back To Home</button></a></div>
 
 			<section id="main" class="wrapper">
 				<div class="inner">
-					<div class="container" style="width: 80%;height: auto;">
-					<div class="row uniform">
+					<div class="container" style="width: 80%; height:auto;">
+					<div class="row">
 						<div class="9u 12u$(small)">
 
 						</div>
-						<div class="3u 12u$(small)">
+						<div class="3u 12u$(small)"  style="margin-right: 10px;">
 							<a href="blogWrite.php" class="button special fit"><span class="glyphicon glyphicon-pencil"></span> Write a Blog</a>
 						</div>
 					</div>
 					<br />
 					<?php
-
-			$sql = "SELECT * FROM blogdata ORDER BY blogId DESC";
-			$result = mysqli_query($conn, $sql);
-						while($row = $result->fetch_array()) :
+						while($row = $result->fetch_array()) {
 							$id = $row['blogId'];
 							$sql = "SELECT * FROM blogfeedback WHERE blogId = '$id'";
 							$result1 = mysqli_query($conn, $sql);
@@ -132,7 +124,7 @@
 							<?= $row['blogContent']; ?>
 							<p>--- <?= $row['blogUser']; ?></p>
 							<p><?= $row['blogTime']; ?></p>
-						</blockquote>
+						</blockquote><br>
 
 						<form method="post" action="blogView.php">
 							<div class="row">
@@ -153,40 +145,58 @@
 									<center>
 									<br>
 									<input type="submit" name="<?php echo 'submit'.$id; ?>" class="button special small" value="Submit"/>
-									</center>
-								</div>
-						
+									</center></div>
+
+							
+							</form>
+<br>
 
 						<?php
-							if($result1) :
-								while($row1 = $result1->fetch_array()) :
+							if($result1) {
+
+								while($row1 = $result1->fetch_array()) {
+							
 						?>
-							<div class="con darker">
+
+							<div class="con darker"style="overflow-wrap: break-word;width:250px;height: auto;">
+
 								<?php if($row1['commentUser']=='Admin'||$row1['commentUser']=='admin'){
 									?>
-<img src="<?php echo 'emblem.jpg'?>" alt="Avatar"><span><em><?= $row1['commentUser']; ?></em></span>
+<img style="display: inline-block;" src="<?php echo $row1['commentPic']?>" alt="Avatar"><span><em><?= $row1['commentUser']; ?></em></span>
 								<?php
 							}
 								else{
 									?>
-								<img src="<?php echo 'profile0.png'?>" alt="Avatar"><span><em><?= $row1['commentUser']; ?></em></span>
+								<img style="display: inline-block;" src="<?php echo $row1['commentPic']?>" alt="Avatar"><span><em><?= $row1['commentUser']; ?></em></span>
 								<?php
 							}
-							?>
-								<br>
+							?><br>
+				
 								<?= $row1['comment']; ?>
 								<span class="time-right"><?= formatDate($row1['commentTime']); ?></span>
-							</div>
+		</div>	
 
-							<?php endwhile; ?>
-						<?php endif; ?>
-					</div>
-	</div>
-						</form>
-					<?php endwhile; ?>
+							<?php 
+							}
+							 ?>
+
+						<?php
+						 }
+						 ?>
+					</div>	</div>
+	
+					<?php 
+					}
+					 ?>
 
 				</div>
+				 <br>
 			</section>
+																			<script>
+									if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
 
 		<script>
 

@@ -4,22 +4,26 @@ require'functions.php';
 include('dbs.php');
 ?>
 
-
-
-
-
 <?php
 
-$skil[]="";
+
   session_start();  
 $_SESSION['message']='';
+
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 if($_SERVER['REQUEST_METHOD']=='POST'){
   if(isset($_POST['submit'])){
 
-   $title=$_POST['title'];
    $factory=$_POST['factory'];
         $address=$_POST['address'];
-      
+         $exp=$_POST['exp'];
+            $salary=$_POST['salary'];
     $des=$_POST['des'];
     $country=$_POST['country'];
     $sql1="SELECT name FROM country WHERE id='$country'";
@@ -48,22 +52,36 @@ $state=$row2['name'];
 $city=$row2['name'];
     }
              $link=$_POST['link'];
+                 $link = test_input($_POST["link"]);
+    // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
+    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$link)) {
+    echo "Invalid URL";
+    }
+
+$title = test_input($_POST["title"]);
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z ]*$/",$title)) {
+      $_SESSION['message'] = "Only letters and white space allowed";
+    }
+$factory = test_input($_POST["factory"]);
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z ]*$/",$factory)) {
+      $_SESSION['message'] = "Only letters and white space allowed";
+    }
+
+
+
                 $posttime=$_POST['posttime'];
                   $closetime=$_POST['closetime'];
 
-    $status=$_POST['status'];
-       $skill=$_POST['skills'];
-       for ($i=0; $i<sizeof ($skill);$i++) {
-        $skil= $skill[$i];
-       }
-    $sql="INSERT INTO  job(skills,title,factory,des,country,state,city,link,posttime,status,address,closetime)VALUES('$skil','$title','$factory','$des','$country','$state','$city','$link','$posttime','$status','$address','$closetime')";
+    $skills=$_POST['skills'];
+       $status=$_POST['status'];
+    $sql="INSERT INTO  job(skills,title,factory,des,country,state,city,link,posttime,status,address,closetime,salary,exp)VALUES('$skills','$title','$factory','$des','$country','$state','$city','$link','$posttime','$status','$address','$closetime','$salary','$exp')";
 
 if(mysqli_query($conn,$sql)){
 
 
-   echo "<script> alert('A New job Is Added ');
-
-</script>";
+   echo "<script> alert('A New job Is Added ')</script>";
 
    
 } 
@@ -319,7 +337,11 @@ float:center;
 
   </style>
 
-
+                                      <script>
+                  if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
 
 </head>
 <body>
@@ -354,7 +376,10 @@ float:center;
       </li>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="adminlogin.php">Admin</a>
+        <a class="nav-link " href="blogging/blogView.php">Blogs</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link " href="commentmain.php">Ask Query</a>
       </li>
     </ul>
   </div>
@@ -392,50 +417,25 @@ float:center;
     
 <br>
                                                       
-<script>
-    var expanded = false;
 
-function showCheckboxes() {
-  var checkboxes = document.getElementById("checkboxes");
-  if (!expanded) {
-    checkboxes.style.display = "block";
-    expanded = true;
-  } else {
-    checkboxes.style.display = "none";
-    expanded = false;
-  }
-}
-  </script>          
-  <div class="multiselect">
-    <div class="selectBox" onclick="showCheckboxes()">
-      <select  required>
-        <option>.................Select Required Skills for Job..............</option>
-      </select>
-      <div class="overSelect"></div>
-    </div>
-    <div id="checkboxes" style="text-align: left;">
-      <label for="agriculture">
-        <input type="checkbox" name="skills[]" id="one" value="agriculture"/>Agriculture</label>
-      <label for="two">
-        <input  type="checkbox" name="skills[]" id="two" value="construction work"/>Construction work</label>
-      <label for="three">
-        <input  type="checkbox" name="skills[]" id="three" value="sewing clothes" />Sewing clothes</label>
-            <label for="four">
-        <input  type="checkbox" name="skills[]" id="three" value="vandoring" />Vandoring</label>
-        <label for="five">
-        <input  type="checkbox" name="skills[]" id="three" value="tailoring" />Tailoring</label>
-                <label for="six">
-        <input  type="checkbox"  name="skills[]" id="three" value="carpenting" />Carpenting</label>
-                        <label for="seven">
-        <input  type="checkbox" name="skills[]" id="three" value="bangle work" />Bangle work</label>
-    </div>
-  </div>
-      <br>
      
        <label for="psw" align="left"><b>Name Of Job</b></label><input type="text" placeholder="Enter title of job " name="title" required> 
 
            <label for="psw" align="left"><b>Description Of Job</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter description of Job" name="des" required/>
 
+           <label for="psw" align="left"><b>Skills Required For Job</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter skills" name="skills"/><br><br>
+                <label for="psw" align="left" style="margin-left:5px;display: inline; "><b>Experience Required if any,</b></label>                                         <?php
+ echo str_repeat("&nbsp;",3);
+ ?><input type="number"  min="0" max="50" style="height: 40px; width:200px; text-align: top;padding-top: 5px;display: inline; " placeholder="Experience" name="exp" />                                         <?php
+ echo str_repeat("&nbsp;",3);
+ ?><label for="psw" align="left"style="display: inline;"><b>Years</b></label>
+                                           <?php
+ echo str_repeat("&nbsp;",8);
+ ?><label for="psw" align="left" style="display: inline;"><b>Salary Expected in Rs.</b></label>
+                                         <?php
+ echo str_repeat("&nbsp;",3);
+ ?>
+ <input type="number"  min="1000"  max="100000" style="height: 40px; width:200px; text-align: top;padding-top: 5px;display: inline;" placeholder="Enter Salary/month" name="salary" /><br><br>
 
            <label for="psw"><b>Name Of Factory/Industry</b></label> <input type="text" placeholder="Enter name of factory or industry" name="factory"/> 
 
@@ -754,6 +754,10 @@ window.onclick = function(event) {
     }
 }
 </script>
+
+
+
+
 
 </div>
 </body>
