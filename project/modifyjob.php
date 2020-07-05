@@ -122,7 +122,11 @@ button:hover {
 }
   </style>  
 
-
+<script>
+                  if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
 
 
 </head>
@@ -205,6 +209,29 @@ if($row['title']==''){
                       }
                       ?></h6></div>
 
+                     
+
+                    <div class="form-group">
+                          <h6 class="jumbotron-heading"><b><u>Skills Required For Job:</u> </b>
+<?php
+if($row['skills']==''){
+  ?>
+
+                         <input type="text" class="form-control" name="skills" placeholder="Enter skills"> 
+                         
+                          <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control"  name="skills" value="<?php echo $row['skills'];?>"></h6></div>
+                        
+                        <?php
+                      }
+?>
+
+
+
+
                     <div class="form-group">
                             <h6 class="jumbotron-heading"><b><u>Name Of Factory :</u> </b><input type="text" class="form-control" name="factory" value="<?php echo $row['factory'];?>"></h6>
                     </div>
@@ -251,6 +278,24 @@ if($row['address']==''){
                           <input type="hidden" name="city" class="form-control" value="<?php echo $row['city'];?>"><?php echo $row['city'];
                        
                          ?></h6></div>
+
+                                             <div class="form-group">
+                          <h6 class="jumbotron-heading"><b><u>Contact No. : </u> </b>
+<?php
+if($row['phone']==''){
+  ?>
+
+                         <input type="text" class="form-control" name="mob" placeholder="Enter cotact no."> 
+                         
+                          <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control" name="mob" value="<?php echo $row['phone'];?>">
+                        
+                        <?php
+                      }
+?>
 
 
                     <div class="form-group">
@@ -301,10 +346,6 @@ if($row['closetime']==''){
                              ?>
                              </h6> </div>
 
- <div class="form-group">
-  <h6 class="jumbotron-heading"><b>Status  : </b>
-                             <input type="text" class="form-control"  name="status" value="Active"/> 
-                             </h6></div>
 <br>
 <br>
   <button type="submit" name="update" class="btnclass">Update </button><br><br>

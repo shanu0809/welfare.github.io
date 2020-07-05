@@ -10,7 +10,7 @@ include('dbs.php');
   session_start();  
 $_SESSION['message']='';
 
-
+$phone="/^[1-9][0-9]*$/";
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -19,11 +19,24 @@ function test_input($data) {
 }
 if($_SERVER['REQUEST_METHOD']=='POST'){
   if(isset($_POST['submit'])){
-
-   $factory=$_POST['factory'];
-        $address=$_POST['address'];
+if($_POST['address']==''){
+   $address='place is given after selection';
+}
+    else{   $address=$_POST['address'];
+  }
+        if($_POST['exp']==''){
+          $exp=0;
+        }
+        else{
          $exp=$_POST['exp'];
+       }
+         if($_POST['salary']==''){
+           $salary="not disclosed";
+          
+         }
+         else{
             $salary=$_POST['salary'];
+         }
     $des=$_POST['des'];
     $country=$_POST['country'];
     $sql1="SELECT name FROM country WHERE id='$country'";
@@ -51,40 +64,85 @@ $state=$row2['name'];
 
 $city=$row2['name'];
     }
-             $link=$_POST['link'];
+    if($_POST['link']==''){
+        $link=''; 
+    }
+       else{     $link=$_POST['link'];
                  $link = test_input($_POST["link"]);
     // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
     if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$link)) {
     echo "Invalid URL";
     }
-
-$title = test_input($_POST["title"]);
-    // check if name only contains letters and whitespace
-    if (!preg_match("/^[a-zA-Z ]*$/",$title)) {
-      $_SESSION['message'] = "Only letters and white space allowed";
+  
     }
+  if($_POST["title"]==''){
+  $title='';
+}
+  else{// check if name only contains letters and whitespace
+     $title=$_POST['title'];
+    $title = test_input($_POST["title"]);
+    if (!preg_match("/^[a-zA-Z ]*$/",$title)) {
+    
+   echo "<script> alert('Only letters and white space allowed')</script>";
+    }
+  
+  }
+  if($_POST["factory"]==''){
+  $factory='';
+}
+else{
+   $factory=$_POST['factory'];
 $factory = test_input($_POST["factory"]);
     // check if name only contains letters and whitespace
     if (!preg_match("/^[a-zA-Z ]*$/",$factory)) {
-      $_SESSION['message'] = "Only letters and white space allowed";
+    
+
+   echo "<script> alert('Only letters and white space allowed')</script>";
+
     }
+  
+}
+  if($_POST["mob"]==''){
+  $mob='';
+}
+else{
+   $mob=$_POST['mob'];
+$mob = test_input($_POST["mob"]);
+if(!preg_match($phone, $mob)) {
 
+   echo "<script> alert('Please enter a valid number')</script>";
+  
 
+}
 
+}
                 $posttime=$_POST['posttime'];
-                  $closetime=$_POST['closetime'];
-
+        if($_POST['skills']==''){
+          $skills="no particular skill required";
+        }         
+else{
     $skills=$_POST['skills'];
-       $status=$_POST['status'];
-    $sql="INSERT INTO  job(skills,title,factory,des,country,state,city,link,posttime,status,address,closetime,salary,exp)VALUES('$skills','$title','$factory','$des','$country','$state','$city','$link','$posttime','$status','$address','$closetime','$salary','$exp')";
+  }
+  if($_POST['closetime']==''){
+     $closetime='-';
+  }
+  else{
+     $closetime=$_POST['closetime'];
+}
+   
+    $sql="INSERT INTO  job(skills,title,factory,des,country,state,city,link,posttime,address,closetime,salary,exp,phone)VALUES('$skills','$title','$factory','$des','$country','$state','$city','$link','$posttime','$address','$closetime','$salary','$exp','$mob')";
 
 if(mysqli_query($conn,$sql)){
 
 
    echo "<script> alert('A New job Is Added ')</script>";
-
+}
    
-} 
+else{
+
+
+   echo "<script> alert('Invalid Format Please enter the data in correct format')</script>";
+}
 }
 } 
 ?>
@@ -411,7 +469,7 @@ float:center;
   
   <form class="modal-content animate" action="#" enctype="multipart/form-data" method="POST" autocomplete="off">
 
-    <div class="imgcontainer">
+    <div class="imgcontainer" style="overflow-x: hidden;">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
 
     
@@ -419,8 +477,9 @@ float:center;
                                                       
 
      
-       <label for="psw" align="left"><b>Name Of Job</b></label><input type="text" placeholder="Enter title of job " name="title" required> 
-
+       <label for="psw" align="left"style="margin-left:5px;display: inline;"><b>Name Of Job</b></label> <?php
+ echo str_repeat("&nbsp;",3);?><input type="text"  style="height: 40px; text-align: top;padding-top: 5px;display: inline;" placeholder="Enter title of job " name="title" required> <br>
+<br>
            <label for="psw" align="left"><b>Description Of Job</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter description of Job" name="des" required/>
 
            <label for="psw" align="left"><b>Skills Required For Job</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter skills" name="skills"/><br><br>
@@ -437,12 +496,19 @@ float:center;
  ?>
  <input type="number"  min="1000"  max="100000" style="height: 40px; width:200px; text-align: top;padding-top: 5px;display: inline;" placeholder="Enter Salary/month" name="salary" /><br><br>
 
-           <label for="psw"><b>Name Of Factory/Industry</b></label> <input type="text" placeholder="Enter name of factory or industry" name="factory"/> 
+           <label for="psw"align="left" style="display: inline-block;"><b>Name Of Factory/Industry</b></label>                       <?php
+ echo str_repeat("&nbsp;",3);?> <input type="text" placeholder="Enter name of factory/industry" style="height: 40px;  text-align: top;padding-top: 5px;display: inline-block;margin-right: 10px;" name="factory"/> 
 
-
+<br><br>
   
-         <label for="psw"><b>For Job visit..</b></label> <input type="text" placeholder="Enter website or e-mail of factory if any," name="link"/>
-  
+         <label for="psw"align="left" style="display: inline-block;"><b>For Job visit..</b></label>                       <?php
+ echo str_repeat("&nbsp;",3);
+ ?> 
+ <input type="text" placeholder="Enter website or e-mail of factory if any," style="height: 40px;  text-align: top;padding-top: 5px;display: inline-block;" name="link"/>
+  <br><br>
+         <label for="psw"align="left" style="display: inline;"><b>For Contact</b></label>                       <?php
+ echo str_repeat("&nbsp;",3);
+ ?><input type="number"  style="height: 40px;width: 400px;  text-align: top;padding-top: 5px;display: inline;margin-right: 10px;" placeholder="Enter Phone no. of factory if any," name="mob"/><br><br>
       
          <label for="psw"><b>Address Of Factory</b></label> <br><input type="text" placeholder="Enter address of factory" name="address"/>
 <br>
@@ -511,9 +577,7 @@ echo date('d-m-Y H:i');
                              <input type="date" class="form-control"  name="closetime" placeholder="Enter date of closing"/> 
 <br>
 
-  <h6 class="jumbotron-heading"><b>Status  : </b>
-                             <input type="hidden" class="form-control"  name="status" value="Active"/> <?php echo "Active";
-                             ?></h6>
+                             </h6>
 
 
 

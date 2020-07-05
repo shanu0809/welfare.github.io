@@ -14,11 +14,11 @@ $title=$_POST['title'];
         $updatetime=$_POST['posttime'];
            $closetime=$_POST['closetime']; 
    $factory=$_POST['factory'];     
-         $status=$_POST['status'];
+        $mob=$_POST['mob'];
      
+  $skills=$_POST['skills'];
 
-
-      $query="UPDATE job SET title='$title',des='$des',link='$link',address='$address',country='$country',state='$state',city='$city',updatetime='$updatetime', closetime='$closetime',factory='$factory',status='$status' WHERE id='$id'";
+      $query="UPDATE job SET title='$title',des='$des',link='$link',address='$address',country='$country',state='$state',city='$city',updatetime='$updatetime', closetime='$closetime',factory='$factory' ,skills='$skills',phone='$mob' WHERE id='$id'";
 	
 $res=mysqli_query($conn,$query);
 
@@ -42,4 +42,12 @@ window.location.href='addjob.php';
 
 	}
 
-?>
+                                    
+echo
+
+"<script>
+                  if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>"
+?>  
