@@ -11,8 +11,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-amber.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="css/style.css">
+ <link rel="stylesheet" type="text/css"  href="css/styleindex.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css"  href="css/style1.css">
@@ -77,9 +76,12 @@ font-family: 'Josefin Sans', sans-serif;
            <li class="nav-item">
         <a class="nav-link" href="#About Us">About</a>
       </li>
+     
+        <li class="nav-item">
+        <a class="nav-link " href="blogging/blogView.php">Blogs</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="adminlogin.php">Admin</a>
+        <a class="nav-link " href="commentmain.php">Ask Query</a>
       </li>
     </ul>
   </div>
@@ -92,10 +94,13 @@ font-family: 'Josefin Sans', sans-serif;
         </div>
         <nav>
           <ul>
-            <li><a href="index.html"><b>Visit Jobs</b></a></li>
-            <li><a href="about.html"><b>Visit Trainings</b></a></li>
-            <li class="current"><a href="services.html">Visit Government Schemes</a></li>
-            <li class="current"><a href="services.html">Visit Latest Amendments</a></li>
+        <li class="current"><a href="visitjob.php">Jobs</a></li>
+            <li class="current"><a href="training.php">Trainings</a></li>
+            <li class="current"><a href="govtscheme.php">Schemes</a></li>
+            <li class="current"><a href="amendment.php">Amendments</a></li>
+                  <li class="current"><a href="fright.php">Rights</a></li>
+                          <li class="current"><a href="duties.php">Duties</a></li>
+                                 <li class="current"><a href="dpsp.php">DPSPs</a></li>
 
           </ul>
         </nav>
@@ -349,14 +354,14 @@ font-family: 'Josefin Sans', sans-serif;
                                  </h6>
                               
                                </li>
-                                  <?php if( $row['vaild_from']==''){
+                                  <?php if( $row['valid_from']==''){
                                     
                                   }
                                
                                  
                                      else{?>
                                        <li>
-                                 <h6 class="jumbotron-heading"><b><u>Valid_from : </b></u><?php echo $row['vaild_from'];
+                                 <h6 class="jumbotron-heading"><b><u>Valid_from : </b></u><?php echo $row['valid_from'];
                                  }
                                   ?></h6>
                                </li>

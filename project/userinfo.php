@@ -360,9 +360,7 @@ float:center;
         <a class="nav-link" href="index.php#about">About</a>
       </li>
       </li>
-      <li class="nav-item">
-        <a class="nav-link " href="adminlogin.php">Admin</a>
-      </li>
+      
     </ul>
   </div>
 </nav>
@@ -394,11 +392,6 @@ float:center;
 
   <div class="content"> 
    
-        <!-- Creating notification when the 
-                user logs in -->
-          
-        <!-- Accessible only to the users that 
-                have logged in already -->
       
             <div  align="Right">
              <a href="index.php?logout='1'"> 
@@ -419,7 +412,7 @@ float:center;
   <div  align="center"> <a href="amendment.php"><button onclick="document.getElementById('id06').style.display='block'" style="width:auto;">Visit latest Amendments</button></a></div><br>
   <a href="govt.php"><div  align="center"> <button onclick="document.getElementById('id09').style.display='block'" style="width:auto;">Government Schemes</button></</div></a><br>
 <div  align="center">  <a href="addjob.php"> <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Add Jobs</button></a></div><br>
-<div  align="center"> <button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Add Trainings</button></div><br>
+<div  align="center"><a href="addtraining.php"> <button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Add Trainings</button></a></div><br>
 
  
 
@@ -437,15 +430,17 @@ float:center;
           <optgroup >
       <option>-----Title-----</option>
     
-            <option value="Fundamental Rights"><b>Fundamental Rights</b></option>
+            <option value="Fundamental Right"><b>Fundamental Rights</b></option>
             <option value="DPSPs"><b>DPSPs</b></option>
-              <option value="Laws"><b>Constitutional Amendment Acts</b></option>
+              <option value="Constitutional Amendment Act"><b>Constitutional Amendment Act</b></option>
             <option value="Fundamental Duties"><b>Fundamental Duties</b></option>
-                <option value="Fundamental Duties"><b>Other Rules Or Laws</b></option>
+                <option value="Rule/Law"><b>Other Rules Or Laws</b></option>
+                      <option value="Ordinance"><b>Ordinance</b></option>
+                         <option value="Bill/Act"><b>Bill/Act</b></option>
           </optgroup><br></td></tr>
         </select><br>
      
-      <input type="text" placeholder="Enter Article No." name="articleno">  
+      <input type="text" placeholder="Enter Article No./Title " name="articleno">  
     
  
 
