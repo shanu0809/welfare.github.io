@@ -90,7 +90,11 @@ button:hover {
 }
   </style>  
 
-
+                                      <script>
+                  if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
 
 
 </head>
@@ -156,49 +160,50 @@ $row=mysqli_fetch_assoc($result);
                          <h6 class="jumbotron-heading"><b><u>ID of Course : </u> </b>
                           <input type="hidden" name="id" class="form-control" name="id" value="<?php echo $row['id'];?>"><?php echo $row['id'];
                          $idpic=$row['id'];
-                         ?></h6></div><br>
+                         ?></h6></div>
                          <div class="form-group">
-                        <h6 class="jumbotron-heading"><b><u>Type of Scheme  : </u> </b>
-<?php
-if($row['type']==''){
-  ?>
+                        <h6 class="jumbotron-heading"><b><u>Type of Course  : </u> </b>
 
-                         <input type="text" class="form-control" name="type" placeholder="Enter type of scheme"> 
-                         
-                          <?php
-                        }
-                          else{
-                              ?>
-                               <input type="hidden" class="form-control"  name="type" value="<?php echo $row['job'];?>"/><?php echo $row['type'];
+
+                      
+                               <input type="hidden" class="form-control"  name="type" value="<?php echo $row['type'];?>"/><?php echo $row['type'];
                                ?>
-                        
-                        <?php
-                      }
-?>
+
                          </h6></div>
-<br>
+
+                         <div class="form-group">
+                        <h6 class="jumbotron-heading"><b><u>Field of Course  : </u> </b>
+
+
+                               <input type="hidden" class="form-control"  name="field" value="<?php echo $row['field'];?>"/><?php echo $row['field'];
+                               ?>
+                             
+                        
+
+                         </h6></div>
 
 
                     <div class="form-group">
-                            <h6 class="jumbotron-heading"><b><u>Title of Scheme  :</u> </b><input type="text" class="form-control" name="title" value="<?php echo $row['title'];?>"></h6>
+                            <h6 class="jumbotron-heading"><b><u>Title of Course  :</u> </b><input type="text" class="form-control" name="title" value="<?php echo $row['title'];?>"></h6>
                     </div>
-      <br>
+  
                      
 
 
 
    <div class="form-group">
-                        <h6 class="jumbotron-heading"><b><u>Description of Scheme  :</u> </b>
+                        <h6 class="jumbotron-heading"><b><u>Description of Course  :</u> </b>
 
                      <?php  if($row['des']==''){
                       ?>
-                 <input type="text" class="form-control" name="des" placeholder="Enter description "> 
+              <textarea type="text" class="form-control" name="des" placeholder="Enter description " style="overflow-wrap: break-word;text-overflow:none;height:200px;width: 100%;overflow: hidden;"required></textarea> 
 
  <?php
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control"  name="des" value="<?php echo $row['des'];?>">
+                                 <textarea type="text" class="form-control"  name="des" style="overflow-wrap: break-word;height:200px;width: 100%;overflow: hidden;">
+                                <?php echo $row['des'];?></textarea>
                         
                         <?php
                       }
@@ -231,24 +236,6 @@ if($row['link']==''){
 </h6></div>
 
 
- <div class="form-group">
-                          <h6 class="jumbotron-heading"><b><u>Duration Of Course :</u> </b>
-<?php
-if($row['valid_upto']==''){
-  ?>
-
-                         <input type="date" class="form-control" name="dur" placeholder="Enter duration"> 
-                         
-                          <?php
-                        }
-                          else{
-                              ?>
-    <input type="date" class="form-control" name="valid2" value="<?php echo $row['dur'];?>">
-                        
-                        <?php
-                      }
-?>
-</h6></div>
 
 
 
@@ -262,11 +249,11 @@ if($row['valid_upto']==''){
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-6 col-md-6 col-12">
-     <img class="image fit" src="  <?php echo $row['imagedoc'];?>" height="200px;" width="300px" class="img-fluid aboutimg"/></a>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $row['videolink']; ?>" allowfullscreen></iframe>
 
     </div>
         <div class="col-lg-6 col-md-6 col-12" >
-    <h6><p class="py-5 text-justify"> Logo is changed successfully.</p></h6>
+    <h6><p class="py-5 text-justify"> video is changed successfully.</p></h6>
 
 
         </div>
@@ -311,7 +298,7 @@ echo date('d-m-Y H:i');
                   
                     <button type="submit" name="updatefinal" class="btnclass">Update </button>
 
-                    <a href="govt.php"><button type="button" class="btnclass">Wanna update again? </button></a>
+                    <a href="addtraining.php"><button type="button" class="btnclass">Wanna update again? </button></a>
                 </form>
                   <?php
                   }

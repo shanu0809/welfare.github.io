@@ -3,13 +3,13 @@ require"connection.php";
 
 if(isset($_POST['update'])){
 $title=$_POST['title'];
-   $job=$_POST['job'];
+   $type=$_POST['type'];
     
   
       $id=$_POST['id'];
     $des=$_POST['des'];
 
-   $prov=$_POST['prov'];
+   $field=$_POST['field'];
  
              $link=$_POST['link'];
 
@@ -17,25 +17,26 @@ $title=$_POST['title'];
      
   $posttime=$_POST['posttime'];
 
-      $query="UPDATE training SET title='$title',des='$des',link='$link',dur='$dur',updatetime='$posttime' WHERE id='$id'";
+      $query="UPDATE training SET title='$title',des='$des',link='$link',dur='$dur',updatetime='$posttime', field='$field' WHERE id='$id'";
 	
 $res=mysqli_query($conn,$query);
 
 if($res){
                           echo "<script> alert('Data is successfully updated !!! ');
-window.location.href='govt.php';
+                          window.location.href='addtraining.php';
+
 </script>";
 }
 else{
 
                           echo "<script> alert('error! cannot upload in database. ');
-window.location.href='govt.php';
+window.location.href='addtraining.php';
 </script>";
 }
 	}
 	else{
                           echo "<script> alert('error! ');
-window.location.href='govt.php';
+window.location.href='addtraining.php';
 </script>";
 
 	}

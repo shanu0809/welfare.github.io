@@ -3,39 +3,112 @@ require'connection.php';
 ?>
 
 <?php
-
+session_start();
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 
   
 $_SESSION['message']='';
 if($_SERVER['REQUEST_METHOD']=='POST'){
   if(isset($_POST['submit'])){
 
-   $title=$_POST['title'];
    $type=$_POST['type'];
     
-       $name=$_POST['name'];  
+    
     $des=$_POST['des'];
    
   $dur=$_POST['dur'];
              $link=$_POST['link'];
                 $posttime=$_POST['posttime'];
-                   $field=$_POST['field'];
+                
                       $country=$_POST['country'];
                          $state=$_POST['state'];
                             $city=$_POST['city'];
 
-
+$videolink=$_POST['videolink'];
 
 
   $address=$_POST['address'];
-  $avatar_path='offtraining/'.$_FILES['avatar']['name'];
-$avatar_path=mysqli_real_escape_string($conn,$avatar_path);
-    if(preg_match("!image!",$_FILES['avatar']['type'])){
-      if(copy($_FILES['avatar']['tmp_name'],$avatar_path)){
-        $_SESSION['title']=$title;
-        $_SESSION['avatar']=$avatar_path;
+
+   if($_POST['link']==''){
+        $link='no link is provided'; 
+    }
+       else{     $link=$_POST['link'];
+                 $link = test_input($_POST["link"]);
+    // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
+    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$link)) {
+    echo "";
+
+   echo "<script> alert('Error! Invalid URL');
+window.location.href='addtraining.php';
+   </script>";
+    }
+  
+    }
+
+     if($_POST['videolink']==''){
+        $link='no related video'; 
+    }
+       else{     $videolink=$_POST['videolink'];
+           
+    }
+  
+    $person=$_POST['person'];
+
+   $title=$_POST['title'];
+$title = test_input($_POST["title"]);
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z ]*$/",$title)) {
     
-    $sql="INSERT INTO  addtraining(name,imagedoc,type,title,des,link,dur,posttime,address,field,country,state,city)VALUES('$name','$avatar_path','$type','$title','$des','$link','$dur','$posttime','$address','$field','$country','$state','$city')";
+
+   echo "<script> alert('Error! Only letters and white space allowed in title of course');
+window.location.href='addtraining.php';
+   </script>";
+
+    }
+          $name=$_POST['name'];  
+    if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
+    
+
+   echo "<script> alert('Error! Only letters and space is allowed in the name of center');
+window.location.href='addtraining.php';
+   </script>";
+
+    }
+
+       $field=$_POST['field'];
+      if (!preg_match("/^[a-zA-Z ]*$/",$field)) {
+    
+
+   echo "<script> alert('Error! Only letters and space is allowed in the name of field');
+window.location.href='addtraining.php';
+   </script>";
+
+    }
+
+  if($_POST['mob']==''){
+     $mob='';
+  }
+    else{
+  $mob=$_POST['mob'];
+  if((preg_match("/^[7-9]{1}[0-9]{9}$/i", $mob)) && strlen($mob) == 10)
+{
+  
+}
+else{
+     echo "<script> alert('phone no. is invalid');
+window.location.href='addtraining.php';
+</script>";
+
+ }
+
+    
+    $sql="INSERT INTO  addtraining(name,imagedoc,type,title,des,link,dur,posttime,address,field,country,state,city,mob,videolink,person)VALUES('$name','$videolink','$type','$title','$des','$link','$dur','$posttime','$address','$field','$country','$state','$city','$mob','$videolink','$person')";
+}
 
 if(mysqli_query($conn,$sql)){
 
@@ -44,20 +117,12 @@ if(mysqli_query($conn,$sql)){
 window.location.href='addtraining.php';
 </script>";
         }
-        else{
-                    $_SESSION['message']="user could not be added to database";
-                  
-                  
-        }
-}
 
 else{
-                $_SESSION['message']="File upload failed";
-      }
-}
+     echo "<script> alert('Error in adding courses');
 
-else{
-        $_SESSION['message']="please upload only jpg,jpeg,png,gif pictures";
+</script>";
+        
     }
 
 

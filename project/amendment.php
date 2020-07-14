@@ -77,9 +77,11 @@ font-family: 'Josefin Sans', sans-serif;
            <li class="nav-item">
         <a class="nav-link" href="index.php#about">About</a>
       </li>
+        <li class="nav-item">
+        <a class="nav-link " href="blogging/blogView.php">Blogs</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="adminlogin.php">Admin</a>
+        <a class="nav-link " href="commentmain.php">Ask Query</a>
       </li>
     </ul>
   </div>
@@ -110,13 +112,13 @@ font-family: 'Josefin Sans', sans-serif;
 while($row=mysqli_fetch_assoc($result)){?>
   <?php if($row['articleno']==''){}
   else{?>
-<div  style="display:inline; white-space:nowrap;padding-left: 20px;padding-top: 30px; padding-bottom: 30px;"><b><?php echo"Article No.:-  ".$row['articleno'];
+<div  style="display:inline; overflow-wrap: break-word;padding-left: 20px;padding-top: 30px; padding-bottom: 30px;"><b><?php echo $row['articleno'];
 }
 ?></b></div><br>
 
-<div  style="display:inline; white-space:nowrap;padding-left: 40px;padding-top: 30px; padding-bottom: 30px;">
+<div  style="display:inline;overflow-wrap: break-word; padding-left: 40px;padding-top: 30px; padding-bottom: 30px;">
 <?php echo"Motive:-    ".$row['motive'];?></div><br>
-<div  style="display:inline; white-space:nowrap;padding-left: 40px;padding-top: 30px; padding-bottom: 30px;">
+<div  style="display:inline; overflow-wrap: break-word;  padding-left: 40px;padding-top: 30px; padding-bottom: 30px;height: auto;">
 <?php echo"Description:- ".$row['newlaw'];
 ?>
 </div><br>

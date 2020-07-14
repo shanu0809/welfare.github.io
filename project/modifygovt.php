@@ -67,7 +67,7 @@ else{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow-x: hidden; 
+  overflow: auto; 
 font-family: 'Josefin Sans', sans-serif;
     }
     @media(max-width:768px){
@@ -164,9 +164,9 @@ $row=mysqli_fetch_assoc($result);
 
                       <div class="form-group">
                          <h6 class="jumbotron-heading"><b><u>ID of Scheme  : </u> </b>
-                          <input type="hidden" name="id" class="form-control" name="id" value="<?php echo $row['id'];?>"><?php echo $row['id'];
+                          <input type="hidden" name="id" class="form-control" style="margin-left: 30px;" name="id" value="<?php echo $row['id'];?>"><?php echo $row['id'];
                          $idpic=$row['id'];
-                         ?></h6></div><br>
+                         ?></h6></div>
                          <div class="form-group">
                         <h6 class="jumbotron-heading"><b><u>Type of Scheme  : </u> </b>
 <?php
@@ -179,23 +179,15 @@ if($row['job']==''){
                         }
                           else{
                               ?>
-                               <input type="hidden" class="form-control"  name="job" value="<?php echo $row['job'];?>"/><?php echo $row['job'];
+                               <input type="hidden" class="form-control"  name="job" style="margin-left: 30px;" value="<?php echo $row['job'];?>"/><?php echo $row['job'];
                                ?>
                         
                         <?php
                       }
 ?>
                          </h6></div>
-<br>
 
-
-                    <div class="form-group">
-                            <h6 class="jumbotron-heading"><b><u>Title of Scheme  :</u> </b><input type="text" class="form-control" name="title" value="<?php echo $row['title'];?>"></h6>
-                    </div>
-      <br>
-                     
-
-                    <div class="form-group">
+                                             <div class="form-group">
                           <h6 class="jumbotron-heading"><b><u>Sector  :</u> </b>
 <?php
 if($row['sector']==''){
@@ -207,11 +199,21 @@ if($row['sector']==''){
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control"  name="sector" value="<?php echo $row['sector'];?>"></h6></div>
+                               <input type="hidden" class="form-control" style="margin-left: 30px;" name="sector" value="<?php echo $row['sector'];?>"><?php echo $row['sector'];?></h6></div>
                         
                         <?php
                       }
 ?>
+
+
+
+
+                    <div class="form-group">
+                            <h6 class="jumbotron-heading"><b><u>Title of Scheme  :</u> </b><input type="text" class="form-control" name="title" value="<?php echo $row['title'];?>"></h6>
+                    </div>
+     
+                     
+
 
 
    <div class="form-group">
@@ -219,13 +221,13 @@ if($row['sector']==''){
 
                      <?php  if($row['des']==''){
                       ?>
-                 <input type="text" class="form-control" name="des" placeholder="Enter description "> 
+                 <textarea type="text" class="form-control" name="des" placeholder="Enter description " style="overflow-wrap: break-word;text-overflow:none;height:100px;width: 100%;overflow: hidden;" required></textarea> 
 
  <?php
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control"  name="des" value="<?php echo $row['des'];?>">
+                              <textarea type="text" class="form-control"  name="des" style="overflow-wrap: break-word;text-overflow:none;height:100px;width: 100%;overflow: hidden;" required><?php echo $row['des'];?></textarea>
                         
                         <?php
                       }
@@ -304,13 +306,13 @@ if($row['sector']==''){
 
                      <?php  if($row['prov']==''){
                       ?>
-                 <input type="text" class="form-control" name="prov" placeholder="Enter Provision"> 
+                    <textarea type="text" class="form-control" name="prov" placeholder="Enter provision " style="overflow-wrap: break-word;text-overflow:none;height:auto;width: 100%;overflow: hidden;" required></textarea> 
 
  <?php
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control" name="prov" value="<?php echo $row['prov'];?>">
+                             <textarea type="text" class="form-control"  name="prov" style="overflow-wrap: break-word;text-overflow:none;height:auto;width: 100%;overflow: hidden;" required><?php echo $row['prov'];?></textarea>
                         
                         <?php
                       }
@@ -462,7 +464,7 @@ if($row['valid_upto']==''){
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-6 col-md-6 col-12">
-     <img class="image fit" src="  <?php echo $row['imagedoc'];?>" height="200px;" width="300px" class="img-fluid aboutimg"/></a>
+     <img class="image fit" alt="No image available" src="  <?php echo $row['imagedoc'];?>" height="200px;" width="300px" class="img-fluid aboutimg"/></a>
 
     </div>
     <div class="col-lg-6 col-md-6 col-12" >

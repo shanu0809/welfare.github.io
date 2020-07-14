@@ -336,6 +336,11 @@ span.psw {
 float:center;
 }
 </style>
+                                      <script>
+                  if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
 </head>
 <body>
 

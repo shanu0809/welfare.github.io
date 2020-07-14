@@ -69,29 +69,29 @@ function googleTranslateElementInit() {
 
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </div>
-     <div align="right"><a href="index.php"><button style="background-color: red;color: white; width:15%;padding: 10px; margin: 40px;">Back To Home</button></a><a href="map.php"><button style="background-color: red;color: white; width:15%;padding: 10px; margin: 40px;">Map</button></a></div>
+     <div align="right"><a href="index.php"><button style="background-color: red;color: white; width:15%;height:60px;padding: 10px; margin: 40px;">Back To Home</button></a><a href="map.php"><button style="background-color: red;color: white; width:15%;height:60px;padding: 10px; margin: 40px;">Map</button></a></div>
 
 <h2>Hii, Visit The Jobs Details.</h2>
 
 <input type="text" style="width:100%;" id="myInput" onkeyup="myFunction()" placeholder="Search for Type...." title="Type in a name">
 
-<table id="myTable" style="width: 80%; margin-left:10px; ">
+<table id="myTable" style="margin-right: 10px; width: 98%; margin-left:10px;">
   <tr class="header">
- <th style="width:20%;">City</th>
-        <th style="width:20%;">State</th>
+ <th style="width:30%;">City</th>
+        <th style="width:30%;">State</th>
            
-            <th style="width:20%;">Country</th>
-           <th style="width:20%;">Address</th>          
-        <th style="width:20%;">Name Of Factory/Industry</th>
+            <th style="width:30%;">Country</th>
+           <th style="width:60%;">Address</th>          
+        <th style="width:40%;">Name Of Factory/Industry</th>
      <th style="width:20%;">Contact no.</th>
-        <th style="width:20%;">Website</th>
-   <th style="width:20%;">Title of Job</th>
-      <th style="width:20%;">Skills Required</th>
-               <th style="width:20%;">Salary</th>
-            <th style="width:20%;">Experience</th>
- <th style="width:20%;">Posted On </th>
-  <th style="width:20%;">Updated On</th>
-  <th style="width:20%;">Closed On</th>
+        <th style="width:40%;">Website</th>
+   <th style="width:40%;">Title of Job</th>
+      <th style="width:50%;">Skills Required</th>
+               <th style="width:30%;">Salary in Rs.</th>
+            <th style="width:30%;">Experience in Yrs.</th>
+ <th style="width:30%;">Posted On </th>
+  <th style="width:30%;">Updated On</th>
+  <th style="width:30%;">Closed On</th>
 
 
   </tr>

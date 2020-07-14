@@ -3,8 +3,8 @@ require"connection.php";
 
 if(isset($_POST['delete'])){
 	$title=$_POST['title'];
-	$type=$_POST['type'];
-	$query="SELECT id from training where title='$title' AND type='$type'";
+	$field=$_POST['field'];
+	$query="SELECT id from training where title='$title' AND field='$field'";
 	
 	$result=mysqli_query($conn,$query);
 
@@ -16,10 +16,14 @@ $id=$row['id'];
 $res=mysqli_query($conn,$sql);
 
 if($res){
-	echo"successfully delete";
+	   echo "<script> alert('Successfully delete ');
+window.location.href='addtraining.php';
+</script>";
 }
 else{
-echo "error is showing";
+   echo "<script> alert('Error!! ');
+window.location.href='addtraining.php';
+</script>";
 }
 	}
 	else{

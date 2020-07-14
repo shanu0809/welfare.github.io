@@ -10,7 +10,7 @@ include('dbs.php');
   session_start();  
 $_SESSION['message']='';
 
-$phone="/^[1-9][0-9]*$/";
+
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -20,7 +20,7 @@ function test_input($data) {
 if($_SERVER['REQUEST_METHOD']=='POST'){
   if(isset($_POST['submit'])){
 if($_POST['address']==''){
-   $address='place is given after selection';
+   $address='place is alotted after selection';
 }
     else{   $address=$_POST['address'];
   }
@@ -38,6 +38,10 @@ if($_POST['address']==''){
             $salary=$_POST['salary'];
          }
     $des=$_POST['des'];
+       if($_POST['country']==''){
+      $city='';
+    }
+    else{
     $country=$_POST['country'];
     $sql1="SELECT name FROM country WHERE id='$country'";
     $res=mysqli_query($conn,$sql1);
@@ -46,7 +50,11 @@ if($_POST['address']==''){
 
 $country=$row2['name'];
     }
-
+}
+   if($_POST['state']==''){
+      $city='';
+    }
+    else{
       $state=$_POST['state'];
           $sql1="SELECT name FROM state WHERE id='$state'";
     $res=mysqli_query($conn,$sql1);
@@ -55,6 +63,11 @@ $country=$row2['name'];
 
 $state=$row2['name'];
     }
+  }
+    if($_POST['city']==''){
+      $city='';
+    }
+    else{
         $city=$_POST['city'];
 
             $sql1="SELECT name FROM city WHERE id='$city'";
@@ -64,6 +77,7 @@ $state=$row2['name'];
 
 $city=$row2['name'];
     }
+  }
     if($_POST['link']==''){
         $link=''; 
     }
@@ -71,7 +85,11 @@ $city=$row2['name'];
                  $link = test_input($_POST["link"]);
     // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
     if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$link)) {
-    echo "Invalid URL";
+    echo "";
+
+   echo "<script> alert('Error! Invalid URL');
+window.location.href='addjob.php';
+   </script>";
     }
   
     }
@@ -83,7 +101,9 @@ $city=$row2['name'];
     $title = test_input($_POST["title"]);
     if (!preg_match("/^[a-zA-Z ]*$/",$title)) {
     
-   echo "<script> alert('Only letters and white space allowed')</script>";
+   echo "<script> alert('Only letters and white space allowed');
+window.location.href='addjob.php';
+   </script>";
     }
   
   }
@@ -97,25 +117,31 @@ $factory = test_input($_POST["factory"]);
     if (!preg_match("/^[a-zA-Z ]*$/",$factory)) {
     
 
-   echo "<script> alert('Only letters and white space allowed')</script>";
+   echo "<script> alert('Error! Only letters and white space allowed in name of factory');
+window.location.href='addjob.php';
+   </script>";
 
     }
   
 }
-  if($_POST["mob"]==''){
-  $mob='';
+  if($_POST['mob']==''){
+     $mob='';
+  }
+    else{
+  $mob=$_POST['mob'];
+  if((preg_match("/^[7-9]{1}[0-9]{9}$/i", $mob)) && strlen($mob) == 10)
+{
+  
 }
 else{
-   $mob=$_POST['mob'];
-$mob = test_input($_POST["mob"]);
-if(!preg_match($phone, $mob)) {
+     echo "<script> alert('phone no. is invalid');
+window.location.href='addtraining.php';
+</script>";
 
-   echo "<script> alert('Please enter a valid number')</script>";
-  
+ }
 
-}
 
-}
+
                 $posttime=$_POST['posttime'];
         if($_POST['skills']==''){
           $skills="no particular skill required";
@@ -433,12 +459,6 @@ float:center;
         <a class="nav-link" href="index.php#about">About</a>
       </li>
       </li>
-      <li class="nav-item">
-        <a class="nav-link " href="blogging/blogView.php">Blogs</a>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link " href="commentmain.php">Ask Query</a>
-      </li>
     </ul>
   </div>
 </nav><h2 align="center">Hii, Admin You can change functions using this page</h2>
@@ -480,9 +500,9 @@ float:center;
        <label for="psw" align="left"style="margin-left:5px;display: inline;"><b>Name Of Job</b></label> <?php
  echo str_repeat("&nbsp;",3);?><input type="text"  style="height: 40px; text-align: top;padding-top: 5px;display: inline;" placeholder="Enter title of job " name="title" required> <br>
 <br>
-           <label for="psw" align="left"><b>Description Of Job</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter description of Job" name="des" required/>
+           <label for="psw" align="left"><b>Description Of Job</b></label><input type="text" style="height: 150px;text-align: top;padding-top: 3px; overflow-wrap: break-word;" placeholder="Enter description of Job" name="des" required/>
 
-           <label for="psw" align="left"><b>Skills Required For Job</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter skills" name="skills"/><br><br>
+           <label for="psw" align="left"><b>Skills Required For Job</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;overflow-wrap: break-word;" placeholder="Enter skills" name="skills"/><br><br>
                 <label for="psw" align="left" style="margin-left:5px;display: inline; "><b>Experience Required if any,</b></label>                                         <?php
  echo str_repeat("&nbsp;",3);
  ?><input type="number"  min="0" max="50" style="height: 40px; width:200px; text-align: top;padding-top: 5px;display: inline; " placeholder="Experience" name="exp" />                                         <?php

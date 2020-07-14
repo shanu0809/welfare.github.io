@@ -11,55 +11,72 @@ include('dbs.php');
 <?php
 
 
-  session_start();  
+  session_start(); 
+  function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+} 
 $_SESSION['message']='';
 if($_SERVER['REQUEST_METHOD']=='POST'){
   if(isset($_POST['submit'])){
 
-   $title=$_POST['title'];
    $type=$_POST['type'];
-        $field=$_POST['field'];
-      
+        $title=$_POST['title'];
     $des=$_POST['des'];
    
-  $dur=$_POST['dur'];
-             $link=$_POST['link'];
+  $field=$_POST['field'];
+            
                 $posttime=$_POST['posttime'];
+              
 
-  $avatar_path='training/'.$_FILES['avatar']['name'];
-$avatar_path=mysqli_real_escape_string($conn,$avatar_path);
-    if(preg_match("!image!",$_FILES['avatar']['type'])){
-      if(copy($_FILES['avatar']['tmp_name'],$avatar_path)){
-        $_SESSION['title']=$title;
-        $_SESSION['avatar']=$avatar_path;
 
-    $sql="INSERT INTO  training(imagedoc,type,title,des,link,dur,posttime,field)VALUES('$avatar_path','$type','$title','$des','$link','$dur','$posttime','$field')";
+   if($_POST['link']==''){
+        $link='no link is provided'; 
+    }
+       else{     $link=$_POST['link'];
+                 $link = test_input($_POST["link"]);
+    // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
+    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$link)) {
+   
+
+   echo "<script> alert('Error! Invalid URL');
+window.location.href='addtraining.php';
+   </script>";
+    }
+  
+    }
+
+     if($_POST['videolink']==''){
+        $link='no related video'; 
+    }
+       else{     $videolink=$_POST['videolink'];
+           
+    }
+  
+
+
+
+  
+
+    $sql="INSERT INTO  training(type,des,link,posttime,field,videolink,title)VALUES('$type','$des','$link','$posttime','$field','$videolink','$title')";
 
 if(mysqli_query($conn,$sql)){
 
 
    echo "<script> alert('A New Course Is Added ');
-window.location.href='addtraining.php';
+
 </script>";
         }
         else{
-                    $_SESSION['message']="user could not be added to database";
+
+   echo "<script> alert(' user could not be added to database');
+window.location.href='addtraining.php';
+</script>";
                   
                   
-        }
-}
-
-else{
-                $_SESSION['message']="File upload failed";
-      }
-}
-
-else{
-        $_SESSION['message']="please upload only jpg,jpeg,png,gif pictures";
-    }
-
-
-}  
+        } 
 }  
  
 }
@@ -274,19 +291,25 @@ float:center;
     margin-top : -16px;
   }
   </style>
-
+  
+                                      <script>
+                  if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
 
 
 </head>
 <body>
 
+  <div id= "google_translate_element" style="background:url('img/pic06.jpg');background-size:cover;color: white;top: 0;display: block;margin-top: 0; height:auto;position:absolute;left:0; right: 0; top:0;width:100%;"></div>
+    <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
 
-
-
-
-
-
-
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">E-Legal Aid & Welfare Portal</a>
@@ -309,15 +332,13 @@ float:center;
         <a class="nav-link" href="index.php#about">About</a>
       </li>
       </li>
-      <li class="nav-item">
-        <a class="nav-link " href="adminlogin.php">Admin</a>
-      </li>
+     
     </ul>
   </div>
 </nav><h2 align="center">Hii, Admin You can change functions using this page</h2>
 
 <div  align="Right"><a href="userinfo.php"> <button   style="width:15%;background-color: Red;color: white;padding: 10px; margin: 60px;" onclick="document.getElementById('id05').style.display='block'" style="width:auto;">Back</button></a>
-<a href="index.php"> <button  onclick="document.getElementById('id06').style.display='block'" style="width:15%;background-color: Red;color: white;padding: 10px; margin: 40px;">Logout!</button></a>
+<a href="index.php"> <button  onclick="document.getElementById('id06').style.display='block'" style="width:15%;background-color: Red;color: white;padding: 10px; margin: 40px; ">Logout!</button></a>
 </div>
 <section class="my-5">
  
@@ -346,9 +367,12 @@ float:center;
 
 <div  align="center"> <button  onclick="document.getElementById('id09').style.display='block'" style="width:auto;">Update Offline Course</button></div>
 
-<div  align="center"><a href="training.php"> <button  onclick="document.getElementById('id010').style.display='block'" style="width:auto;" >Visit Added Offline Course</button></a></div>
+<div  align="center"><a href="offlinetraining.php"> <button  onclick="document.getElementById('id010').style.display='block'" style="width:auto;" >Visit Added Offline Course</button></a></div>
 
 </div></div></div></section>
+
+
+
 
 
 
@@ -358,32 +382,39 @@ float:center;
 
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-   <label><b>Upload Logo  Of Course, If Any</b></Label>
-  <input type="file" name="avatar"/><br/>
-    
-<br><br>
+
                                                       
   
-  <h6 class="jumbotron-heading"><b><u>Type of Course  : </u> </b>
+  <h6 class="jumbotron-heading" align="center"><b><u>Type of Course  : </u> </b>
 
-                               <input type="hidden" class="form-control"  name="type" value="Online"/><?php echo "Online Course";
+                               <input type="hidden" class="form-control"  name="type" value="Online" required/><?php echo "Online Course";
                                ?>
  
                          </h6>
-     
-       <label for="psw" align="left"><b>Title Of Course</b></label><input type="text" placeholder="Enter Title Of Course" name="title" required> 
-
-           <label for="psw"><b>Field Of Course</b></label> <input type="text" placeholder="Enter Field" name="field"> 
-
-    <label for="psw" align="left"><b>Description Of Course</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter description of course" name="des" required>
-  
-         <label for="psw"><b>For Course access visit..</b></label> <input type="text" placeholder="Enter link" name="link">
-  
-      
-         <label for="psw"><b>Duration Of Course  </b></label> <br><input type="text" placeholder="Enter duration of course" name="dur">
 <br>
+<div>
+                           <select id="field" name="field" style="width:50%;" align="center"required>
+          <optgroup >
+      <option>----Field related to course------</option>
+    
+            <option value="agriculture"><b>Agriculture</b></option>
+            <option value="construction"><b>construction</b></option>
+              
+          </optgroup><br></td></tr>
+        </select>  </div>
+        <br>
+
+                               <label for="psw" align="center"><b>Title</b></label><input type="text" class="form-control"  name="title" placeholder="Enter title" required/>
+    <label for="psw" align="center"><b>Description Of Course</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter description of course" name="des" required>
+  <br>
+         <label for="psw"align="center"><b>For Course access visit..</b></label> <input type="text" placeholder="Enter link" name="link"/>
+  
+<br><br>
+
+<label align="center" style="margin:10px;display: inline;"><b>https://www.youtube.com/embed/</b></label>                                                <?php
+ echo str_repeat("&nbsp;",3);?>                   <input type="text" class="form-control" name="videolink" style="height: 40px; width:400px; text-align: top;padding-top: 5px;display: inline; margin-left: 40px;" placeholder="Enter video link id" required/>   <br><br>
  
-            <h6 class="jumbotron-heading"><b><u>Posting Time  :</u> </b>
+            <h6 class="jumbotron-heading" align="center"><b><u>Posting Time  :</u> </b>
                              <input type="hidden" class="form-control"  name="posttime" value="<?php  
 
 date_default_timezone_set('Asia/Kolkata');
@@ -397,13 +428,13 @@ echo date('d-m-Y H:i');
 ?>
 
 <br><br>
-      <button type="submit" name="submit">Add</button>
+      <button type="submit" name="submit" align="center" >Add</button>
    
-    </div>
+  </div>
 
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
+      <button type="button"  onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+    </div>  
   </form>
 </div>
 
@@ -426,10 +457,7 @@ window.onclick = function(event) {
 
     <div class="imgcontainer">
       <span onclick="document.getElementById('id07').style.display='none'" class="close" title="Close Modal">&times;</span>
-   <label><b>Upload Logo  Of Course, If Any</b></Label>
-  <input type="file" name="avatar"/><br/>
-    
-<br><br>
+ <br>
                                                       
   
   <h6 class="jumbotron-heading"><b><u>Type of Course  : </u> </b>
@@ -439,7 +467,7 @@ window.onclick = function(event) {
  
                         </h6>
 
-         <label for="psw"><b>Title Of Course</b></label> <input type="text" placeholder="Enter title of couse" name="title" required/>
+         <label for="psw"><b>Title Of Course</b></label> <input type="text" placeholder="Enter title of course" name="title" required/>
 
 
 
@@ -447,14 +475,22 @@ window.onclick = function(event) {
 
 
 
-    <label for="psw" align="left"><b>Description Of Course</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter description of course" name="des" required/>
+    <label for="psw" align="left"><b>Description Of Course</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px; overflow-wrap: break-word;" placeholder="Enter description of course" name="des" required/>
 
 
 
 
-    <label for="psw" align="left"><b>Name Of Center</b></label><input type="text"  placeholder="Enter Name Of Vocational Center" name="name">
+    <label for="psw" align="left"><b>Name Of Center</b></label><input type="text"  placeholder="Enter Name Of Vocational Center" name="name" required/>
 
-      <label for="psw" align="left"><b>Address Of Vocational Center</b></label><input type="text" style="height: 200px;text-align: top;padding-top: 5px;" placeholder="Enter Address of course Center" name="address" >  
+      <label for="psw" align="left"><b>Address Of Vocational Center</b></label><input type="text" style="height: 100px;text-align: top;padding-top: 5px; overflow-wrap: break-word;" placeholder="Enter Address of course Center" name="address" required/> <br><br>
+          <label for="psw" align="left" style="display: inline;"><b>Contact Person</b></label>                                          <?php
+ echo str_repeat("&nbsp;",3);
+ ?><input type="text"  placeholder="Enter Name of contact person" name="person" style="height: 40px; width:400px; text-align: top;padding-top: 5px;display: inline; " />                                          <?php
+ echo str_repeat("&nbsp;",8);
+ ?> 
+           <label for="psw" align="left"style="display: inline;"><b>Phone no.</b></label>                                          <?php
+ echo str_repeat("&nbsp;",3);
+ ?><input type="number"  placeholder="Enter Phone no." name="mob" style="height: 40px; width:200px; text-align: top;padding-top: 5px;display: inline; " /> 
 <?php
 
 $sql="select id,name from country";
@@ -500,12 +536,11 @@ $id='';
 
   
     
-    
-
-
-
-
-         <label for="psw"><b>Website Of Vocational Center...</b></label> <input type="text" placeholder="Enter link" name="link"/>
+      <br><br>
+<label align="left" style="margin:10px;display: inline;"><b>https://www.youtube.com/embed/</b></label>                                                <?php
+ echo str_repeat("&nbsp;",3);?>                   <input type="text" class="form-control" name="videolink" style="height: 40px; width:400px; display: inline;margin-left: 40px; " placeholder="Enter video link id">   
+<br><br>
+<label for="psw"><b>Website Of Vocational Center...</b></label> <input type="text" placeholder="Enter link" name="link"/>
   
       
          <label for="psw"><b>Duration Of Course  </b></label> <br><input type="text" placeholder="Enter duration of course" name="dur"/>
@@ -674,11 +709,7 @@ window.onclick = function(event) {
        
           </optgroup><br></td></tr>
         </select>
-         </div>
-
-
-
-            
+         </div>    
         
       <button type="submit" name="delete">Delete</button>
     
@@ -706,22 +737,17 @@ window.onclick = function(event) {
 
 
 
-
-
-
-
-
-
-<div id="id02" class="modal"data-toggle="modal">
+<div id="id02" class="modal">
   
   <form class="modal-content animate" action="deletecourse.php"  method="POST" autocomplete="off">
    <div class="imgcontainer">
 
       <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-    <div class="container">
+
+<div class="container">
       <h6 class="jumbotron-heading"><b><u>Type of Course  : </u> </b>
 
-                               <input type="hidden" class="form-control"  name="type" value="Online"/><?php echo "Online Course";
+                               <input type="hidden" class="form-control"  name="type" value="offline course"/><?php echo "Online Course";
                                ?>
  
                          </h6>
@@ -756,7 +782,35 @@ window.onclick = function(event) {
           </optgroup><br></td></tr>
         </select>
          </div>
-            
+
+  <label for="uname"><b>Field Of Course</b></label>
+     <div class="container">
+            <select id="field" name="field" required>
+          <optgroup >
+      <option>-----Field Of Course-----</option>
+
+
+
+   
+
+<?php
+
+
+
+
+ $query = "SELECT field from training";
+                if(count(fetchAll($query))>0){
+                    foreach(fetchAll($query) as $row){
+                        ?>
+                         <option value="<?php echo $row['field'] ?>"><b><?php echo $row['field'];
+          }
+        }
+        ?></b></option>
+          
+       
+          </optgroup><br></td></tr>
+        </select>
+         </div>    
         
       <button type="submit" name="delete">Delete</button>
     
@@ -767,6 +821,9 @@ window.onclick = function(event) {
     </div>
   </form>
 </div>
+
+                        
+
 
 <script>
 
@@ -783,59 +840,92 @@ window.onclick = function(event) {
 </script>
 
 
+
+
+
 <div id="id03" class="modal">
   
   <form class="modal-content animate" action="modifycourse.php" method="POST">
    <div class="imgcontainer">
  <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
 
-    <div class="container">
+ <div class="container">
+      <h6 class="jumbotron-heading"><b><u>Type of Course  : </u> </b>
 
-<h6 class="jumbotron-heading"><b><u>Type of Course  : </u> </b>
-
-                               <input type="hidden" class="form-control"  name="type" value="Online"/><?php echo "Online Course";
+                               <input type="hidden" class="form-control"  name="type" value="offline course"/><?php echo "Online Course";
                                ?>
  
-                         </h6></div>
+                         </h6>
+         </div>
+      <br>
 
-
-
-
-        <br>
-
-        <label for="uname"><b>Title Of Course</b></label>
+  <label for="uname"><b>Title Of Course</b></label>
      <div class="container">
             <select id="title" name="title" required>
           <optgroup >
       <option>-----title-----</option>
+
+
+
+   
+
 <?php
 
 
 
 
- $query = "SELECT title FROM training";
+ $query = "select title from training ";
                 if(count(fetchAll($query))>0){
                     foreach(fetchAll($query) as $row){
                         ?>
-                         <option value="<?php echo $row['title']; ?>"><b><?php echo $row['title'];
-
+                         <option value="<?php echo $row['title'] ?>"><b><?php echo $row['title'];
           }
         }
         ?></b></option>
           
        
           </optgroup><br></td></tr>
-        
         </select>
-</div>
-<br>
-    <div  align="center">
- <button type="submit" name="updates">Update Changes</button>
-</div>
+         </div>
 
-   <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
-</div></form></div>
+  <label for="uname"><b>Field Of Course</b></label>
+     <div class="container">
+            <select id="field" name="field" required>
+          <optgroup >
+      <option>-----Field Of Course-----</option>
+
+
+
+   
+
+<?php
+
+
+
+
+ $query = "SELECT field from training";
+                if(count(fetchAll($query))>0){
+                    foreach(fetchAll($query) as $row){
+                        ?>
+                         <option value="<?php echo $row['field'] ?>"><b><?php echo $row['field'];
+          }
+        }
+        ?></b></option>
+          
+       
+          </optgroup><br></td></tr>
+        </select>
+         </div>    
+        
+      <button type="submit" name="updates">Update Changes</button>
+    
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id08').style.display='none'" class="cancelbtn">Cancel</button>
+    </div>
+  </form>
+</div>
 
 
 
@@ -965,6 +1055,11 @@ window.onclick = function(event) {
     }
 }
 </script>
+
+
+
+
+
 
 </body>
 </html>

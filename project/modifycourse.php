@@ -27,9 +27,9 @@ $id='';
 
 
 if(isset($_POST['updates'])){
-  $type=$_POST['type'];
+  $field=$_POST['field'];
   $title=$_POST['title'];
- $query = "SELECT type, title,id FROM training where type='$type' AND title='$title'"; 
+ $query = "SELECT field, title,id FROM training where field='$field' AND title='$title'"; 
 
                    $result=mysqli_query($conn,$query);
 
@@ -122,7 +122,11 @@ button:hover {
 }
   </style>  
 
-
+                                      <script>
+                  if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
 
 
 </head>
@@ -166,7 +170,7 @@ $row=mysqli_fetch_assoc($result);
                          <h6 class="jumbotron-heading"><b><u>ID of Course : </u> </b>
                           <input type="hidden" name="id" class="form-control" name="id" value="<?php echo $row['id'];?>"><?php echo $row['id'];
                          $idpic=$row['id'];
-                         ?></h6></div><br>
+                         ?></h6></div>s
                          <div class="form-group">
                         <h6 class="jumbotron-heading"><b><u>Type of Course  : </u> </b>
 
@@ -174,15 +178,19 @@ $row=mysqli_fetch_assoc($result);
                                ?>
  
                          </h6></div>
-<br>
+
 
 
                     <div class="form-group">
                             <h6 class="jumbotron-heading"><b><u>Title of Course  :</u> </b><input type="text" class="form-control" name="title" value="<?php echo $row['title'];?>"></h6>
                     </div>
-      <br>
+      
                      
-
+              <div class="form-group">
+                            <h6 class="jumbotron-heading"><b><u>Field of Course  :</u> </b><input type="hidden" class="form-control" name="field" value="<?php echo $row['field'];?>"></h6><?php echo $row['field'];
+                            ?>
+                    </div>
+     
 
 
    <div class="form-group">
@@ -190,13 +198,14 @@ $row=mysqli_fetch_assoc($result);
 
                      <?php  if($row['des']==''){
                       ?>
-                 <input type="text" class="form-control" name="des" placeholder="Enter description "> 
+                  <textarea type="text" class="form-control" name="des" placeholder="Enter description " style="overflow-wrap: break-word;text-overflow:none;height:200px;width: 100%;overflow: hidden;"required></textarea> 
 
  <?php
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control"  name="des" value="<?php echo $row['des'];?>">
+                                <textarea type="text" class="form-control"  name="des" style="overflow-wrap: break-word;text-overflow:none;height:200px;width: 100%;overflow: hidden;">
+                                <?php echo $row['des'];?></textarea>
                         
                         <?php
                       }
@@ -229,31 +238,16 @@ if($row['link']==''){
 </h6></div>
 
 
- <div class="form-group">
-                          <h6 class="jumbotron-heading"><b><u>Duration Of Course :</u> </b>
-<?php
-if($row['dur']==''){
-  ?>
 
-                         <input type="date" class="form-control" name="dur" placeholder="Enter duration"> 
-                         
-                          <?php
-                        }
-                          else{
-                              ?>
-    <input type="date" class="form-control" name="valid2" value="<?php echo $row['dur'];?>">
-                        
-                        <?php
-                      }
-?>
-</h6></div>
 
  <div class="form-group">
-                        <?php if($row['imagedoc']=='')
+                        <?php if($row['videolink']=='')
                         {?>
 
-                                                   <label><b>Upload Logo  Of Course, If Any</b></Label>
-  <input type="file" name="avatar"/><br/>
+                    <h6 class="jumbotron-heading"><b><u>Enter video_id :</u> </b>
+
+<label align="left" style="margin:10px;display: inline;"><b>https://www.youtube.com/embed/</b></label>                                                <?php
+ echo str_repeat("&nbsp;",3);?>                   <input type="text" class="form-control" name="videolink" style="height: 40px; width:400px; text-align: top;padding-top: 5px;display: inline; " placeholder="Enter video link id">   
                         
                  
                     <?php
@@ -269,12 +263,12 @@ if($row['dur']==''){
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-6 col-md-6 col-12">
-     <img class="image fit" src="  <?php echo $row['imagedoc'];?>" height="200px;" width="300px" class="img-fluid aboutimg"/></a>
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $row['videolink']; ?>" allowfullscreen></iframe>
 
     </div>
     <div class="col-lg-6 col-md-6 col-12" >
    
- <button  type="button"  class="btnclass" data-toggle="modal" data-target='#myMod'>Update Image</button>
+ <button  type="button"  class="btnclass" data-toggle="modal" data-target='#myMod'>Update Video</button>
 
 
         </div>
@@ -319,7 +313,7 @@ echo date('d-m-Y H:i');
                   }
                   else{
                           echo "<script> alert('Problem in loading data of this Course !!! ');
-window.location.href='addtraining.php';
+
 </script>";
 
                   }
@@ -353,40 +347,24 @@ window.location.href='addtraining.php';
  <form class="modal-content animate" action="trainimage.php" enctype="multipart/form-data" method="post" autocomplete="off">
 
    <div class="form-group">
-                          <h6 class="jumbotron-heading"><b><u>ID Of Scheme :</u> </b>
+                          <h6 class="jumbotron-heading"><b><u>ID Of Course :</u> </b>
 
     <input type="text" name="id" class="form-control" value="<?php echo $row['id'];?>">
                         
 </h6></div>   
 
 
+
 <div class="form-group">
-   <h6 class="jumbotron-heading"><b><u>Upload Logo  Of Scheme, If Any</b></h6>
-
-<input type='file' name="avatar" onchange="readURL(this);" /></div><br>
-    <img id="blah" name="imageselect" align="center" src="#" alt="your image" />
-<script>
-function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#blah')
-                    .attr('src', e.target.result)
-                    .width(200)
-                    .height(150);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-</script>
+   <h6 class="jumbotron-heading"><b><u>Enter the new key of video</b></h6><br>
+    <label align="left" style="margin:5px;display: inline;"><b>https://www.youtube.com/embed/</b></label>                                                <?php
+ echo str_repeat("&nbsp;",3);?>  
+    <input type="text" name="videolink" class="form-control" placeholder="Enter the new video key" style="height: 40px; width:400px; text-align: top;padding-top: 5px;display: inline;">
+<br><br>
+</div>
 
 
-
-
-                  <div>  <button type="submit" name="modified" class="btnclass"data-toggle="modal">Submit Image </button></div>
+                  <div>  <button type="submit" name="modified" class="btnclass"data-toggle="modal">Submit Video_id </button></div>
 
             
 

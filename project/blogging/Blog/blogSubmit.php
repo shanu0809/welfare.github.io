@@ -9,7 +9,7 @@
 	if($_SERVER['REQUEST_METHOD'] == "POST")
 	{
 		$title = dataFilter($_POST['blogTitle']);
-		$content = $_POST['blogContent'];
+		$content = $_POST['pinfo'];
 		$username = $_POST['username'];
 	}
 

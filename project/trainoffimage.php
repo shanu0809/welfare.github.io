@@ -24,18 +24,13 @@ session_start();
 if(isset($_POST['modified'])){
 
 	$id=$_POST['id'];
-	  $avatar_path='offtraining/'.$_FILES['avatar']['name'];
-$avatar_path=mysqli_real_escape_string($conn,$avatar_path);
-    if(preg_match("!image!",$_FILES['avatar']['type'])){
-      if(copy($_FILES['avatar']['tmp_name'],$avatar_path)){
-        $_SESSION['id']=$id;
-        $_SESSION['avatar']=$avatar_path;
- $sql="UPDATE addtraining  SET imagedoc='$avatar_path' WHERE id='$id'";
+$videolink=$_POST['videolink'];
+ $sql="UPDATE addtraining  SET videolink='$videolink' WHERE id='$id'";
 
 if(mysqli_query($conn,$sql)){
       
         
-        echo "<script> alert(' Logo updated successfully  !!! ');
+        echo "<script> alert(' video is updated successfully  !!! ');
 
 </script>"; 
 ?>
@@ -50,8 +45,8 @@ if(mysqli_query($conn,$sql)){
 
   }
         else{
-                    $_SESSION['message']="user could not be added to database";
-                      echo "<script> alert(' user could not be added to database  !!! ');
+                   
+                      echo "<script> alert(' video could not be added to database  !!! ');
 
 </script>"; 
 ?>
@@ -64,42 +59,6 @@ if(mysqli_query($conn,$sql)){
         }
 }
 
-else{
-                $_SESSION['message']="File upload failed";
-                      echo "<script> alert(' File upload failed !!! ');
-
-</script>"; ?>
-<script>
-    $(document).ready(function(){
-        $("#myModal1").modal('show');
-    });
-</script>
-    <?php 
-      }
-}
-
-else{
-        $_SESSION['message']="please upload only jpg,jpeg,png,gif pictures";
-
-                     echo "<script> alert(' please upload only jpg,jpeg,png,gif pictures !!! ');
-
-</script>"; 
-?>
-<script>
-    $(document).ready(function(){
-        $("#myModal1").modal('show');
-    });
-</script>
-
-<?php
-    }   
- 
-
-
-
-
-
-}
 ?>
     <div id="myModal1" class="modal fade" tabindex="-1">
         <div class="modal-dialog">

@@ -12,11 +12,14 @@
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-amber.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css"  href="css/style1.css">
  <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   <link rel="stylesheet" type="text/css"  href="css/styleindex.css">
+
+   <link rel="stylesheet" type="text/css"  href="css/style1.css">
  
   <style>
     *{
@@ -81,12 +84,13 @@ font-family: 'Josefin Sans', sans-serif;
           <li class="nav-item">
         <a class="nav-link" href="index.php#gallery">Gallery</a>
       </li>
-           <li class="nav-item">
-        <a class="nav-link" href="blog.php">Blogs</a>
+          <li class="nav-item">
+        <a class="nav-link" href="blogging/blogView.php">Blogs</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link " href="adminlogin.php">Admin</a>
+          <li class="nav-item">
+        <a class="nav-link" href="commentmain.php">Ask Query</a>
       </li>
+     
     </ul>
   </div>
 </nav>
@@ -100,7 +104,7 @@ font-family: 'Josefin Sans', sans-serif;
           <ul>
             <li class="current" class="current"><a href="job.php">Jobs</a></li>
             <li class="current"><a href="training.php">Trainings</a></li>
-            <li class="current"><a href="Govt_scheme.php">Government Schemes</a></li>
+            <li class="current"><a href="govtscheme.php">Government Schemes</a></li>
             <li class="current"><a href="fright.php">Fundamental Rights</a></li>
                <li class="current"><a href="duties.php">Fundamental Duties</a></li>
                   <li class="current"><a href="dpsp.php">DPSPs</a></li>

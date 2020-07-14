@@ -61,15 +61,6 @@ position:absolute;
 </style></head>
 <body>
 
-<div class="text-center">
-
-  <button type="submit" name="regular" class="btn btn-info" data-toggle="modal" data-target="#modalRegular">Regular map modal</button>
-  <button type="submit" name="satellite" class="btn btn-default" data-toggle="modal" data-target="#modalSatellite">Satellite map
-    modal</button>
-  <button type="submit" name="custom" class="btn btn-secondary" data-toggle="modal" data-target="#modalCustom">Custom map
-    modal</button>
-
-</div>
 
 <!--Modal: Name-->
 <div class="modal" id="modalRegular" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"

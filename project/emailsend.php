@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <head></head>
 <?php
@@ -48,7 +47,7 @@ if(!$mail->send()) {
 } else {
 
  echo "<script> alert('Check your registered email id to change your password');
-window.location.href='adminlogin.php';
+window.location.href='forgot.php';
 </script>";
 
 

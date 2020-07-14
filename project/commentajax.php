@@ -37,17 +37,18 @@ switch ($_POST['req']) {
   /* [SHOW REPLY FORM] */
   case "reply": ?>
     <form onsubmit="return comments.add(this)" class="creplyform">
-      <h1>Leave a comment</h1>
+      <h1>Type.......</h1>
       <input type="hidden" name="reply_id" value="<?=$_POST['reply_id']?>"/>
       <input type="text" name="name" placeholder="Name" required/>
+        <input type="hidden" name="comment_status" value="0" required/>
       <textarea name="message" placeholder="Message" required></textarea>
-      <input type="submit" class="cbutton" value="Post Comment"/>
+      <input type="submit" class="cbutton" value="Submit"/>
     </form>
     <?php break;
 
   /* [ADD COMMENT] */
   case "add":
-    echo $pdo->add($_POST['post_id'], $_POST['name'], $_POST['message'], $_POST['reply_id']) ? "OK" : "ERR";
+    echo $pdo->add($_POST['post_id'], $_POST['name'], $_POST['message'], $_POST['reply_id'], $_POST['comment_status']) ? "OK" : "ERR";
     break;
 }
 ?>

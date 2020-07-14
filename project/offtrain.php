@@ -187,13 +187,14 @@ $row=mysqli_fetch_assoc($result);
 
                      <?php  if($row['des']==''){
                       ?>
-                 <input type="text" class="form-control" name="des" placeholder="Enter description "> 
+                 <textarea type="text" class="form-control" name="des" placeholder="Enter description " style="overflow-wrap: break-word;text-overflow:none;height:200px;width: 100%;overflow: hidden;"required></textarea> 
 
  <?php
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control"  name="des" value="<?php echo $row['des'];?>">
+                               <textarea type="text" class="form-control"  name="des" style="overflow-wrap: break-word;text-overflow:none;height:200px;width: 100%;overflow: hidden;">
+                                <?php echo $row['des'];?></textarea>
                         
                         <?php
                       }
@@ -203,20 +204,104 @@ $row=mysqli_fetch_assoc($result);
 </h6></div>
 
                   <div class="form-group">
-                            <h6 class="jumbotron-heading"><b><u>Name of Center  :</u> </b><input type="text" class="form-control" name="name" value="<?php echo $row['title'];?>"></h6>
+                            <h6 class="jumbotron-heading"><b><u>Name of Center  :</u> </b><input type="text" class="form-control" name="name" value="<?php echo $row['name'];?>"></h6>
                     </div>
       <br>
 
+     <div class="form-group">
+                        <h6 class="jumbotron-heading"><b><u>Address of Center  :</u> </b>
+ 
+                     <?php  if($row['address']==''){
+                      ?>
+                 <input type="text" class="form-control" name="address" placeholder="Enter address of center"> 
+
+ <?php
+                        }
+                          else{
+                              ?>
+                               <input type="text" class="form-control"  name="address" value="<?php echo $row['address'];?>">
+                        
+                        <?php
+                      }
+                      ?>
+
+                      
+</h6></div>
+
+
+
+
+<?php if($row['country'])
+               { 
+                $country=$row['country'];
+                $sql1="SELECT name from country where id='$country'";
+                                  $res=mysqli_query($conn,$sql1);
+
+$row1=mysqli_fetch_assoc($res);
+               if($row1)
+               {
+                      
+
+                ?>
               <div class="form-group">
-                            <h6 class="jumbotron-heading"><b><u>Country of Center  :</u> </b><input type="hidden" class="form-control" name="country" value="<?php echo $row['country'];?>"><?php echo $row['country'];?></h6>
+                            <h6 class="jumbotron-heading"><b><u>Country of Center  :</u> </b><input type="hidden" class="form-control" name="country" value="<?php echo $row1['name'];?>"><?php echo $row1['name'];?></h6>
+
+                            <?php
+                          }
+                        }
+                        ?>
                     </div>
       <br>
+
+    <?php if($row['state'])
+               { 
+                $state=$row['state'];
+                $sql1="SELECT name from state where id='$state'";
+                                  $res=mysqli_query($conn,$sql1);
+
+$row1=mysqli_fetch_assoc($res);
+               if($row1)
+               {
+                      
+
+                ?>
+
+
+
+
                     <div class="form-group">
-                            <h6 class="jumbotron-heading"><b><u>State of Center  :</u> </b><input type="hidden" class="form-control" name="state" value="<?php echo $row['state'];?>"><?php echo $row['state'];?></h6>
+                            <h6 class="jumbotron-heading"><b><u>State of Center  :</u> </b><input type="hidden" class="form-control" name="state" value="<?php echo $row1['name'];?>"><?php echo $row1['name'];?></h6>
+
+
+                            <?php
+                          }
+                        }
+                        ?>
                     </div>
       <br>
+
+                            <?php if($row['city'])
+               { 
+                $city=$row['city'];
+                $sql1="SELECT name from city where id='$city'";
+                                  $res=mysqli_query($conn,$sql1);
+
+$row1=mysqli_fetch_assoc($res);
+               if($row1)
+               {
+                      
+
+                ?>
+
+
+
                     <div class="form-group">
-                            <h6 class="jumbotron-heading"><b><u>Name of Center  :</u> </b><input type="hidden" class="form-control" name="city" value="<?php echo $row['city'];?>"><?php echo $row['city'];?></h6>
+                            <h6 class="jumbotron-heading"><b><u>City of Center  :</u> </b><input type="hidden" class="form-control" name="city" value="<?php echo $row1['name'];?>"><?php echo $row1['name'];?></h6>
+
+                                    <?php
+                          }
+                        }
+                        ?>
                     </div>
       <br>
 
@@ -246,13 +331,13 @@ if($row['link']==''){
 if($row['dur']==''){
   ?>
 
-                         <input type="date" class="form-control" name="dur" placeholder="Enter duration"> 
+                         <input type="text" class="form-control" name="dur" placeholder="Enter duration"> 
                          
                           <?php
                         }
                           else{
                               ?>
-    <input type="date" class="form-control" name="dur" value="<?php echo $row['dur'];?>">
+    <input type="text" class="form-control" name="dur" value="<?php echo $row['dur'];?>">
                         
                         <?php
                       }
@@ -260,12 +345,13 @@ if($row['dur']==''){
 </h6></div>
 
  <div class="form-group">
-                        <?php if($row['imagedoc']=='')
+                        <?php if($row['videolink']=='')
                         {?>
 
-                                                   <label><b>Upload Logo  Of Course, If Any</b></Label>
-  <input type="file" name="avatar"/><br/>
-                        
+                      <h6 class="jumbotron-heading"><b><u>Enter video_id :</u> </b>
+
+<label align="left" style="margin:10px;display: inline;"><b>https://www.youtube.com/embed/</b></label>                                                <?php
+ echo str_repeat("&nbsp;",3);?>                   <input type="text" class="form-control" name="videolink" style="height: 40px; width:400px; text-align: top;padding-top: 5px;display: inline; " placeholder="Enter video link id">   
                  
                     <?php
                   }
@@ -280,12 +366,11 @@ if($row['dur']==''){
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-6 col-md-6 col-12">
-     <img class="image fit" src="  <?php echo $row['imagedoc'];?>" height="200px;" width="300px" class="img-fluid aboutimg"/></a>
 
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $row['videolink']; ?>" allowfullscreen></iframe>
     </div>
     <div class="col-lg-6 col-md-6 col-12" >
-   
- <button  type="button"  class="btnclass" data-toggle="modal" data-target='#myMod'>Update Image</button>
+      <h4>Logo Updated Successfully</h4>
 
 
         </div>
@@ -325,7 +410,7 @@ echo date('d-m-Y H:i');
                   
                     <button type="submit" name="updatefinal" class="btnclass">Update </button>
 
-                    <a href="govt.php"><button type="button" class="btnclass">Wanna update again? </button></a>
+                    <a href="addtraining.php"><button type="button" class="btnclass">Wanna update again? </button></a>
                 </form>
                   <?php
                   }

@@ -2,35 +2,131 @@
 require'connection.php';
 require'functions.php';?>
 
-
-
-
-
 <?php
 
 
-  session_start();  
+  session_start();
+    function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}   
 $_SESSION['message']='';
 if($_SERVER['REQUEST_METHOD']=='POST'){
   if(isset($_POST['submit'])){
 
-   $title=$_POST['title'];
+  
    $job=$_POST['job'];
     
       $sector=$_POST['sector'];
     $des=$_POST['des'];
-     $n1=$_POST['n1'];
-      $n2=$_POST['n2'];
-       $n3=$_POST['n3'];
-        $n4=$_POST['n4'];
-         $n5=$_POST['n5'];
+    if($_POST['n1']==''){
+      $n1='';
+    }
+      else{
+    $n1=$_POST['n1'];
+  }
+   if($_POST['n2']==''){
+    $n2='';
+   }
+      else{
+       $n2=$_POST['n2'];
+     }
+       if($_POST['n3']==''){
+    $n3='';
+   }
+      else{
+          $n3=$_POST['n3'];
+        }
+          if($_POST['n4']==''){
+    $n4='';
+   }
+      else{
+             $n4=$_POST['n4'];
+           }
+             if($_POST['n5']==''){
+    $n5='';
+   }
+      else{
+                $n5=$_POST['n5'];
+              }
+
+                if($_POST['prov']==''){
+    $prov='';
+   }
+      else{
+   
    $prov=$_POST['prov'];
+ }
+                 if($_POST['prov1']==''){
+    $prov1='';
+   }
+      else{
       $prov1=$_POST['prov1'];
+    }
+                    if($_POST['prov2']==''){
+    $prov2='';
+   }
+      else{
       $prov2=$_POST['prov2'];
+    }
+                    if($_POST['prov3']==''){
+    $prov3='';
+   }
+      else{
        $prov3=$_POST['prov3'];
+     }
+                     if($_POST['prov4']==''){
+    $prov4='';
+   }
+      else{
         $prov4=$_POST['prov4'];
+      }
+                      if($_POST['prov5']==''){
+    $prov5='';
+   }
+      else{
          $prov5=$_POST['prov5'];
-             $link=$_POST['link'];
+     }
+        $title=$_POST['title'];
+$title = test_input($_POST["title"]);
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z ]*$/",$title)) {
+    
+
+   echo "<script> alert('Error! Only letters and white space allowed in title of scheme');
+window.location.href='addtraining.php';
+   </script>";
+
+    }     
+
+$sector = test_input($_POST["sector"]);
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z ]*$/",$sector)) {
+    
+
+   echo "<script> alert('Error! Only letters and white space allowed in name of field');
+window.location.href='addtraining.php';
+   </script>";
+
+    } 
+
+   if($_POST['link']==''){
+        $link='no link is provided'; 
+    }
+       else{     $link=$_POST['link'];
+                 $link = test_input($_POST["link"]);
+    // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
+    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$link)) {
+   
+
+   echo "<script> alert('Error! Invalid URL');
+window.location.href='govt.php';
+   </script>";
+    }
+  
+    }
 
     $valid1=$_POST['valid1'];
     $valid2=$_POST['valid2'];
@@ -52,7 +148,8 @@ window.location.href='govt.php';
         }
         else{
                     $_SESSION['message']="user could not be added to database";
-                    header("location:cms.php");
+                  
+                  
         }
 }
 
@@ -87,7 +184,13 @@ else{
    </script>
 
 <style>
-
+    *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: auto; 
+font-family: 'Josefin Sans', sans-serif;
+    }
 
 /* Full-width input fields */
 input[type=text], input[type=password] {
@@ -243,16 +346,14 @@ span.psw {
 float:center;
 }
 </style>
+
+                                      <script>
+                  if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
 </head>
 <body>
-
-
-
-
-
-
-
-
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">E-Legal Aid & Welfare Portal</a>
@@ -275,21 +376,22 @@ float:center;
         <a class="nav-link" href="index.php#about">About</a>
       </li>
       </li>
-      <li class="nav-item">
-        <a class="nav-link " href="adminlogin.php">Admin</a>
       </li>
     </ul>
   </div>
 </nav>
 
 <h2 align="center">Hii, Admin You can change functions using this page</h2>
+<div  align="Right"><a href="userinfo.php"> <button   style="width:15%;background-color: Red;color: white;padding: 10px; margin: 60px;" onclick="document.getElementById('id05').style.display='block'" style="width:auto;">Back</button></a>
+<a href="index.php"> <button  onclick="document.getElementById('id06').style.display='block'" style="width:15%;background-color: Red;color: white;padding: 10px; margin: 40px;">Logout!</button></a>
 
- <div  align="center"> <button  onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add New Schemes</button></div><br>
+ <div  align="center"> <button  onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add New Schemes</button></div>
 
-<div  align="center"> <button  onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Modify Schemes</button></div><br>
-<div  align="center"> <button  onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Delete Outdated Schemes</button></div><br>
-<div  align="center"><a href="Govt_schemes.php"><button  onclick="document.getElementById('id04').style.display='block'" style="width:auto;">Visit Schemes Page</button></a></div><br>
-<div  align="center"><a href="userinfo.php"> <button  onclick="document.getElementById('id05').style.display='block'" style="width:auto;">Back</button></a></div><br>
+<div  align="center"> <button  onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Modify Schemes</button></div>
+<div  align="center"><a href="govtscheme.php"><button  onclick="document.getElementById('id04').style.display='block'" style="width:auto;">Visit Schemes Page</button></a></div>
+<div  align="center"> <button  onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Delete Outdated Schemes</button></div>
+
+
 
 
  
@@ -307,9 +409,9 @@ float:center;
                                                       
   
     <div class="container">
-                         <select id="job" name="job" required>
+                         <select id="job" name="job" required style="width: 50%;">
           <optgroup >
-      <option>-----Title-----</option>
+      <option>-----Type Of Scheme-----</option>
     
             <option value="Central"><b>Central</b></option>
             <option value="State"><b>State</b></option>
@@ -320,7 +422,7 @@ float:center;
      
        <label for="psw" align="left"><b>Title Of Scheme</b></label><input type="text" placeholder="Enter Title Of Scheme" name="title" required>  
     
- <label for="psw" align="left"><b>Sector</b></label><input type="text" placeholder="Enter sector" name="sector">
+ <label for="psw" align="left"><b>Sector</b></label><input type="text" placeholder="Enter sector" name="sector" required>
 
     <label for="psw" align="left"><b>Description Of Scheme</b></label><input type="text" placeholder="Enter description of Amendment" name="des" required>
       <input type="text" placeholder="Enter description 1" name="n1">
@@ -336,17 +438,21 @@ float:center;
       <input type="text" placeholder="Enter provision 4" name="prov4">
       <input type="text" placeholder="Enter provision 5" name="prov5">
          <label for="psw"><b>For more details visit..</b></label> <input type="text" placeholder="Enter link" name="link">
-       
-             <label for="psw"><b>valid_from</b></label>
-      <input type="date" placeholder="Enter date" name="valid1"> 
-      <label for="psw"><b>valid_upto</b></label>
-            <input type="date" placeholder="Enter date" name="valid2">
-        
-      <input type="submit" name="submit" value="Add">
+       <br><br>
+             <label for="psw"style="display: inline;"><b>valid_from</b></label>                              <?php
+ echo str_repeat("&nbsp;",3);?>   
+      <input type="date" style="display: inline;" placeholder="Enter date" name="valid1">
+                                    <?php
+ echo str_repeat("&nbsp;",8);?>    
+      <label for="psw" style="display: inline;"><b>valid_upto</b></label>                              <?php
+ echo str_repeat("&nbsp;",3);?>   
+            <input type="date"style="display: inline;" placeholder="Enter date" name="valid2">
+        <br>  <br>
+      <button type="submit" name="submit">Add</button>
    
     </div>
 
-    <div class="container" style="background-color:#f1f1f1">
+    <div class="container" align="left" style="background-color:#f1f1f1">
       <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
     </div>
   </form>
@@ -372,13 +478,15 @@ window.onclick = function(event) {
    <div class="imgcontainer">
 
       <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+
+  <label for="uname"><b>Type Of Scheme</b></label>
     <div class="container">
             <select id="job" name="job" required>
           <optgroup >
       <option>-----Types-----</option>
     
-            <option value="central"><b>Central</b></option>
-            <option value="state"><b>State</b></option>
+            <option value="Central"><b>Central</b></option>
+            <option value="State"><b>State</b></option>
        
           </optgroup><br></td></tr>
         </select>
@@ -419,8 +527,8 @@ window.onclick = function(event) {
     
     </div>
 
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+    <div class="container" align="left"  style="background-color:#f1f1f1">
+      <button type="button" align="left"  onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
     </div>
   </form>
 </div>
@@ -444,6 +552,9 @@ window.onclick = function(event) {
   <form class="modal-content animate" action="modifygovt.php" method="POST">
    <div class="imgcontainer">
  <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+
+
+  <label for="uname"><b>Type Of Scheme</b></label>
 
     <div class="container">
 
@@ -489,11 +600,11 @@ window.onclick = function(event) {
  <button type="submit" name="updates">Update Changes</button>
 </div>
 
-   <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
+   <div class="container" align="left" style="background-color:#f1f1f1">
+      <button type="button" align="left"  onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
 </div></form></div>
 
-  <script>
+  
 
 
 

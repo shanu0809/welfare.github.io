@@ -155,7 +155,7 @@ $row=mysqli_fetch_assoc($result);
                       <div class="form-group">
                          <h6 class="jumbotron-heading"><b><u>ID of Scheme  : </u> </b><lable>
 
-                          <input type="hidden" name="id" class="form-control" name="job" value="<?php echo $row['id'];?>"><?php echo $row['id'];?></h6><br>
+                          <input type="hidden" name="id" class="form-control" value="<?php echo $row['id'];?>"><?php echo $row['id'];?></h6><br>
 
                       <div class="form-group">
                         <h6 class="jumbotron-heading"><b><u>Type of Scheme  : </u> </b>
@@ -205,13 +205,13 @@ if($row['sector']==''){
 
                      <?php  if($row['des']==''){
                       ?>
-                 <input type="text" class="form-control" name="des" placeholder="Enter Description"> 
+              <textarea type="text" class="form-control" name="des" placeholder="Enter provision " style="overflow-wrap: break-word;text-overflow:none;height:auto;width: 100%;overflow: hidden;" required></textarea> 
 
  <?php
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control" name="des" value="<?php echo $row['des'];?>">
+                                <textarea type="text" class="form-control"  name="des" style="overflow-wrap: break-word;text-overflow:none;height:auto;width: 100%;overflow: hidden;" required><?php echo $row['des'];?></textarea>
                         
                         <?php
                       }
@@ -290,13 +290,13 @@ if($row['sector']==''){
 
                      <?php  if($row['prov']==''){
                       ?>
-                 <input type="text" class="form-control"  name="prov" placeholder="Enter Provision"> 
+                  <textarea type="text" class="form-control" name="prov" placeholder="Enter provision " style="overflow-wrap: break-word;text-overflow:none;height:auto;width: 100%;overflow: hidden;" required></textarea> 
 
  <?php
                         }
                           else{
                               ?>
-                               <input type="text" class="form-control" name="prov" value="<?php echo $row['prov'];?>">
+                               <textarea type="text" class="form-control"  name="prov" style="overflow-wrap: break-word;text-overflow:none;height:auto;width: 100%;overflow: hidden;" required><?php echo $row['prov'];?></textarea>    
                         
                         <?php
                       }

@@ -1,5 +1,6 @@
 <?php
 require"connection.php";
+
 ?>
 
 
@@ -10,6 +11,8 @@ require"connection.php";
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
+
+
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -87,6 +90,27 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   display: none;
 }
 
+.ticker-caption{
+  position: absolute;
+}
+@media (min-width: 768px) {
+  .ticker-caption {
+    margin-bottom: 10px;
+  }
+}
+
+@media (min-width: 992px) {
+  .ticker-caption {
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 500px) {
+  .ticker-caption {
+    height: 30px;
+    text-align: left;
+  }
+
    </style>
 
 
@@ -137,7 +161,7 @@ function googleTranslateElementInit() {
       <li class="nav-item">
         <a class="nav-link " href="adminlogin.php">Admin</a>
       </li>
-   
+
     </ul>
   </div>
 </nav>
@@ -269,7 +293,7 @@ while ($row=mysqli_fetch_assoc($result))
        
                   <ul class="unorder">
 
-      <marquee behavior="alternate" scrolldelay=300 loop="" direction="left">
+      <marquee behavior="scroll" scrolldelay=280 loop="" direction="left">
                    <li class="list"><a href="visitjob.php#change"><span>
                                       <?php $result=mysqli_query($conn,'SELECT id,title,posttime FROM job  ORDER BY id DESC LIMIT 1')or die('invalid query:'.mysqli_error($conn));
 while($row=mysqli_fetch_assoc($result))
@@ -357,7 +381,7 @@ while($row=mysqli_fetch_assoc($result))
                 <div class="ti_content">
                   <ul class="unorder">
 
-      <marquee behavior="alternate" scrolldelay=300 loop="" direction="left">
+      <marquee behavior="scroll" scrolldelay=280 loop="" direction="left">
                    <li class="list"><a href="govtscheme.php#change"><span>
   <?php $result=mysqli_query($conn,'SELECT id,title,valid_from FROM scheme ORDER BY id DESC LIMIT 1')or die('invalid query:'.mysqli_error($conn));
 while($row=mysqli_fetch_assoc($result))
@@ -598,8 +622,8 @@ while($row=mysqli_fetch_assoc($result))
 
 
 <section class="my-5">
-  <div class="py-5" id="about">
-    <h2 class="text-center">About Us</h2>
+  <div class="py-5" id="about" style="padding-top: 5px;">
+    <h2 class="text-center"style="padding-top: 5px;">About Us</h2>
   </div>
 <div class="container-fluid">
   <div class="row">
@@ -607,8 +631,8 @@ while($row=mysqli_fetch_assoc($result))
       <img src="img/slider1.jpg" class="img-fluid aboutimg">
     </div>
     <div class="col-lg-6 col-md-6 col-12" >
-    <h4 class="display-4">Social Welfare Portal</h4>
-    <p class="py-5 text-justify">We work for the people who are wiling to do something for themselves.Who want to live a dignified life with basic necesities fulfilled.Our services are helpful to enhance a person knowledge about their fundamental rights,duties so noone will take benefit of others.This portal focus on overall development of less skilled people by giving them guidence to start their small business or get a job by industries,government due to which most of the marginal worker will learn to earn livelihood.For more details visit our service.
+    <h4 class="display-4"style="padding: 5px;">Social Welfare Portal</h4>
+    <p class="py-5 text-justify"style="padding: 5px;">We work for the people who are wiling to do something for themselves.Who want to live a dignified life with basic necesities fulfilled.Our services are helpful to enhance a person knowledge about their fundamental rights,duties so noone will take benefit of others.This portal focus on overall development of less skilled people by giving them guidence to start their small business or get a job by industries,government due to which most of the marginal worker will learn to earn livelihood.For more details visit our service.
 
     </p>
     </div>
@@ -618,8 +642,8 @@ while($row=mysqli_fetch_assoc($result))
 
 
 <section class="my-5">
-  <div class="py-5" id="service">
-    <h2 class="text-center">Our Services</h2>
+  <div class="py-5" id="service"style="padding-top: 5px;">
+    <h2 class="text-center"style="padding-top: 5px;">Our Services</h2>
   </div>
 <div class="container-fluid">
   <div class="row text-center equal-height-columns">
@@ -629,37 +653,37 @@ while($row=mysqli_fetch_assoc($result))
   <div class="card">
     <img class="card-img-top" src="img/5a419f235bb101514250019.jpg" alt="Card image cap">
     <div class="card-body">
-      <h5 class="card-title">Government Schemes</h5>
-      <p class="card-text">Schemes launched by government may be beneficial for you.</p>
-     <footer class="footer_style_2">
-     <a href="govtscheme.php" class="btn btn-primary" style="width:300px;">See more</a> </footer>
+      <h5 class="card-title"style="padding-top: 5px;">Government Schemes</h5>
+      <p class="card-text"style="padding-top: 5px;">Schemes launched by government may be beneficial for you.</p>
+     <footer class="footer_style_2" >
+     <a href="govtscheme.php" class="btn btn-primary" style="width:300px;padding-top: 5px;">See more</a> </footer>
     </div>
   </div>
   <div class="card">
     <img class="card-img-top" src="img/emblem.jpg" alt="Card image cap">
     <div class="card-body">
-      <h5 class="card-title">Know your rights</h5>
-      <p class="card-text">Everyone has right to know the legal information and live a dignified life.</p>
+      <h5 class="card-title"style="padding-top: 5px;">Know your rights</h5>
+      <p class="card-text"style="padding-top: 5px;">Everyone has right to know the legal information and live a dignified life.</p>
  <footer class="footer_style_2">
-     <a href="fright.php" class="btn btn-primary" style="width:300px;">See more</a> </footer>
+     <a href="fright.php" class="btn btn-primary" style="width:300px;padding-top: 5px;">See more</a> </footer>
     </div>
   </div>
   <div class="card">
     <img class="card-img-top" src="img/technology-to-promote-cottage-industries-worldwide.jpg" alt="Card image cap">
     <div class="card-body">
-      <h5 class="card-title">Trainings</h5>
-      <p class="card-text">Different ideas and trainings via online videos or through offline centers to promote skill development.</p>
+      <h5 class="card-title"style="padding-top: 5px;">Trainings</h5>
+      <p class="card-text"style="padding-top: 5px;">Different ideas and trainings via online videos or through offline centers to promote skill development.</p>
       <footer class="footer_style_2">
-     <a href="training.php" class="btn btn-primary" style="width:300px;">See more</a> </footer>
+     <a href="training.php" class="btn btn-primary" style="width:300px; padding-top: 5px;">See more</a> </footer>
     </div>
   </div>
  <div class="card">
     <img class="card-img-top" src="img/hands-of-the-potter.jpg" alt="Card image cap">
     <div class="card-body">
-      <h5 class="card-title">Search jobs</h5>
-      <p class="card-text">Those who are wiling to become independent,can search jobs to fulfill their basic needs.</p>
+      <h5 class="card-title"style="padding-top: 5px;">Search jobs</h5>
+      <p class="card-text"style="padding-top: 5px;">Those who are wiling to become independent,can search jobs to fulfill their basic needs.</p>
      <footer class="footer_style_2">
-     <a href="visitjob.php" class="btn btn-primary" style="width:300px;">See more</a> </footer>
+     <a href="visitjob.php" class="btn btn-primary" style="width:300px;padding-top: 5px;">See more</a> </footer>
     </div>
   </div>
 
@@ -668,8 +692,8 @@ while($row=mysqli_fetch_assoc($result))
 </div>
 
 <section class="my-5">
-  <div class="py-5" id="gallery">
-    <h2 class="text-center">Gallery</h2>
+  <div class="py-5" id="gallery"style="padding-top: 5px;">
+    <h2 class="text-center"style="padding-top: 5px;">Gallery</h2>
   </div>
   <div class="container-fluid">
     <div class="row">
@@ -710,51 +734,51 @@ while($row=mysqli_fetch_assoc($result))
     <h2 class="text-center">Contact Us</h2>
     <div class="row p-3">
       <div class="col-lg-4 col-md-4 col-12 offset-md-1">
-        <p class="mt-5 text-justify" >E-Legal Aid & Welfare Portal is for supporting the people who are not aware about their rights, and harras by other to fulfill their motive. It also focus in making oppressed and less skilled people independent.</p>
+        <p class="mt-5 text-justify"style="padding: 5px;" >E-Legal Aid & Welfare Portal is for supporting the people who are not aware about their rights, and harras by other to fulfill their motive. It also focus in making oppressed and less skilled people independent.</p>
         <p class="text-capitalize">@ 2020 Welfare. All right reserved.</p>
       </div>
 <div class=" col-lg-4 col-md-4 col-12" id="contact">
   <h4>Contact details</h4>
   <br>
-  <dl class="contact-list">
+  <dl class="contact-list"style="padding: 5px;">
     <dt>Address:</dt>
     <dd>Agra, U.P.</dd>
   </dl>
-  <dl class="contact-list">
+  <dl class="contact-list"style="padding: 5px;">
     <dt>email:</dt>
     <dd><a class= "anchor_dec"  href="mailto:humanity0809@gmail.com">welfareportal@gmail.com</a></dd>
   </dl>
-  <dl class="contact-list">
+  <dl class="contact-list"style="padding: 5px;">
     <dt>phone no.:</dt>
     <dd><a class= "anchor_dec" href="tel:#">+91 123456</a>
 <span>or</span><a class= "anchor_dec" href="tel:9837617900">+91 7017256348</a></dd>
   </dl>
 </div>
 <div class="col-md-2 col-12">
-  <h4>links</h4>
+  <h4 style="padding: 5px;">links</h4>
   <br>
-  <ul>
-    <li><a class= "anchor_dec" href="#service">services</a></li>
-    <li><a class= "anchor_dec" href="#contact">contact</a></li>
-    <li><a class= "anchor_dec" href="blogging/blogView.php">blog</a></li>
-    <li><a  class= "anchor_dec"href="#about">About</a></li>
-        <li><a  class= "anchor_dec"href="commentmain.php">Ask query</a></li>
+  <ul >
+    <li style="padding: 5px;"><a class= "anchor_dec" href="#service">services</a></li>
+    <li style="padding: 5px;"><a class= "anchor_dec" href="#contact">contact</a></li>
+    <li style="padding: 5px;"><a class= "anchor_dec" href="blogging/blogView.php">blog</a></li>
+    <li style="padding: 5px;"> <a  class= "anchor_dec"href="#about">About</a></li>
+        <li style="padding: 5px;"><a  class= "anchor_dec"href="commentmain.php">Ask query</a></li>
   </ul>
 </div>
     </div>
 
     <div class="d-flex justify-content-around align-items-center flex-wrap">
-      <div class="p-md-5 p-2 flex-fill">
+      <div class="p-md-5 p-2 flex-fill" style="padding: 5px;">
      <a href="https://www.facebook.com"> <i class="fa fa-facebook-official" arial-hidden="true">
       
     </i></a>
       <span>Facebook</span></div>
-      <div class="p-md-5 p-2 flex-fill">
+      <div class="p-md-5 p-2 flex-fill"style="padding: 5px;">
       <a href="https://www.instagram.com"> <i class="fa fa-instagram" arial-hidden="true">
       
     </i></a>
       <span>Instagram</span></div>
-      <div class="p-md-5 p-2 flex-fill">
+      <div class="p-md-5 p-2 flex-fill"style="padding: 5px;">
       <a href="https://www.twitter.com"> <i class="fa fa-twitter" arial-hidden="true">
       
     </i></a>

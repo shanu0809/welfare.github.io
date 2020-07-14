@@ -13,11 +13,13 @@ $title=$_POST['title'];
  
              $link=$_POST['link'];
 
-    $dur=$_POST['dur'];
+  
        $posttime=$_POST['posttime']; 
+  
+       $field=$_POST['field']; 
 
 
-      $query="UPDATE training SET type='$type', title='$title',des='$des',link='$link',dur='$dur',updatetime='$posttime' WHERE id='$id'";
+      $query="UPDATE training SET type='$type', title='$title', field='$field',des='$des',link='$link',updatetime='$posttime' WHERE id='$id'";
 	
 $res=mysqli_query($conn,$query);
 
@@ -42,3 +44,8 @@ window.location.href='addtraining.php';
 	}
 
 ?>
+                                      <script>
+                  if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>

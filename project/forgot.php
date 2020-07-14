@@ -1,9 +1,6 @@
-
 <!DOCTYPE html>
-<html lang="en-US">
 <head>
-<title></title>
-	
+<title></title>	
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -19,8 +16,8 @@ font-family: 'Josefin Sans', sans-serif;}
   background-image: linear-gradient(27deg, navy 50%,lightblue 50%);
  }
 .centerdiv{
-	width: 400px;
-	height: 600px;
+	width: 300px;
+	height: 400px;
 	position: absolute;
 	top: 50%;
 	bottom: 50%;
@@ -79,31 +76,7 @@ padding-right: 20px;
  </style>
  </head>
  <body> 
-<?php
- require "connection.php";
-$email='';$dob='';$hobby='';$hobbys='';$pass='';$cpass='';	$msg='';$msg2='';$msg3='';
-if(isset($_POST["log"])){
 
-	$email=$_POST['email'];
-	$dob=$_POST['dob'];
-	$hobby=$_POST['hobby'];
-	$hobbys=$_POST['hobbys'];
-$pass=$_POST['pass'];
-$cpass=$_POST['cpass'];
-
-if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
-	$msg= "<div class='error'>enter valid email</div>";
-}
-
-
-else if($pass!=$cpass){
-$msg2= "<div class='error'>password doesnot match</div>";
-}
-
-else if(strlen($pass)<=5){
-	$msg3= "<div class='error'> password must contain atleast 5 characters</div>";
-}
-}?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">E-Legal Aid & Welfare Portal</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,55 +110,68 @@ else if(strlen($pass)<=5){
 
  	<div class="bgimg">
  		<div class="centerdiv">
-<h2 class="heading">Forgot Password</h2>
+<h2 class="heading">Forgot Password</h2><br>
+<p style="text-align: center;
+	color: white;
+	text-transform:uppercase;	text-shadow: -2px 2px 1px #0A84C6; ">Change your password</p>
 <br>
 <br>
-<form method="post">
-	<div>
-	<input type="email" name="email" class="inputbox" values="<?php echo $email?>" placeholder="Enter Email" required autofocus>
-	<?php echo $msg; 
-	?>
-</div>
-<br>
+<form method="post" action="#">
+	
 
 	<div>
-
-		
-	<input type="date" name="dob" class="inputbox" value="" required>
-</div><br>
-			<div>
-	<input type="text" name="hobby" class="inputbox" value="" placeholder="Enter your hobby 1" required></div><br>
-	<div>
-	<input type="text" name="hobbys" class="inputbox" value="" placeholder="Enter your hobby 2" required>
-	</div><br>
-	<div>
-	<input type="password" name='pass' class="inputbox" value="" placeholder="Enter New Password" required><?php echo $msg3;
-	?>
+	<input type="password" name='pass' class="inputbox" value="" placeholder="Enter New Password" required autofocus>
 </div><br>
 	<div>
 	<input type="password" name='cpass' class="inputbox"value="" placeholder="Re-enter Password" required>
-	<?php echo $msg2;
-	?>
+	
 </div><br>
+
+
 	<div>
 		<button type="submit" name='log'>submit</button>
 </div>
-<br>
-
-</form>
 
 
-
-
- 			
- 		</div>
+</form>	</div>
 </div>
-
-
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
  </body>
 </html>
+<?php
 
+ require "connection.php";
+if(isset($_POST['log'])){
+
+$pass=$_POST['pass'];
+$cpass=$_POST['cpass'];
+
+ if($pass!=$cpass){
+ 	 echo "<script> alert('confrim password is not matched ');
+window.location.href='forgot.php';
+</script>";
+
+}
+
+else if(strlen($pass)<=5){
+ 	 echo "<script> alert('password must be of length greater than 5');
+window.location.href='forgot.php';
+</script>";
+}
+else{
+	$sql="update login set passsword='".$cpass."'WHERE username='welfare'";
+$result= mysqli_query($conn,$sql);
+
+if($result){
+
+ 	 echo "<script> alert('password updated successfully, now you can login using new password ');
+window.location.href='adminlogin.php';
+</script>";
+}
+else{
+	echo 'failure';}}}
+
+
+?>

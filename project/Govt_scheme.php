@@ -1,162 +1,101 @@
-<?php
- 	session_start();
-	require 'db.php';
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST")
-    {
-		$productType = $_POST['type'];
-		$productName = dataFilter($_POST['pname']);
-		$productInfo = $_POST['pinfo'];
-		$productPrice = dataFilter($_POST['price']);
-		$fid = $_SESSION['id'];
-
-		$sql = "INSERT INTO govt (product, pcat, pinfo, price)
-			   VALUES ('$productName', '$productType', '$productInfo', '$productPrice')";
-		$result = mysqli_query($conn, $sql);
-		if(!$result)
-		{
-			$_SESSION['message'] = "Unable to upload Product !!!";
-			header("Location: Login/error.php");
-		}
-		else {
-			$_SESSION['message'] = "successful !!!";
-		}
-
-		$pic = $_FILES['productPic'];
-		$picName = $pic['name'];
-		$picTmpName = $pic['tmp_name'];
-		$picSize = $pic['size'];
-		$picError = $pic['error'];
-		$picType = $pic['type'];
-		$picExt = explode('.', $picName);
-		$picActualExt = strtolower(end($picExt));
-		$allowed = array('jpg','jpeg','png');
-
-		if(in_array($picActualExt, $allowed))
-		{
-			if($picError === 0)
-			{
-				$_SESSION['productPicId'] = $_SESSION['id'];
-				$picNameNew = $productName.$_SESSION['productPicId'].".".$picActualExt ;
-				$_SESSION['productPicName'] = $picNameNew;
-				$_SESSION['productPicExt'] = $picActualExt;
-				$picDestination = "images/productImages/".$picNameNew;
-				move_uploaded_file($picTmpName, $picDestination);
-				$id = $_SESSION['id'];
-
-				$sql = "UPDATE govt SET picStatus=1, pimage='$picNameNew' WHERE product='$productName';";
-
-				$result = mysqli_query($conn, $sql);
-				if($result)
-				{
-
-					$_SESSION['message'] = "Product Image Uploaded successfully !!!";
-					header("Location: market.php");
-				}
-				else
-				{
-					//die("bad");
-					$_SESSION['message'] = "There was an error in uploading your product Image! Please Try again!";
-					header("Location: Login/error.php");
-				}
-			}
-			else
-			{
-				$_SESSION['message'] = "There was an error in uploading your product image! Please Try again!";
-				header("Location: Login/error.php");
-			}
-		}
-		else
-		{
-			$_SESSION['message'] = "You cannot upload files with this extension!!!";
-			header("Location: Login/error.php");
-		}
-	}
-
-	function dataFilter($data)
-	{
-	    $data = trim($data);
-	    $data = stripslashes($data);
-	    $data = htmlspecialchars($data);
-	    return $data;
-	}
-?>
-
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>AgroCulture</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<link href="bootstrap\css\bootstrap.min.css" rel="stylesheet">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="bootstrap\js\bootstrap.min.js"></script>
-		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="login.css"/>
-		<link rel="stylesheet" type="text/css" href="indexFooter.css">
-		<script src="js/jquery.min.js"></script>
-		<script src="js/skel.min.js"></script>
-		<script src="js/skel-layers.min.js"></script>
-		<script src="js/init.js"></script>
-		<noscript>
-			<link rel="stylesheet" href="css/skel.css" />
-			<link rel="stylesheet" href="css/style.css" />
-			<link rel="stylesheet" href="css/style-xlarge.css" />
-		</noscript>
-		<script src="https://cdn.ckeditor.com/4.8.0/full/ckeditor.js"></script>
-		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
-	</head>
-	<body>
+<head>
+  <title>Sample PHP Database Application</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>
+	<style>
+	.table{
+		overflow-x: hidden;
+	}
+	</style>
+</head>
+<body>
 
-		<?php require 'menu.php'; ?>
+  <?php
+  
+  //Change the password to match your configuration
+require "connection.php";
 
-		<!-- One -->
+  // Check connection
+  if($conn === false){
+      die("ERROR: Could not connect. " . mysqli_connect_error());
+  }
+  echo "<br>";
+  
 
-			<section id="one" class="wrapper style1 align-center">
-				<div class="container">
-					<form method="POST" action="Govt_scheme.php" enctype="multipart/form-data">
-						<h2>Fill Government Help Details/Government Schemes For Farmers </h2>
-						<br>
-				<center>
-					<input type="file" name="productPic"></input>
-					<br />
-				</center>
-				<div class="row">
-					  <div class="col-sm-6">
-						  <div class="select-wrapper" style="width: auto" >
-							  <select name="type" id="type" required style="background-color:white;color: black;">
-								  <option value="" style="color: black;">- Category -</option>
-								  <option value="Central" style="color: black;">Central</option>
-								  <option value="State" style="color: black;">State</option>
-							  </select>
-						</div>
-					  </div>
-					  <div class="col-sm-6">
-						<input type="text" name="pname" id="pname" value="" placeholder="Scheme Name" style="background-color:white;color: black;" />
-					  </div>
-				</div>
-				<br>
-				<div>
-					<textarea  name="pinfo" id="pinfo" rows="12"></textarea>
-				</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-6">
-					  <input type="text" name="price" id="price" value="" placeholder="Money help given/Loan provided" style="background-color:white;color: black;" />
-				</div>
-				<div class="col-sm-6">
-					<button class="button fit" style="width:auto; color:black;">Submit</button>
-				</div>
-			</div>
-			</form>
-		</div>
-	</section>
 
-		<script>
-			 CKEDITOR.replace( 'pinfo' );
-		</script>
-	</body>
+			
+			/*
+			 * second table
+			 */
+			$sql = "SELECT * FROM  scheme";
+			$result = $conn->query($sql);
+				
+	
+			echo "<div class='col-lg-6','col-sm-6','col-12' class='table'>";
+			echo "<div class='table-responsive'>";
+			
+				echo "<table class='table table-hover table-inverse'>";
+				
+				echo "<tr>";
+				echo "<th>Type</th>";
+				echo "<th>Title</th>";
+						echo "<th>Sector</th>";
+								echo "<th>Description</th>";
+										
+																echo "<th>Provision</th>";
+					
+										echo "<th>valid_from</th>";
+											echo "<th>valid_upto</th>";
+												echo "<th>Logo</th>";
+													echo "<th>Website</th>";
+														
+
+
+
+
+				echo "</tr>";
+				
+				if ($result->num_rows > 0) {
+					// output data of each row
+					while($row = $result->fetch_assoc()) {
+							
+						echo "<tr>";
+						echo "<td>" . $row["job"] . "</td>";
+						echo "<td>" . $row["title"] . "</td>";
+							echo "<td>" . $row["sector"] . "</td>";
+								echo "<td>" . $row["des"] . "</td>";
+							
+									echo "<td>" . $row["prov"] . "</td>";
+										
+															echo "<td>" . $row["valid_from"] . "</td>";
+																echo "<td>" . $row["valid_upto"] . "</td>";
+																	echo "<td>" . $row["imagedoc"] . "</td>";
+																		echo "<td>" . $row["link"] . "</td>";
+						echo "</tr>";			
+					}
+				} else {
+					echo "0 results";
+				}
+			
+				echo "</table>";
+
+			echo "</div>";
+			echo "</div>";
+
+		echo "</div>";
+		
+	echo "</div>";
+
+  // Close connection
+  mysqli_close($conn);
+  ?>
+
+
+</body>
 </html>

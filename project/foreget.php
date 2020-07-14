@@ -102,10 +102,11 @@ padding-right: 20px;
  	<div class="bgimg">
  		<div class="centerdiv">
 <h2 class="heading">Forgot Password</h2>
+
 <br>
 <form method="post" action="emailsend.php">
 	<div>
-	<input type="email" name="email" class="inputbox" values="<?php echo $email?>" placeholder="Enter Email" required autofocus>
+	<input type="email" name="email" class="inputbox" values="" placeholder="Enter Email" required autofocus>
 </div>
 <br>
 		<div>

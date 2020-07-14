@@ -12,7 +12,8 @@
 <style>
 * {
   box-sizing: border-box;
-  
+  overflow-wrap: break-word;
+  overflow: auto;
 }
 
 #myInput {
@@ -61,34 +62,49 @@
 </style>
 </head>
 <body>
+    <div id= "google_translate_element" style="background-color:white; background-size:cover;color: white;top: 0;display: block;margin-top: 0; height:50px;position:absolute;left:0; right: 0; top:0;width:100%; color:white;">
+
+    <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</div>
+     <div align="right" style="padding-left: 10px; padding-right: 10px; margin-right: 30px;"><a href="index.php"><button style="background-color: red;color: white; width:15%;padding: 10px; margin: 40px;">Back To Home</button></a></div>
 
 <h2>Hii, Visit The Offline Courses Offered By Vocational Centers And Learn Some Skills. </h2>
 
-<input type="text" style="width:100%;" id="myInput" onkeyup="myFunction()" placeholder="Search for Type...." title="Type in a name">
+<input type="text" style="width:98%; padding-left: 10px; padding-right: 10px;" id="myInput" onkeyup="myFunction()" placeholder="Search for Type...." title="Type in a name">
 <div>
-<table id="myTable" style="width: 100%;">
+<table id="myTable" style="width: 98%;padding-right: 10px;padding-left: 10px;">
   <tr class="header">
      <th style="width:40%;">Field</th>
 
         <th style="width:40%;">Title</th>
            
-            <th style="width:50%;">Description</th>
-              <th style="width:40%;">Logo</th>
-                 <th style="width:40%;">Name Of Center</th>     
+            
+                 <th style="width:40%;">Name Of Center</th>
+                      <th style="width:30%;">contact person</th>
+                               <th style="width:30%;">mobile no.</th>      
                <th style="width:40%;">Address Of Center</th>  
-                 <th style="width:30%;">Country</th> 
-                   <th style="width:30%;">State</th> 
-                     <th style="width:30%;">City</th>                 
-                    
+                 
+                                     
+                         <th style="width:30%;"align="center">Related video</th>
                         <th style="width:30%;">Website</th>
    <th style="width:20%;">Duration Of Course</th>
 
- <th style="width:20%;">Posted On </th>
-  <th style="width:20%;">Updated On</th>
+ <th style="width:30%;">Posted On </th>
+  <th style="width:30%;">Updated On</th>
 
   </tr>
   
  <?php
+ $country='';
+ $state='';
+ $city='';
+ $text='';
  require "connection.php";
   $sql = "SELECT * FROM  addtraining";
       $result = $conn->query($sql);
@@ -96,47 +112,8 @@
 if ($result->num_rows > 0) {
           // output data of each row
           while($row = $result->fetch_assoc()) {
-              
-            echo "<tr>";
-  echo "<td>" . $row['field'] . "</td>";
+            ?>
 
-
-            echo "<td>" ?>
-           
-
- 
-  <a href="#" data-toggle="popover"  title="<?php echo $row['title'];?>" data-content="<?php echo $row['des'];?> For more details visit our website"><?php echo $row['title']?></a>
-
-
-<script>
-$(document).ready(function(){
-  $('[data-toggle="popover"]').popover({
-       placement : 'bottom',
-        trigger : 'hover'
-
-  });   
-});
-</script>
-
-
-
-
-             <?php
-             "</td>";
-          
-                echo "<td>" . $row["des"] . "</td>";
-              
-                                  echo "<td>"
-                                  ?>  
-                                  <img class="image fit" src="  <?php echo $row['imagedoc'];?>" height="100px" width="150px" style="border-radius:none;" class="img-fluid aboutimg"/></a>
-                                  <?php
-                                  "</td>";
-                                  ?>
-<?php
-    echo "<td>" . $row['name'] . "</td>";
-        echo "<td>" . $row['address'] . "</td>";
-
-      ?>  
 <?php if($row['country'])
                { 
                 $country=$row['country'];
@@ -148,7 +125,7 @@ $row1=mysqli_fetch_assoc($res);
                {
                 
 
-   echo "<td>" . $row1['name'] . "</td>";
+ $country=$row1['name'];
    
 }
 }
@@ -166,7 +143,7 @@ $row1=mysqli_fetch_assoc($res);
                if($row1)
                {
                    
-      echo "<td>" . $row1['name'] . "</td>";
+       $state=$row1['name']; 
       
 
       }
@@ -185,12 +162,86 @@ $row1=mysqli_fetch_assoc($res);
 $row1=mysqli_fetch_assoc($res);
                if($row1)
                {
-         echo "<td>" . $row1['name'] . "</td>";
+         $city=$row1['name'];
 
 
 }
 }
 ?>
+       <?php       
+            echo "<tr>";
+  echo "<td>" . $row['field'] . "</td>";
+
+
+            echo "<td>" ?>
+           
+
+ 
+  <a href="#" data-toggle="popover"  title="<?php echo $row['title'];?>" data-content="<?php echo $row['des'];?>"><?php echo $row['title']?></a>
+
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover({
+       placement : 'bottom',
+        trigger : 'hover'
+
+  });   
+});
+</script>
+
+
+
+
+             <?php
+             "</td>";
+          
+                                  ?>
+<?php
+    echo "<td>" . $row['name'] . "</td>";
+      echo "<td>" . $row['person'] . "</td>";
+        echo "<td>" . $row['mob'] . "</td>";
+    
+
+
+
+            echo "<td>"; ?>
+           
+
+ 
+  <a href="#" data-toggle="popover"  title="<?php echo $row['title'];?>" data-content="<?php echo $row['address']." , ".$city." , ".$state." , ".$country;?>"><?php echo $row['address'];?></a>
+
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover({
+       placement : 'bottom',
+        trigger : 'hover'
+
+  });   
+});
+</script>
+
+                                                                       <?php
+                                                                        echo "</td>";
+                                    echo "<td>"; ?>
+                                    <div align="center" style="display:inline-block;border:2px solid red; overflow: hidden;padding: 5px;">
+                                      <?php 
+                                      if($row['videolink']==''){
+                                        echo "no video in support of course";
+                                      }
+else{
+                                      $text=$row['videolink'];
+                                      ?>
+                                      <iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $row['videolink']; ?>" allowfullscreen></iframe>
+</div>
+
+        <?php 
+      }
+
+                                     "</td>";
+                                    ?>
+
                                    <?php
                                     echo "<td>" ?>
 <a href ="<?php echo $row['link'];?>">
@@ -202,6 +253,7 @@ $row1=mysqli_fetch_assoc($res);
 
                                      "</td>";
                                     ?>
+
 
    <?php
              "</td>";

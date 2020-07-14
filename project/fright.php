@@ -7,12 +7,13 @@
 	  <meta name="keywords" content="web design, affordable web design, professional web design">
   	<meta name="author" content="Brad Traversy">
     <title> Services</title>
-    <link rel="stylesheet" href="css/style.css">
+ 
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css"  href="css/style1.css">
  <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css"  href="css/styleindex.css">
  
   <style>
     *{
@@ -39,11 +40,62 @@ font-family: 'Josefin Sans', sans-serif;
     .d-flex div:last-child{
       border-right: none;
     }
+    .dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+
   </style>
 
   </head>
   <body style="background:url('img/slider1.jpg');background-size:cover;">
+  <div id= "google_translate_element" style="background:url('img/pic06.jpg');background-size:cover;color: white;top: 0;display: block;margin-top: 0; height:auto;position:absolute;left:0; right: 0; top:0;width:100%;"></div><br>
+    <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
 
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">E-Legal Aid & Welfare Portal</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,17 +108,19 @@ font-family: 'Josefin Sans', sans-serif;
         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#Our Services">Services</a>
+        <a class="nav-link" href="index.php#sevice">Services</a>
       </li>
     
        <li class="nav-item">
-        <a class="nav-link" href="#Contact Us">Contact Us</a>
+        <a class="nav-link" href="index.php#contact">Contact Us</a>
            <li class="nav-item">
-        <a class="nav-link" href="#About Us">About</a>
+        <a class="nav-link" href="index.php#about">About</a>
       </li>
+        <li class="nav-item">
+        <a class="nav-link" href="blogging/blogView.php">Blogs</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link " href="adminlogin.php">Admin</a>
+   <li class="nav-item">
+        <a class="nav-link" href="commentmain.php">Ask Query</a>
       </li>
     </ul>
   </div>
@@ -77,16 +131,18 @@ font-family: 'Josefin Sans', sans-serif;
 
 
     <header style="background:url('img/imagess (1).jpg'); color:#ffffff; background-size:cover;">
-      <div class="container" >
-        <div id="branding">
-      
+      <div class="container">
+        <div id="branding" >
+    
         </div>
         <nav>
           <ul>
-            <li><a href="job.php">Visit Jobs</a></li>
-            <li><a href="training.php">Visit Trainings</a></li>
-            <li class="current"><a href="Govt_scheme.php">Visit Government Schemes</a></li>
-						<li class="current"><a href="amendment.php">Visit Amendments</a></li>
+            <li class="current" class="current"><a href="job.php">Jobs</a></li>
+            <li class="current"><a href="training.php">Trainings</a></li>
+            <li class="current"><a href="govtscheme.php">Government Schemes</a></li>
+            <li class="current"><a href="fright.php">Fundamental Rights</a></li>
+               <li class="current"><a href="duties.php">Fundamental Duties</a></li>
+                  <li class="current"><a href="dpsp.php">DPSPs</a></li>
 
           </ul>
         </nav>
